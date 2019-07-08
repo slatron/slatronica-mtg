@@ -1,6 +1,6 @@
 <template>
   <div class="gallery-page">
-    <Gallery/>
+    <Gallery />
   </div>
 </template>
 
