@@ -5,6 +5,9 @@ import Gallery from './views/Gallery.vue'
 Vue.use(Router)
 
 export default new Router({
+  base: process.env.NODE_ENV === 'production'
+    ? '/slatronica-mtg/'
+    : '/',
   routes: [
     {
       path: '/',
@@ -14,7 +17,6 @@ export default new Router({
     {
       path: '/about',
       name: 'about',
-      // lazy-loaded when the route is visited:
       component: () => import('./views/About.vue')
     }
   ]
