@@ -5,12 +5,12 @@
     v-bind:class="{ 'flipped': flipped }"
   >
     <div class="card-altered">
-      <img v-if="id" class="card" :src="require('@/assets/images/' + id + '.jpg')">
+      <img v-if="localUrl"  class="card" :src="localUrl">
+      <img v-if="!localUrl" class="card" :src="imgUrl">
     </div>
     <div class="card-original">
       <img class="card" v-bind:src="imgUrl">
     </div>
-    {{title}}
   </div>
 </template>
 
@@ -25,7 +25,8 @@ export default {
       id: '',
       title: '',
       imgUrl: '',
-      flipped: false
+      flipped: false,
+      localUrl: ''
     };
   },
   created: function() {
@@ -41,6 +42,7 @@ export default {
           vm.imgUrl = response.data.image_uris.normal;
           vm.id     = response.data.id
         };
+        vm.localUrl = require('@/assets/images/' + this.id + '.jpg');
       })
       .catch((error) => {
         console.warn('OOPS: ',  error);
@@ -80,7 +82,6 @@ export default {
 }
 .card-image .card {
   transition: transform 200ms;
-  box-shadow: 1px 1px 8px rgba(0,0,0,0.5);
   border-radius: 4.75% / 3.5%;
   color: #000;
   display: block;
