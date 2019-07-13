@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Gallery from './views/Gallery.vue'
 
 Vue.use(Router)
 
@@ -12,7 +11,7 @@ export default new Router({
     {
       path: '/',
       name: 'gallery',
-      component: Gallery
+      component: () => import('./views/Gallery.vue')
     },
     {
       path: '/about',
