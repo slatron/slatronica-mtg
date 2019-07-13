@@ -122,7 +122,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.flexgrid {
-  display: flex;
+.grid-container {
+  max-width: 1120px;
+  margin: 0 auto;
 }
 </style>

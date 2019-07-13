@@ -61,7 +61,7 @@ export default {
   display: inline-block;
   width: 250px;
   height: 344px;
-  margin: 1em;
+  margin: 2em;
 }
 .card-image {
   transform-style: preserve-3d;
