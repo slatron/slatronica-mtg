@@ -10,13 +10,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'gallery',
-      component: () => import('./views/Gallery.vue')
+      name: 'GalleryPage',
+      component: () => import('./views/GalleryPage.vue')
     },
     {
       path: '/about',
-      name: 'about',
-      component: () => import('./views/About.vue')
+      name: 'AboutPage',
+      component: () => import('./views/AboutPage.vue')
     }
   ]
 })

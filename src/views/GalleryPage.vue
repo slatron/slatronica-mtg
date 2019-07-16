@@ -1,16 +1,16 @@
 <template>
   <div class="gallery-page">
-    <Gallery />
+    <CardGallery />
   </div>
 </template>
 
 <script>
-import Gallery from '@/components/Gallery.vue'
+import CardGallery from '@/components/CardGallery.vue'
 
 export default {
-  name: 'gallery',
+  name: 'GalleryPage',
   components: {
-    Gallery
+    CardGallery
   }
 }
 </script>
