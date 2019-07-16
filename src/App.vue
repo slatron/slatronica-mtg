@@ -78,12 +78,12 @@ footer {
   text-align: right;
   position: fixed;
   bottom: 0;
+  right: 0;
   height: 15px;
-  width: 100%;
   z-index: 1000;
 
   p {
-    margin: 0 2em 0;
+    margin: 0 2em 0 0;
     padding: 0;
   }
 }

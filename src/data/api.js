@@ -2,6 +2,11 @@ import axios from 'axios';
 
 export default {
   get_cards: () => {
-    return axios.get('/data/cards.json');
+    debugger;
+    let baseUrl = window.location.host === 'localhost:8080'
+      ? '/'
+      : '/slatronica-mtg/'
+
+    return axios.get(baseUrl + 'data/cards.json');
   }
 }
