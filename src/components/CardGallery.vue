@@ -1,5 +1,29 @@
 <template>
   <div class="grid-container">
+    <section>
+      <button
+        v-on:click="sortBy('Aname')"
+        type="button"
+        name="buttonTA"
+      >Title - Asc</button>
+      <button
+        v-on:click="sortBy('Dname')"
+        type="button"
+        name="buttonTD"
+      >Title - Desc</button>
+    </section>
+    <section>
+      <button
+        v-on:click="sortBy('Adate')"
+        type="button"
+        name="buttonTA"
+      >Date - Asc</button>
+      <button
+        v-on:click="sortBy('Ddate')"
+        type="button"
+        name="buttonTD"
+      >Date - Desc</button>
+    </section>
     <GridCard
       v-for="card in gallery_list"
       v-bind:key="card.name"
@@ -25,6 +49,15 @@ export default {
   created: function() {
     this.$store.dispatch('initGallery');
   },
+  methods: {
+    sortBy: function(type) {
+      let options = {
+        field: type.slice(1),
+        direction: type[0] === 'A'
+      }
+      this.$store.commit('sortGallery', options);
+    }
+  }
 }
 </script>
 

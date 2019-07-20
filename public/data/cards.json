@@ -1,99 +1,121 @@
 {
   "alters": [
     {
-      "id": "824423ff-6441-4be6-b754-810adf9ca6a2",
-      "name": "Thalia, Guardian of Thraban"
-    },
-    {
-      "id": "19caada3-7548-44d4-bf3f-680f7d3fa7b8",
-      "name": "Angel of Mercy"
-    },
-    {
       "id": "3c02b8ee-84cb-44cb-ba14-9e725a9d03ee",
       "name": "Ponder",
       "date": "2019-07-05"
     },
     {
+      "id": "824423ff-6441-4be6-b754-810adf9ca6a2",
+      "name": "Thalia, Guardian of Thraban",
+      "date": "2019-06-27"
+    },
+    {
+      "id": "19caada3-7548-44d4-bf3f-680f7d3fa7b8",
+      "name": "Angel of Mercy",
+      "date": "2019-06-23"
+    },
+    {
       "id": "7335e500-342d-476d-975c-817512e6e3d6",
-      "name": "Gishath, Sun's Avatar"
+      "name": "Gishath, Sun's Avatar",
+      "date": "2019-06-16"
     },
     {
       "id": "bb2e9465-f5ba-4c7b-9f03-d40dc8394acd",
-      "name": "Kor Skyfisher"
+      "name": "Kor Skyfisher",
+      "date": "2019-04-20"
     },
     {
       "id": "1c7d50d6-b63a-4d8c-88fa-1d78ae693a45",
-      "name": "Overgrown Tom"
+      "name": "Overgrown Tom",
+      "date": "2018-11-18"
     },
     {
       "id": "c9c607d3-a8bf-4ba3-9c10-7509f195b41f",
-      "name": "Chain Lightning"
+      "name": "Chain Lightning",
+      "date": "2019-03-05"
     },
     {
       "id": "21e1161f-bd2c-45a7-a86b-3b2e5210f148",
-      "name": "Fireblade Artist"
+      "name": "Fireblade Artist",
+      "date": "2019-02-16"
     },
     {
       "id": "b2e2a777-0705-4a37-937d-c6e020ebc0f0",
-      "name": "Goblin Guide"
+      "name": "Goblin Guide",
+      "date": "2019-04-27"
     },
     {
       "id": "42bd038d-1005-4095-9310-108caa56465f",
-      "name": "Mind Stone"
+      "name": "Mind Stone",
+      "date": "2019-03-12"
     },
     {
       "id": "5e669a01-84d3-4fcc-8396-9e987bd89b4f",
-      "name": "Tajic, Legion's Edge"
+      "name": "Tajic, Legion's Edge",
+      "date": "2019-01-10"
     },
     {
       "id": "127c969b-1c9a-4265-af0e-5b9dbe136064",
-      "name": "Dawntreader Elk"
+      "name": "Dawntreader Elk",
+      "date": "2018-12-27"
     },
     {
       "id": "359d1b13-6156-43b0-a9a7-6bfff36c1a91",
-      "face": 0,
-      "name": "Thing In the Ice Front"
+      "name": "Thing In the Ice Front",
+      "date": "2019-01-22",
+      "face": 0
     },
     {
       "id": "359d1b13-6156-43b0-a9a7-6bfff36c1a91",
-      "face": 1,
-      "name": "Thing In the Ice Back"
+      "name": "Thing In the Ice Back",
+      "date": "2019-01-22",
+      "face": 1
     },
     {
       "id": "47ac0f77-1294-4de9-93d1-141a9f314f98",
-      "name": "Baleful Strix"
+      "name": "Baleful Strix",
+      "date": "2019-01-17"
     },
     {
       "id": "307d4236-1e54-43e3-83f1-063d49d16dda",
-      "name": "Birds of Paradise"
+      "name": "Birds of Paradise",
+      "date": "2018-11-04"
     },
     {
       "id": "53aa3ea3-fb3c-4758-8035-20ec0a94b730",
-      "name": "Elvish Visionary"
+      "name": "Elvish Visionary",
+      "date": "2018-11-01"
     },
     {
       "id": "1fdcc0c3-4029-4fc3-a486-5d7f45c910bd",
-      "name": "Everflowing Chalice"
+      "name": "Everflowing Chalice",
+      "date": "2019-03-16"
     },
     {
       "id": "179e954f-1d90-4ef4-b800-25845cc338e2",
-      "name": "Goblin Bombardment"
+      "name": "Goblin Bombardment",
+      "date": "2019-03-17"
     },
     {
       "id": "49b3ce74-40d2-4e97-aa40-a4b6419e10ba",
-      "name": "Golgari Signet"
+      "name": "Golgari Signet",
+      "date": "2019-06-07"
     },
     {
       "id": "c2ad8639-e586-47f4-baca-2a1af5aa281b",
-      "name": "Restoration Angel"
+      "name": "Restoration Angel",
+      "date": "2018-11-09"
     },
     {
       "id": "4e0c1d0a-2651-4961-8b70-ff78093732ce",
-      "name": "The Locust God"
+      "name": "The Locust God",
+      "date": "2019-06-18"
     },
     {
       "id": "dfc1ecf5-5801-45a1-98fe-8c058db80292",
-      "name": "Whitemane Lion"
+      "name": "Whitemane Lion",
+      "date": "2018-11-06"
     }
   ]
 }
