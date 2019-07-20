@@ -17,20 +17,13 @@ export default {
   components: {
     GridCard
   },
-  created: function() {
-    let vm = this;
-    api.get_cards()
-      .then(function(response) {
-        vm.gallery_list = response.data.alters;
-      })
-      .catch(function(error) {
-        console.warn('error getting altered card list');
-      });
-  },
-  data() {
-    return {
-      gallery_list: []
+  computed: {
+    gallery_list() {
+      return this.$store.state.gallery_list;
     }
+  },
+  created: function() {
+    this.$store.dispatch('initGallery');
   },
 }
 </script>
