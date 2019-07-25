@@ -23,8 +23,7 @@ import axios from 'axios';
 export default {
   name: 'GridCard',
   props: {
-    cardData: Object,
-    required: true
+    cardData: Object
   },
   data: () => {
     return {
