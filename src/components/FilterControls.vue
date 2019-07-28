@@ -11,7 +11,7 @@
           :id="option"
           :value="option"
           v-model="tagsSelected"
-          v-on:click="applyFilters()" />
+          v-on:change="applyFilters()" />
         <label :for="option">{{option}}</label>
       </span>
     </fieldset>
