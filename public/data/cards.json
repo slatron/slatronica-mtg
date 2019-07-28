@@ -1,6 +1,12 @@
 {
   "alters": [
     {
+      "id": "83d2a36f-7932-4336-937a-757ad8a3ae62",
+      "name": "Geist-Honored Monk",
+      "date": "2019-07-27",
+      "tags": ["Stained Glass"]
+    },
+    {
       "id": "3c02b8ee-84cb-44cb-ba14-9e725a9d03ee",
       "name": "Ponder",
       "date": "2019-07-05",
