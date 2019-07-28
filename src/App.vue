@@ -19,6 +19,16 @@
   </div>
 </template>
 
+<script>
+  import api from '@/data/api';
+  export default {
+    name: 'MainApp',
+    created: function() {
+      this.$store.dispatch('initSettings');
+    }
+}
+</script>
+
 <style lang="scss">
 body {
   background: #000;

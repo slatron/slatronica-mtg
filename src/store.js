@@ -7,15 +7,29 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    gallery_list: []
+    original_gallery_list: [],
+    gallery_list: [],
+    app_settings: {}
   },
 
   mutations: {
+    setSettings(state, settings) {
+      state.app_settings = settings;
+    },
     setGallery(state, alters) {
+      state.original_gallery_list = alters;
       state.gallery_list = alters;
     },
     sortGallery(state, options) {
       state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction));
+    },
+    applyFilters(state, options) {
+      console.log('options: ', options);
+      state.gallery_list = state.original_gallery_list.filter(
+        card => {
+          return card.tags.filter(tag => options.filters.includes(tag)).length;
+        }
+      );
     }
   },
 
@@ -29,7 +43,19 @@ export default new Vuex.Store({
           console.warn('error getting altered card list: ');
           console.error(error);
         });
+    },
+
+    initSettings (store) {
+      api.get_settings()
+        .then(function(response) {
+          store.commit('setSettings', response.data);
+        })
+        .catch(function(error) {
+          console.warn('error getting app settings: ');
+          console.error(error);
+        });
     }
+
   }
 
 });
