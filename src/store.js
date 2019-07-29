@@ -9,7 +9,9 @@ export default new Vuex.Store({
   state: {
     original_gallery_list: [],
     gallery_list: [],
-    app_settings: {}
+    app_settings: {
+      tag_options: []
+    }
   },
 
   mutations: {
@@ -24,7 +26,6 @@ export default new Vuex.Store({
       state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction));
     },
     applyFilters(state, options) {
-      console.log('options: ', options);
       state.gallery_list = state.original_gallery_list.filter(
         card => {
           return card.tags.filter(tag => options.filters.includes(tag)).length;

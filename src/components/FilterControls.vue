@@ -44,17 +44,19 @@
 <script>
 export default {
   name: 'FilterControls',
-  data: () => {
+  data() {
     return {
       activeSort: '',
-      tagsSelected: []
+      tagsSelected: this.$store.state.app_settings.tag_options.map(option => {
+        return option;
+      })
     };
   },
-  created: function() {
-    this.tagsSelected = this.$store.state.app_settings.tag_options.map(option => {
-      return option;
-    });
-  },
+  // created: function() {
+  //   this.tagsSelected = this.$store.state.app_settings.tag_options.map(option => {
+  //     return option;
+  //   });
+  // },
   computed: {
     tag_options() {
       return this.$store.state.app_settings.tag_options;

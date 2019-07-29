@@ -1,18 +1,20 @@
 <template>
   <div id="app">
-    <!--
-    How To Router
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    -->
     <header>
-      <h1>Slatronica Alters</h1>
+      <button class="toggle-button">☰</button>
     </header>
-    <main>
-      <router-view/>
-    </main>
+    <Slideout
+      menu="#menu"
+      panel="#panel"
+      :toggleSelectors="['.toggle-button']"
+      @on-open="open">
+      <MenuContent></MenuContent>
+      <main id="panel">
+        <section id="router-page">
+          <router-view/>
+        </section>
+      </main>
+    </Slideout>
     <footer>
       <p>alters by mike slater</p>
     </footer>
@@ -20,9 +22,20 @@
 </template>
 
 <script>
-  import api from '@/data/api';
+  import Slideout from 'vue-slideout';
+  import MenuContent from '@/components/MenuContent';
+
   export default {
     name: 'MainApp',
+    components: {
+      Slideout,
+      MenuContent
+    },
+    methods: {
+      open: function() {
+        console.log('slideoutOpen');
+      }
+    },
     created: function() {
       this.$store.dispatch('initSettings');
     }
@@ -32,7 +45,9 @@
 <style lang="scss">
 body {
   background: #000;
-  text-align: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 
 #app {
@@ -42,48 +57,20 @@ body {
   color: #487cb1;
 }
 
-img {
-  width: 100%;
-}
-
-#nav {}
-
 header {
-  background: #000;
   position: fixed;
   top: 0;
   height: 36px;
+  text-align: right;
   width: 100%;
   z-index: 1000;
-
-  h1 {
-    font-size: 24px;
-    margin: 0;
-    padding: 0;
-  }
 }
 
-@media (min-width: 520px) {
-  header {
-    height: 52px;
-    h1 {
-      font-size: 36px;
-    }
-  }
-}
-
-main {
-  padding-top: 36px;
-}
-
-@media (min-width: 520px) {
-  main {
-    padding-top: 52px;
-  }
+#panel {
+  text-align: center;
 }
 
 footer {
-  background: #000;
   font-size: 10px;
   text-align: right;
   position: fixed;
@@ -96,6 +83,51 @@ footer {
     margin: 0 2em 0 0;
     padding: 0;
   }
+}
+
+@media (min-width: 520px) {
+  // Put Large Screen Styles here
+}
+
+// Slideout Styles
+
+.slideout-menu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 256px;
+  height: 100vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 0;
+  display: none;
+  background-color: #1D1F20;
+  color: white;
+}
+
+.slideout-menu-left {
+  left: 0;
+}
+
+.slideout-menu-right {
+  right: 0;
+}
+
+.slideout-panel {
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+  min-height: 100vh;
+}
+
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden;
+}
+
+.slideout-open .slideout-menu {
+  display: block;
 }
 
 </style>
