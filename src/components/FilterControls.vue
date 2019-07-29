@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="filter-controls">
     <fieldset>
-      <label><b>View</b> :</label>
+      <label><b>Filter Cards</b> :</label><br>
       <span
         v-for="option in tag_options"
         v-bind:key="option"
@@ -12,31 +12,21 @@
           :value="option"
           v-model="tagsSelected"
           v-on:change="applyFilters()" />
-        <label :for="option">{{option}}</label>
+        <label :for="option">{{option}}</label><br>
       </span>
     </fieldset>
     <fieldset>
-      <label><b>Sort By</b>: </label>
-      <button
-        v-on:click="sortBy('Aname')"
-        type="button"
-        v-bind:class="{'active': activeSort === 'Aname'}"
-      >Title - Asc</button>
-      <button
-        v-on:click="sortBy('Dname')"
-        type="button"
-        v-bind:class="{'active': activeSort === 'Dname'}"
-      >Title - Desc</button>
-      <button
-        v-on:click="sortBy('Adate')"
-        type="button"
-        v-bind:class="{'active': activeSort === 'Adate'}"
-      >Date - Asc</button>
-      <button
-        v-on:click="sortBy('Ddate')"
-        type="button"
-        v-bind:class="{'active': activeSort === 'Ddate'}"
-      >Date - Desc</button>
+      <label><b>Sort By</b>: </label><br>
+      <span
+        v-for="option in sorting_options"
+        v-bind:key="option.action"
+      >
+        <button
+          v-on:click="sortBy(option.action)"
+          type="button"
+          v-bind:class="{'active': activeSort === option.action}"
+        >{{option.name}}</button><br>
+      </span>
     </fieldset>
   </div>
 </template>
@@ -49,18 +39,10 @@ export default {
       activeSort: '',
       tagsSelected: this.$store.state.app_settings.tag_options.map(option => {
         return option;
-      })
+      }),
+      tag_options: this.$store.state.app_settings.tag_options,
+      sorting_options: this.$store.state.app_settings.sorting_options
     };
-  },
-  // created: function() {
-  //   this.tagsSelected = this.$store.state.app_settings.tag_options.map(option => {
-  //     return option;
-  //   });
-  // },
-  computed: {
-    tag_options() {
-      return this.$store.state.app_settings.tag_options;
-    },
   },
   methods: {
     applyFilters: function() {

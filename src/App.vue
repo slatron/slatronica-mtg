@@ -35,11 +35,8 @@
       open: function() {
         console.log('slideoutOpen');
       }
-    },
-    created: function() {
-      this.$store.dispatch('initSettings');
     }
-}
+  }
 </script>
 
 <style lang="scss">
