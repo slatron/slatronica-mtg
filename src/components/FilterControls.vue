@@ -12,7 +12,7 @@
           :value="option"
           v-model="tagsSelected"
           v-on:change="applyFilters()" />
-        <label :for="option">{{option}}</label><br>
+        <label :for="option">{{option}}</label>
       </span>
     </fieldset>
     <fieldset>
@@ -25,7 +25,7 @@
           v-on:click="sortBy(option.action)"
           type="button"
           v-bind:class="{'active': activeSort === option.action}"
-        >{{option.name}}</button><br>
+        >{{option.name}}</button>
       </span>
     </fieldset>
   </div>

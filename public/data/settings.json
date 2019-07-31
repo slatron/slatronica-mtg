@@ -1,5 +1,10 @@
 {
-	"tag_options": ["Stained Glass", "Border Extension", "Object Enhancement", "Blueprint"],
+	"tag_options": [
+    "Stained Glass",
+    "Border Extension",
+    "Object Enhancement",
+    "Blueprint"
+  ],
 	"sorting_options": [{
 			"name": "Title - Asc",
 			"action": "Aname"

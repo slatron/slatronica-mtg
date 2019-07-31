@@ -1,6 +1,6 @@
 <template>
   <div class="grid-container">
-    <h1>Slatronica Alters</h1>
+    <FilterControls />
     <GridCard
       v-for="card in gallery_list"
       v-bind:key="card.name"
@@ -11,11 +11,13 @@
 
 <script>
 import GridCard from '@/components/GridCard';
+import FilterControls from '@/components/FilterControls';
 
 export default {
   name: 'CardGallery',
   components: {
     GridCard,
+    FilterControls
   },
   computed: {
     gallery_list() {
