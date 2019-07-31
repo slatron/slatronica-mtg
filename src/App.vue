@@ -22,11 +22,8 @@
 <script>
   import api from '@/data/api';
   export default {
-    name: 'MainApp',
-    created: function() {
-      this.$store.dispatch('initSettings');
-    }
-}
+    name: 'MainApp'
+  }
 </script>
 
 <style lang="scss">
