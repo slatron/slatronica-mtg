@@ -34,27 +34,27 @@
 <script>
 export default {
   name: 'FilterControls',
-  data() {
+  data () {
     return {
       activeSort: '',
       tagsSelected: this.$store.state.app_settings.tag_options.map(option => {
-        return option;
+        return option
       }),
       tag_options: this.$store.state.app_settings.tag_options,
       sorting_options: this.$store.state.app_settings.sorting_options
-    };
+    }
   },
   methods: {
-    applyFilters: function() {
-      this.$store.commit('applyFilters', {'filters': this.tagsSelected});
+    applyFilters: function () {
+      this.$store.commit('applyFilters', { 'filters': this.tagsSelected })
     },
-    sortBy: function(type) {
-      this.activeSort = type;
+    sortBy: function (type) {
+      this.activeSort = type
       let options = {
         field: type.slice(1),
         direction: type[0] === 'A'
       }
-      this.$store.commit('sortGallery', options);
+      this.$store.commit('sortGallery', options)
     }
   }
 }

@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import GridCard from '@/components/GridCard';
-import FilterControls from '@/components/FilterControls';
+import GridCard from '@/components/GridCard'
+import FilterControls from '@/components/FilterControls'
 
 export default {
   name: 'CardGallery',
@@ -20,12 +20,12 @@ export default {
     FilterControls
   },
   computed: {
-    gallery_list() {
-      return this.$store.state.gallery_list;
+    gallery_list () {
+      return this.$store.state.gallery_list
     }
   },
-  created: function() {
-    this.$store.dispatch('initGallery');
+  created: function () {
+    this.$store.dispatch('initGallery')
   }
 }
 </script>

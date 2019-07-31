@@ -1,11 +1,11 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from 'vue'
+import Router from 'vue-router'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
-  base: process.env.NODE_ENV === 'production' ?
-    '/slatronica-mtg/' : '/',
+  base: process.env.NODE_ENV === 'production'
+    ? '/slatronica-mtg/' : '/',
   routes: [
     {
       path: '/',
@@ -18,4 +18,4 @@ export default new Router({
       component: () => import('./views/AboutPage.vue')
     }
   ]
-});
+})

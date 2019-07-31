@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   name: 'GridCard',
@@ -31,31 +31,31 @@ export default {
       imgUrl: '',
       flipped: false,
       localImg: ''
-    };
+    }
   },
-  created: function() {
-    let vm = this;
+  created: function () {
+    let vm = this
     axios.get('https://api.scryfall.com/cards/' + this.cardData.id)
       .then((response) => {
-        let localUrl = '';
+        let localUrl = ''
         if (response.data.card_faces && vm.cardData.hasOwnProperty('face')) {
-          vm.title  = response.data.card_faces[vm.cardData.face].name;
-          vm.imgUrl = response.data.card_faces[vm.cardData.face].image_uris.normal;
-          localUrl  = response.data.card_faces[vm.cardData.face].illustration_id;
+          vm.title = response.data.card_faces[vm.cardData.face].name
+          vm.imgUrl = response.data.card_faces[vm.cardData.face].image_uris.normal
+          localUrl = response.data.card_faces[vm.cardData.face].illustration_id
         } else {
-          vm.title  = response.data.name;
-          vm.imgUrl = response.data.image_uris.normal;
-          localUrl  = response.data.illustration_id;
+          vm.title = response.data.name
+          vm.imgUrl = response.data.image_uris.normal
+          localUrl = response.data.illustration_id
         };
-        vm.localImg = require('@/assets/images/' + localUrl + '.jpg');
+        vm.localImg = require('@/assets/images/' + localUrl + '.jpg')
       })
       .catch((error) => {
-        console.warn('OOPS: ',  error);
-      });
+        console.warn('OOPS: ', error)
+      })
   },
   methods: {
-    flip: function() {
-      this.flipped = !this.flipped;
+    flip: function () {
+      this.flipped = !this.flipped
     }
   }
 }

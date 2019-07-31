@@ -20,10 +20,10 @@
 </template>
 
 <script>
-  import api from '@/data/api';
-  export default {
-    name: 'MainApp'
-  }
+import api from '@/data/api'
+export default {
+  name: 'MainApp'
+}
 </script>
 
 <style lang="scss">
