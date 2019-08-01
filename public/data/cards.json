@@ -145,6 +145,78 @@
       "name": "Whitemane Lion",
       "date": "2018-11-06",
       "tags": ["Border Extension"]
+    },
+    {
+      "id": "9ff71d13-c4b7-4125-ab10-db4abbb7a074",
+      "name": "Brainstorm",
+      "date": "2011-04-06",
+      "tags": ["Border Extension", "Early Attempt"]
+    },
+    {
+      "id": "b2159a7d-e37a-4c43-a7b9-1e7179a7e43b",
+      "name": "Lord of Shatterskull Pass",
+      "date": "2019-07-31",
+      "tags": ["Border Extension"]
+    },
+    {
+      "id": "995486ce-58bb-4753-a812-0ca73ef1a235",
+      "name": "Gitaxian Probe",
+      "date": "2011-04-12",
+      "tags": ["Object Enhancement", "Early Attempt"]
+    },
+    {
+      "id": "8fd3341d-38e4-4dc0-9e95-34cb1f796e7e",
+      "name": "Righteous Authourity",
+      "date": "2016-07-18",
+      "tags": ["Border Extension", "Early Attempt"]
+    },
+    {
+      "id": "aaa47568-5668-4a9f-ad1c-9a13010ffc2b",
+      "name": "Putrid Leech",
+      "date": "2011-05-13",
+      "tags": ["Border Extension", "Early Attempt"]
+    },
+    {
+      "id": "288d624e-d72e-4a4b-bb74-5a8b0b2e3cb0",
+      "name": "Pyromancer Ascension",
+      "date": "2011-03-28",
+      "tags": ["Border Extension", "Early Attempt"]
+    },
+    {
+      "id": "d91a527d-51f1-4fb1-9016-fc923fd43a6a",
+      "name": "Azorius Signet",
+      "date": "2019-03-11",
+      "tags": ["Blueprint"]
+    },
+    {
+      "id": "bb9d1f0a-b206-4f35-bc0f-6c055c8231f4",
+      "name": "Dimir Signet",
+      "date": "2019-03-13",
+      "tags": ["Blueprint"]
+    },
+    {
+      "id": "8296d86a-2c79-43c8-8a1c-1d4bb600bc6b",
+      "name": "Selesnya Signet",
+      "date": "2019-06-15",
+      "tags": ["Blueprint"]
+    },
+    {
+      "id": "12013400-21db-4a3b-9e4e-edbea7c8021f",
+      "name": "Simic Signet",
+      "date": "2019-03-12",
+      "tags": ["Blueprint"]
+    },
+    {
+      "id": "c3db7645-20b9-4884-849b-a7d4b6d3aa00",
+      "name": "Ratchet Bomb",
+      "date": "2019-04-24",
+      "tags": ["Blueprint"]
+    },
+    {
+      "id": "61e0a922-1689-484f-abb3-902ce1c964ca",
+      "name": "Commanders Sphere",
+      "date": "2019-06-17",
+      "tags": ["Blueprint"]
     }
   ]
 }
