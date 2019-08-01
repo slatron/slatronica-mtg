@@ -1,26 +1,27 @@
 {
-	"tag_options": [
-    "Stained Glass",
-    "Border Extension",
-    "Object Enhancement",
-    "Blueprint",
-    "Early Attempt"
-  ],
-	"sorting_options": [{
-			"name": "Title - Asc",
-			"action": "Aname"
+	"tag_options": [{
+			"name": "All",
+			"value": "All"
 		},
 		{
-			"name": "Title - Desc",
-			"action": "Dname"
+			"name": "Stained Glass",
+			"value": "Stained Glass"
 		},
 		{
-			"name": "Date - Asc",
-			"action": "Adate"
+			"name": "Border Extension",
+			"value": "Border Extension"
 		},
 		{
-			"name": "Date - Desc",
-			"action": "Ddate"
+			"name": "Object Enhancement",
+			"value": "Object Enhancement"
+		},
+		{
+			"name": "Blueprint",
+			"value": "Blueprint"
+		},
+		{
+			"name": "Early Attempt",
+			"value": "Early Attempt"
 		}
 	]
 }

@@ -1,32 +1,27 @@
 <template lang="html">
   <div class="filter-controls">
     <fieldset>
-      <label><b>Filter Cards</b> :</label><br>
-      <span
-        v-for="option in tag_options"
-        v-bind:key="option"
-      >
-        <input
-          type="checkbox"
-          :id="option"
-          :value="option"
-          v-model="tagsSelected"
-          v-on:change="applyFilters()" />
-        <label :for="option">{{option}}</label>
-      </span>
+      <label><b>View</b> </label>
+      <select
+        v-model="filter_selected"
+        v-on:change="applyFilter()">
+        <option
+          v-for="option in tag_options"
+          v-bind:value="option.value">
+          {{option.name}}
+        </option>
+      </select>
     </fieldset>
     <fieldset>
-      <label><b>Sort By</b>: </label><br>
-      <span
-        v-for="option in sorting_options"
-        v-bind:key="option.action"
-      >
-        <button
-          v-on:click="sortBy(option.action)"
-          type="button"
-          v-bind:class="{'active': activeSort === option.action}"
-        >{{option.name}}</button>
-      </span>
+      <label><b>Sort By</b> </label>
+      <button
+        v-on:click="toggleSortField()"
+        type="button"
+      >{{sort_field}}</button>
+      <button
+        v-on:click="toggleSortDirection()"
+        type="button"
+      >{{sort_direction}}</button>
     </fieldset>
   </div>
 </template>
@@ -36,23 +31,34 @@ export default {
   name: 'FilterControls',
   data () {
     return {
-      activeSort: '',
-      tagsSelected: this.$store.state.app_settings.tag_options.map(option => {
-        return option
-      }),
       tag_options: this.$store.state.app_settings.tag_options,
-      sorting_options: this.$store.state.app_settings.sorting_options
+      filter_selected: 'All',
+      sort_direction: 'Descending',
+      sort_field: 'Date'
     }
   },
   methods: {
-    applyFilters: function () {
-      this.$store.commit('applyFilters', { 'filters': this.tagsSelected })
+    applyFilter: function () {
+      this.$store.commit('applyFilter', {
+        'filter': this.filter_selected,
+        'field': this.sort_field.toLowerCase(),
+        'direction': this.sort_direction === 'Ascending'
+      })
     },
-    sortBy: function (type) {
-      this.activeSort = type
+    toggleSortField: function() {
+      this.sort_field = this.sort_field === 'Date' ?
+        'Name' : 'Date';
+      this.sortBy(this.sort_field, this.sort_direction);
+    },
+    toggleSortDirection: function() {
+      this.sort_direction = this.sort_direction === 'Descending' ?
+        'Ascending' : 'Descending';
+      this.sortBy(this.sort_field, this.sort_direction);
+    },
+    sortBy: function (field, direction) {
       let options = {
-        field: type.slice(1),
-        direction: type[0] === 'A'
+        'field': field.toLowerCase(),
+        'direction': direction === 'Ascending'
       }
       this.$store.commit('sortGallery', options)
     }
@@ -61,8 +67,9 @@ export default {
 </script>
 
 <style scoped>
-button.active {
+button {
   background: #222;
   color: #ddd;
+  cursor: pointer;
 }
 </style>
