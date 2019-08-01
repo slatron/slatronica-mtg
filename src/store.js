@@ -7,11 +7,6 @@ Vue.use(Vuex);
 
 // Export store as function to ensure app settings are passed in before any initializations
 function builder (data) {
-
-  function _sortMethod(field, direction) {
-    return tools().sortBy(field, direction);
-  }
-
   return new Vuex.Store({
     state: {
       original_gallery_list: [],
@@ -22,10 +17,10 @@ function builder (data) {
     mutations: {
       setGallery (state, alters) {
         state.original_gallery_list = alters;
-        state.gallery_list = alters.sort(_sortMethod('date', false));
+        state.gallery_list = alters.sort(tools().sortBy('date', false));
       },
       sortGallery (state, options) {
-        state.gallery_list = state.gallery_list.sort(_sortMethod(options.field, options.direction));
+        state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction));
       },
       applyFilter (state, options) {
         state.gallery_list = options.filter === 'All' ?
@@ -33,17 +28,17 @@ function builder (data) {
           state.original_gallery_list.filter(card => card.tags.includes(options.filter));
 
         // Apply Sort
-        state.gallery_list = state.gallery_list.sort(_sortMethod(options.field, options.direction));
+        state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction));
       }
     },
 
     actions: {
       initGallery (store) {
         api.get_cards()
-          .then(function (response) {
+          .then(response => {
             store.commit('setGallery', response.data.alters);
           })
-          .catch(function (error) {
+          .catch(error => {
             console.warn('error getting altered card list: ');
             console.error(error);
           });

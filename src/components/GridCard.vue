@@ -36,7 +36,7 @@ export default {
   created: function () {
     let vm = this
     axios.get('https://api.scryfall.com/cards/' + this.cardData.id)
-      .then((response) => {
+      .then(response => {
         let localUrl = ''
         if (response.data.card_faces && vm.cardData.hasOwnProperty('face')) {
           vm.title = response.data.card_faces[vm.cardData.face].name
@@ -49,9 +49,7 @@ export default {
         };
         vm.localImg = require('@/assets/images/' + localUrl + '.jpg')
       })
-      .catch((error) => {
-        console.warn('OOPS: ', error)
-      })
+      .catch(error => console.warn('OOPS: ', error))
   },
   methods: {
     flip: function () {
