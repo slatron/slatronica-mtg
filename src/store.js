@@ -18,11 +18,7 @@ function builder (data) {
       setGallery (state, options) {
         const alters = options.alters;
         state.original_gallery_list = alters;
-
-        console.log('options passed to init: ', options);
-        state.gallery_list = options.params.card ?
-          options.alters.filter(card => card.id === options.params.card) :
-          options.alters.sort(tools().sortBy('date', false));
+        state.gallery_list = options.alters.sort(tools().sortBy('date', false));
       },
       sortGallery (state, options) {
         state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction));
@@ -38,12 +34,11 @@ function builder (data) {
     },
 
     actions: {
-      initGallery (store, params) {
+      initGallery (store) {
         api.get_cards()
           .then(response => {
             let options = {
-              'alters': response.data.alters,
-              'params': params
+              'alters': response.data.alters
             }
             store.commit('setGallery', options);
           })

@@ -13,9 +13,14 @@ export default new Router({
       component: () => import('./views/GalleryPage.vue')
     },
     {
-      path: '/:card',
-      name: 'GalleryCardPage',
-      component: () => import('./views/GalleryPage.vue')
+      path: '/:cardID',
+      name: 'SingleGalleryCard',
+      component: () => import('./views/SingleGalleryCardPage.vue')
+    },
+    {
+      path: '/card/gallery/:cardID',
+      name: 'SingleGalleryCard',
+      component: () => import('./views/SingleGalleryCardPage.vue')
     },
     {
       path: '/about',
