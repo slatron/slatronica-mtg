@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="text-blue-600 bg-black">
     <!--
     How To Router
     <div id="nav">
@@ -7,13 +7,13 @@
       <router-link to="/about">About</router-link>
     </div>
     -->
-    <header>
-      <h1>Slatronica Alters</h1>
+    <header class="bg-black fixed w-full top-0 h-8 md:h-12 z-10">
+      <h1 class="text-xl md:text-3xl text-center">Slatronica Alters</h1>
     </header>
-    <main>
+    <main class="pt-8 md:pt-12 z-0">
       <router-view/>
     </main>
-    <footer>
+    <footer class="text-xs md:text-sm bg-black fixed bottom-0 right-0 h-4 px-2 py-6 z-10">
       <p>alters by mike slater</p>
     </footer>
   </div>
@@ -25,74 +25,3 @@ export default {
   name: 'MainApp'
 }
 </script>
-
-<style lang="scss">
-body {
-  background: #000;
-  text-align: center;
-}
-
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #487cb1;
-}
-
-img {
-  width: 100%;
-}
-
-#nav {}
-
-header {
-  background: #000;
-  position: fixed;
-  top: 0;
-  height: 36px;
-  width: 100%;
-  z-index: 1000;
-
-  h1 {
-    font-size: 24px;
-    margin: 0;
-    padding: 0;
-  }
-}
-
-@media (min-width: 520px) {
-  header {
-    height: 52px;
-    h1 {
-      font-size: 36px;
-    }
-  }
-}
-
-main {
-  padding-top: 36px;
-}
-
-@media (min-width: 520px) {
-  main {
-    padding-top: 52px;
-  }
-}
-
-footer {
-  background: #000;
-  font-size: 10px;
-  text-align: right;
-  position: fixed;
-  bottom: 0;
-  right: 0;
-  height: 15px;
-  z-index: 1000;
-
-  p {
-    margin: 0 2em 0 0;
-    padding: 0;
-  }
-}
-
-</style>

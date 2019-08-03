@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="filter-controls">
     <fieldset>
-      <label><b>View</b></label>
+      <label>View</label>
       <select
         v-model="filter_selected"
         v-on:change="applyFilter()">
@@ -13,7 +13,7 @@
       </select>
     </fieldset>
     <fieldset>
-      <label><b>Sort By</b></label>
+      <label>Sort By</label>
       <button
         v-on:click="toggleSortField()"
         type="button"
@@ -68,11 +68,16 @@ export default {
 
 <style scoped>
 label {
-  margin-right: 1em;
+  @apply mr-2 font-medium;
 }
 button {
-  background: #222;
-  color: #ddd;
-  cursor: pointer;
+  @apply outline-none bg-gray-800 text-gray-200 cursor-pointer px-2 py-1;
+}
+select {
+  @apply text-black;
+}
+
+fieldset {
+  @apply my-2;
 }
 </style>

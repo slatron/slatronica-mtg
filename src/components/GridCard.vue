@@ -98,7 +98,6 @@ export default {
 }
 h5 {
   position: absolute;
-  bottom: -60px;
-  font-size: 16px;
+  bottom: -30px;
 }
 </style>
