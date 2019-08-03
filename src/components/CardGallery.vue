@@ -1,8 +1,8 @@
 <template>
   <div class="grid-container">
-    <FilterControls v-if="!query.hasOwnProperty('card')" />
-    <div v-if="query.hasOwnProperty('card')">
-      <a href="/">View All Cards</a>
+    <FilterControls v-if="!params.hasOwnProperty('card')" />
+    <div v-if="params.hasOwnProperty('card')">
+      <a :href="base_url">View All Cards</a>
     </div>
     <GridCard
       v-for="card in gallery_list"
@@ -15,12 +15,14 @@
 <script>
 import GridCard from '@/components/GridCard'
 import FilterControls from '@/components/FilterControls'
+import api from '@/data/api'
 
 export default {
   name: 'CardGallery',
   data () {
     return {
-      'query': this.$route.query
+      'params': this.$route.params,
+      'base_url': api.get_base_url()
     }
   },
   components: {
@@ -33,7 +35,7 @@ export default {
     }
   },
   created: function () {
-    this.$store.dispatch('initGallery', this.$route.query);
+    this.$store.dispatch('initGallery', this.$route.params);
   }
 }
 </script>
