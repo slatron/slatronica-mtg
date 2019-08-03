@@ -15,9 +15,14 @@ function builder (data) {
     },
 
     mutations: {
-      setGallery (state, alters) {
+      setGallery (state, options) {
+        const alters = options.alters;
         state.original_gallery_list = alters;
-        state.gallery_list = alters.sort(tools().sortBy('date', false));
+
+        console.log('options passed to init: ', options);
+        state.gallery_list = options.params.card ?
+          options.alters.filter(card => card.id === options.params.card) :
+          options.alters.sort(tools().sortBy('date', false));
       },
       sortGallery (state, options) {
         state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction));
@@ -33,10 +38,14 @@ function builder (data) {
     },
 
     actions: {
-      initGallery (store) {
+      initGallery (store, params) {
         api.get_cards()
           .then(response => {
-            store.commit('setGallery', response.data.alters);
+            let options = {
+              'alters': response.data.alters,
+              'params': params
+            }
+            store.commit('setGallery', options);
           })
           .catch(error => {
             console.warn('error getting altered card list: ');

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="text-blue-600 bg-black">
+  <div id="app" class="text-blue-600">
     <!--
     How To Router
     <div id="nav">
