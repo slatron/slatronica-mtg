@@ -17,10 +17,12 @@
       <button
         v-on:click="toggleSortField()"
         type="button"
+        class="w-16"
       >{{sort_field}}</button>
       <button
         v-on:click="toggleSortDirection()"
         type="button"
+        class="w-24"
       >{{sort_direction}}</button>
     </fieldset>
   </div>
@@ -71,7 +73,7 @@ label {
   @apply mr-2 font-medium;
 }
 button {
-  @apply outline-none bg-gray-800 text-gray-200 cursor-pointer px-2 py-1;
+  @apply outline-none bg-gray-800 text-gray-200 cursor-pointer py-1 border-blue-700 border;
 }
 select {
   @apply text-black;
