@@ -1,28 +1,32 @@
 <template lang="html">
-  <div class="filter-controls">
+  <div class="filter-controls text-xs">
     <fieldset>
-      <label>View</label>
-      <select
-        v-model="filter_selected"
-        v-on:change="applyFilter()">
-        <option
-          v-for="option in tag_options"
-          v-bind:value="option.value">
-          {{option.name}}
-        </option>
-      </select>
+      <div class="block">
+        <label>View</label>
+      </div>
+      <div>
+        <select
+          v-model="filter_selected"
+          v-on:change="applyFilter()">
+          <option
+            v-for="option in tag_options"
+            v-bind:value="option.value">
+            {{option.name}}
+          </option>
+        </select>
+      </div>
     </fieldset>
     <fieldset>
-      <label>Sort By</label>
+      <label class="block">Sort By</label>
       <button
         v-on:click="toggleSortField()"
         type="button"
-        class="w-16"
+        class="w-12"
       >{{sort_field}}</button>
       <button
         v-on:click="toggleSortDirection()"
         type="button"
-        class="w-24"
+        class="w-20"
       >{{sort_direction}}</button>
     </fieldset>
   </div>
@@ -73,13 +77,13 @@ label {
   @apply mr-2 font-medium;
 }
 button {
-  @apply outline-none bg-gray-800 text-gray-200 cursor-pointer py-1 border-blue-700 border;
+  @apply outline-none bg-gray-800 text-gray-200 cursor-pointer py-1 border-blue-700 border text-xs;
 }
 select {
   @apply text-black;
 }
 
 fieldset {
-  @apply my-2;
+  @apply mb-2 block;
 }
 </style>

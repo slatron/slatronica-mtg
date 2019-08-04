@@ -1,6 +1,6 @@
 <template>
   <div class="grid-container">
-    <FilterControls />
+    <!-- <FilterControls /> -->
     <GalleryCard
       v-for="card in gallery_list"
       v-bind:key="card.name"

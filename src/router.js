@@ -12,21 +12,21 @@ export default new Router({
       name: 'GalleryPage',
       component: () => import('./views/GalleryPage.vue')
     },
-    // eliminate '/:cardID' soon
+    {
+      path: '/about',
+      name: 'AboutPage',
+      component: () => import('./views/AboutPage.vue')
+    },
+    // eliminate 'SingleGalleryCardRoot' soon
     {
       path: '/:cardID',
-      name: 'SingleGalleryCard',
+      name: 'SingleGalleryCardRoot',
       component: () => import('./views/SingleGalleryCardPage.vue')
     },
     {
       path: '/card/gallery/:cardID',
       name: 'SingleGalleryCard',
       component: () => import('./views/SingleGalleryCardPage.vue')
-    },
-    {
-      path: '/about',
-      name: 'AboutPage',
-      component: () => import('./views/AboutPage.vue')
     }
   ]
 })
