@@ -21,7 +21,7 @@
 import axios from 'axios'
 
 export default {
-  name: 'GridCard',
+  name: 'GalleryCard',
   props: {
     cardData: Object
   },

@@ -12,6 +12,7 @@ export default new Router({
       name: 'GalleryPage',
       component: () => import('./views/GalleryPage.vue')
     },
+    // eliminate '/:cardID' soon
     {
       path: '/:cardID',
       name: 'SingleGalleryCard',

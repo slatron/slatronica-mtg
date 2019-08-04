@@ -1,16 +1,16 @@
 <template>
   <div class="grid-container">
     <FilterControls />
-    <GridCard
+    <GalleryCard
       v-for="card in gallery_list"
       v-bind:key="card.name"
       v-bind:card-data="card"
-    ></GridCard>
+    ></GalleryCard>
   </div>
 </template>
 
 <script>
-import GridCard from '@/components/GridCard'
+import GalleryCard from '@/components/GalleryCard'
 import FilterControls from '@/components/FilterControls'
 import api from '@/data/api'
 
@@ -22,7 +22,7 @@ export default {
     }
   },
   components: {
-    GridCard,
+    GalleryCard,
     FilterControls
   },
   computed: {
