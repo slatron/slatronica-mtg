@@ -84,6 +84,6 @@ select {
 }
 
 fieldset {
-  @apply mb-2 block;
+  @apply mb-2 mr-2 block;
 }
 </style>
