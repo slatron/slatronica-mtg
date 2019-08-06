@@ -2,11 +2,8 @@
   <nav class="flex items-center fixed w-full p-1 justify-between flex-wrap bg-black border-b border-gray-500">
     <div class="block">
       <button
-        class="flex invisible items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white">
-        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <title>Menu</title>
-          <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
-        </svg>
+        class="flex invisible items-center px-3 py-2 border rounded text-gray-500 border-gray-500 hover:text-white hover:border-white">
+        <icon-base icon-name="menu"><Menu /></icon-base>
       </button>
     </div>
     <div class="flex-shrink-0">
@@ -15,11 +12,9 @@
     <div class="block">
       <button
         v-on:click="toggleMenu"
-        class="flex items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white">
-        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <title>Gallery Filters</title>
-          <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/>
-        </svg>
+        v-bind:class="{'active': open}"
+        class="flex items-center px-3 py-2 border md:border-none rounded text-gray-500 border-gray-500 hover:text-white">
+        <icon-base icon-name="menu-filter"><MenuFilter /></icon-base>
       </button>
     </div>
     <div
@@ -34,6 +29,9 @@
 <script>
 import FilterControls from '@/components/FilterControls'
 import api from '@/data/api'
+import IconBase from '@/components/IconBase'
+import MenuFilter from '@/components/icons/menu-filter'
+import Menu from '@/components/icons/menu'
 
 export default {
   name: 'NavControls',
@@ -43,7 +41,10 @@ export default {
     }
   },
   components: {
-    FilterControls
+    FilterControls,
+    IconBase,
+    MenuFilter,
+    Menu
   },
   methods: {
     toggleMenu: function() {
@@ -54,12 +55,12 @@ export default {
 </script>
 
 <style scoped>
-.filter-menu {
-  @apply
-}
-
 nav {
   height: 45px;
+}
+
+button.active {
+  @apply text-white;
 }
 
 @media (min-width: 768px) {

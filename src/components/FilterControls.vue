@@ -74,7 +74,7 @@ export default {
 
 <style scoped>
 label {
-  @apply mr-2 font-medium;
+  @apply mr-2 font-medium text-gray-300;
 }
 button {
   @apply outline-none bg-gray-800 text-gray-200 cursor-pointer py-1 border-blue-700 border text-xs;
