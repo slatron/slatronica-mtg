@@ -17,17 +17,19 @@
         <icon-base icon-name="menu-filter"><MenuFilter /></icon-base>
       </button>
     </div>
-    <div
-      class="filter-menu w-1/2 sm:w-1/4 lg:w-1/5 xl:w-1/6 block absolute right-0 bg-black z-20 text-right rounded-bl-lg border-b border-gray-500  border-l"
-      v-show="open"
-    >
-      <FilterControls />
-    </div>
+    <transition name="slide">
+      <div
+        class="filter-menu w-1/2 sm:w-1/4 lg:w-1/5 xl:w-1/6 block absolute right-0 bg-black z-20 text-right rounded-bl-lg border-b border-gray-500  border-l"
+        v-if="open"
+      >
+        <FilterControls />
+      </div>
+    </transition>
   </nav>
 </template>
 
 <script>
-import FilterControls from '@/components/FilterControls'
+import FilterControls from '@/components/common/FilterControls'
 import api from '@/data/api'
 import IconBase from '@/components/IconBase'
 import MenuFilter from '@/components/icons/menu-filter'
@@ -69,13 +71,31 @@ button.active {
   }
 }
 
+
 .filter-menu {
   top: 44px;
+  overflow: hidden;
 }
 
 @media (min-width: 768px) {
   .filter-menu {
     top: 54px;
   }
+}
+
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: max-height .35s;
+}
+
+.slide-leave-active,
+.slide-enter-to {
+  max-height: 100px;
+}
+
+.slide-enter,
+.slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  max-height: 0;
 }
 </style>

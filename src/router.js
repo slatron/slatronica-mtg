@@ -17,12 +17,6 @@ export default new Router({
       name: 'AboutPage',
       component: () => import('./views/AboutPage.vue')
     },
-    // eliminate 'SingleGalleryCardRoot' soon
-    {
-      path: '/:cardID',
-      name: 'SingleGalleryCardRoot',
-      component: () => import('./views/SingleGalleryCardPage.vue')
-    },
     {
       path: '/card/gallery/:cardID',
       name: 'SingleGalleryCard',

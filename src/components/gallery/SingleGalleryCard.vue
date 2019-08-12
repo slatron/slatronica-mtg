@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import GalleryCard from '@/components/GalleryCard'
+import GalleryCard from '@/components/gallery/GalleryCard'
 import api from '@/data/api'
 
 export default {
