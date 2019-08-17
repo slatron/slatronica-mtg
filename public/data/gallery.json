@@ -1,6 +1,18 @@
 {
   "alters": [
     {
+      "id": "4ac7b40c-4528-4abb-8632-368947e07fd5",
+      "name": "Orzhov Signet",
+      "date": "2019-08-17",
+      "tags": ["Blueprint"]
+    },
+    {
+      "id": "c0d08c40-5c25-47c2-b39d-90f52ba0f6f0",
+      "name": "Izzet Signet",
+      "date": "2019-08-18",
+      "tags": ["Blueprint"]
+    },
+    {
       "id": "83d2a36f-7932-4336-937a-757ad8a3ae62",
       "name": "Geist-Honored Monk",
       "date": "2019-07-27",
@@ -125,7 +137,7 @@
     {
       "id": "49b3ce74-40d2-4e97-aa40-a4b6419e10ba",
       "name": "Golgari Signet",
-      "date": "2019-06-07",
+      "date": "2019-08-15",
       "tags": ["Blueprint"]
     },
     {
