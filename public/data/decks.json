@@ -1,0 +1,15 @@
+{
+  "decks": [
+    {
+      "name": "deckakoo the deck",
+      "cards": [
+        {
+          "id": "c0d08c40-5c25-47c2-b39d-90f52ba0f6f0",
+          "quantity": 2,
+          "name": "Izzet Signet",
+          "has_alter": true
+        }
+      ]
+    }
+  ]
+}
