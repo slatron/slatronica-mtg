@@ -11,6 +11,13 @@ function builder (data) {
     state: {
       original_gallery_list: [],
       gallery_list: [],
+      deck_list: [
+        {
+          id: 'd91a527d-51f1-4fb1-9016-fc923fd43a6a',
+          quantity: 2,
+          name: 'Azorius Signet'
+        }
+      ],
       app_settings: data
     },
 

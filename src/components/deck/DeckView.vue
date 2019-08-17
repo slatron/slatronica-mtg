@@ -1,44 +1,36 @@
 <template>
-  <div class="grid-container">
+  <div class="deck-container">
     <!-- <FilterControls /> -->
-    <GalleryCard
-      v-for="card in gallery_list"
-      v-bind:key="card.name"
+    <ListCard
+      v-for="card in deck_list"
+      v-bind:key="card.id"
       v-bind:card-data="card"
-    ></GalleryCard>
+    ></ListCard>
   </div>
 </template>
 
 <script>
 import api from '@/api/api'
+import ListCard from '@/components/deck/ListCard'
 
 export default {
-  name: 'CardGallery',
-  data () {
-    return {
-      'params': this.$route.params
-    }
-  },
+  name: 'DeckView',
   components: {
-    GalleryCard,
-    FilterControls
+    ListCard
   },
   computed: {
-    gallery_list () {
-      return this.$store.state.gallery_list
+    deck_list () {
+      return this.$store.state.deck_list
     }
   },
-  created: function () {
-    this.$store.dispatch('initGallery');
-  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.grid-container {
+// Move this to layout for multiple pages when slider is built
+.deck-container {
   max-width: 1120px;
   margin: 0 auto;
-  text-align: center;
 }
 </style>

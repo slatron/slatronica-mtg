@@ -16,11 +16,13 @@
 </template>
 
 <script>
-import axios;
+import axios from 'axios';
 
 export default {
   name: 'ListCard',
-  props: ['cardData'],
+  props: {
+    cardData: Object
+  },
   data: function() {
     let vm = this;
     axios.get('https://api.scryfall.com/cards/' + this.cardData.id)
