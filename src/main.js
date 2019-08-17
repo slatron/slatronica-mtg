@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import api from '@/data/api'
+import api from '@/api/api'
 import router from './router'
 import store from './store'
 import '@/assets/css/tailwind.css'

@@ -1,9 +1,9 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import api from '@/data/api';
-import { tools } from '@/utils/MStools';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import api from '@/api/api'
+import { tools } from '@/utils/MStools'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 // Export store as function to ensure app settings are passed in before any initializations
 function builder (data) {
@@ -16,20 +16,20 @@ function builder (data) {
 
     mutations: {
       setGallery (state, options) {
-        const alters = options.alters;
-        state.original_gallery_list = alters;
-        state.gallery_list = options.alters.sort(tools().sortBy('date', false));
+        const alters = options.alters
+        state.original_gallery_list = alters
+        state.gallery_list = options.alters.sort(tools().sortBy('date', false))
       },
       sortGallery (state, options) {
-        state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction));
+        state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction))
       },
       applyFilter (state, options) {
         state.gallery_list = options.filter === 'All' ?
           state.original_gallery_list :
-          state.original_gallery_list.filter(card => card.tags.includes(options.filter));
+          state.original_gallery_list.filter(card => card.tags.includes(options.filter))
 
         // Apply Sort
-        state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction));
+        state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction))
       }
     },
 
@@ -40,15 +40,15 @@ function builder (data) {
             let options = {
               'alters': response.data.alters
             }
-            store.commit('setGallery', options);
+            store.commit('setGallery', options)
           })
           .catch(error => {
-            console.warn('error getting altered card list: ');
+            console.warn('error getting altered card list: ')
             console.error(error);
-          });
+          })
       }
     }
-  });
+  })
 }
 
-export default builder;
+export default builder

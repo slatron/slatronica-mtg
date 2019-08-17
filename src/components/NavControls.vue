@@ -30,7 +30,7 @@
 
 <script>
 import FilterControls from '@/components/common/FilterControls'
-import api from '@/data/api'
+import api from '@/api/api'
 import IconBase from '@/components/IconBase'
 import MenuFilter from '@/components/icons/menu-filter'
 import Menu from '@/components/icons/menu'

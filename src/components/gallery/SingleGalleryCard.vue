@@ -12,7 +12,7 @@
 
 <script>
 import GalleryCard from '@/components/gallery/GalleryCard'
-import api from '@/data/api'
+import api from '@/api/api'
 
 export default {
   name: 'SingleGalleryCard',

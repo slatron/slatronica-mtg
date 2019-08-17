@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import GalleryCard from '@/components/gallery/GalleryCard'
-import FilterControls from '@/components/common/FilterControls'
 import api from '@/api/api'
 
 export default {
