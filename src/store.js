@@ -11,14 +11,11 @@ function builder (data) {
     state: {
       original_gallery_list: [],
       gallery_list: [],
-      deck_list: [
-        {
-          id: 'd91a527d-51f1-4fb1-9016-fc923fd43a6a',
-          quantity: 2,
-          name: 'Azorius Signet'
-        }
-      ],
-      app_settings: data
+      original_decks: [],
+      deck_list: [],
+      app_settings: data,
+      current_deck_id: 1,
+      current_deck: {}
     },
 
     mutations: {
@@ -26,6 +23,18 @@ function builder (data) {
         const alters = options.alters
         state.original_gallery_list = alters
         state.gallery_list = options.alters.sort(tools().sortBy('date', false))
+      },
+      setDecks (state, options) {
+        const decks = options.decks
+        state.original_decks  = decks
+        state.current_deck    = options.decks[0]
+        state.current_deck_id = options.decks[0].id
+        state.deck_list       = options.decks[0].cards
+      },
+      selectDeck (state, options) {
+        state.current_deck_id = options.deck_id
+        state.current_deck    = state.original_decks.find(deck => deck.id === options.deck_id)
+        state.deck_list       = state.current_deck.cards
       },
       sortGallery (state, options) {
         state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction))
@@ -53,6 +62,20 @@ function builder (data) {
             console.warn('error getting altered card list: ')
             console.error(error);
           })
+      },
+      initDecks (store) {
+        api.get_decks()
+          .then(response => {
+            let options = {
+              'decks': response.data.decks
+            }
+            store.commit('setDecks', options)
+          })
+          .catch(error => {
+            console.warn('error getting decks: ')
+            console.error(error);
+          })
+
       }
     }
   })

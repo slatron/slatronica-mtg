@@ -9,6 +9,9 @@ export default {
 
   get_settings: () => {
     return axios.get(baseUrl + 'data/settings.json');
-  }
+  },
 
+  get_decks: () => {
+    return axios.get(baseUrl + 'data/decks.json');
+  }
 }

@@ -23,6 +23,9 @@ export default {
       return this.$store.state.deck_list
     }
   },
+  created: function () {
+    this.$store.dispatch('initDecks');
+  }
 }
 </script>
 

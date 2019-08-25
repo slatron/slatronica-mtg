@@ -26,6 +26,11 @@ export default new Router({
       path: '/card/gallery/:cardID',
       name: 'SingleGalleryCard',
       component: () => import('./views/SingleGalleryCardPage.vue')
+    },
+    {
+      path: '*',
+      name: 'Error404Page',
+      component: () => import('./views/404.vue')
     }
   ]
 })
