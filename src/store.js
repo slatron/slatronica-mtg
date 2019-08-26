@@ -14,7 +14,7 @@ function builder (data) {
       original_decks: [],
       deck_list: [],
       app_settings: data,
-      current_deck_id: 1,
+      // current_deck_id: 1,
       current_deck: {}
     },
 
@@ -28,12 +28,12 @@ function builder (data) {
         const decks = options.decks
         state.original_decks  = decks
         state.current_deck    = options.decks[0]
-        state.current_deck_id = options.decks[0].id
+        // state.current_deck_id = options.decks[0].id
         state.deck_list       = options.decks[0].cards
       },
       selectDeck (state, options) {
-        state.current_deck_id = options.deck_id
-        state.current_deck    = state.original_decks.find(deck => deck.id === options.deck_id)
+        // state.current_deck_id = options.deck_id
+        state.current_deck    = state.original_decks.find(deck => deck === options.deck)
         state.deck_list       = state.current_deck.cards
       },
       sortGallery (state, options) {

@@ -5,7 +5,7 @@
       v-on:mouseover="show(true)"
       v-on:mouseout="show(false)"
     >
-      {{title}} x{{cardData.quantity || 1}}
+      {{cardData.quantity || 1}} | {{title}}
     </div>
     <img
       v-bind:src="imgUrl"

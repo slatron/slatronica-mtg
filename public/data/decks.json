@@ -2,37 +2,55 @@
   "decks": [
     {
       "id": 1,
-      "name": "deckakoo the deck",
+      "name": "Kykar, Stormslinger",
+      "format": "edh",
       "cards": [
         {
-          "id": "c0d08c40-5c25-47c2-b39d-90f52ba0f6f0",
-          "quantity": 2,
-          "name": "Izzet Signet",
-          "has_alter": true
+          "id": "594cb7dc-ea88-4909-ab40-1d40fecc9817",
+          "quantity": 1,
+          "name": "Kykar, Wind's Fury",
+          "has_alter": false,
+          "category": "Commander",
+          "type": "Creature"
         },
         {
-          "id": "d91a527d-51f1-4fb1-9016-fc923fd43a6a",
-          "quantity": 2,
-          "name": "Azorius Signet",
-          "date": "2019-08-15"
+          "id": "c0d08c40-5c25-47c2-b39d-90f52ba0f6f0",
+          "quantity": 1,
+          "name": "Izzet Signet",
+          "has_alter": true,
+          "category": "Ramp",
+          "type": "Artifact"
+        },
+        {
+          "id": "270a0863-7d07-43f0-925d-a8ce0383a1cb",
+          "quantity": 1,
+          "name": "Thousand-Year Storm",
+          "has_alter": false,
+          "category": "Finisher",
+          "type": "Enchantment"
         }
       ]
     },
     {
       "id": 2,
-      "name": "deckaloo number two",
+      "name": "Izzet Phoenix",
+      "format": "modern",
       "cards": [
         {
           "id": "c0d08c40-5c25-47c2-b39d-90f52ba0f6f0",
-          "quantity": 2,
+          "quantity": 4,
           "name": "Izzet Signet",
-          "has_alter": true
+          "has_alter": true,
+          "category": "Ramp",
+          "type": "Artifact"
         },
         {
           "id": "d91a527d-51f1-4fb1-9016-fc923fd43a6a",
           "quantity": 2,
           "name": "Azorius Signet",
-          "date": "2019-08-15"
+          "date": "2019-08-15",
+          "category": "Ramp",
+          "type": "Artifact"
         }
       ]
     }

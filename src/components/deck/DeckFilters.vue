@@ -6,11 +6,11 @@
       </div>
       <div>
         <select
-          v-model="current_deck_id"
+          v-model="current_deck"
           v-on:change="applyFilter()">
           <option
             v-for="deck in original_decks"
-            v-bind:value="deck.id">
+            v-bind:value="deck">
             {{deck.name}}
           </option>
         </select>
@@ -25,13 +25,13 @@ export default {
   data () {
     return {
       original_decks: this.$store.state.original_decks,
-      current_deck_id: this.$store.state.current_deck_id,
+      current_deck: this.$store.state.current_deck,
     }
   },
   methods: {
     applyFilter: function () {
       this.$store.commit('selectDeck', {
-        'deck_id': this.current_deck_id
+        'deck': this.current_deck
       })
     }
   }
