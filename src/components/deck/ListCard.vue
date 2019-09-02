@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import api from '@/api/api'
 
 export default {
   name: 'ListCard',
@@ -25,14 +25,12 @@ export default {
   },
   data: function() {
     let vm = this;
-    axios.get('https://api.scryfall.com/cards/' + this.cardData.id)
-      .then((response) => {
-        vm.title = response.data.name;
+    api.get_scryfall_card(this.cardData.id)
+      .then(response => {
+        vm.title  = response.data.name;
         vm.imgUrl = response.data.image_uris.normal;
       })
-      .catch((error) => {
-        console.warn('OOPS: ',  error);
-      });
+      .catch(error => console.warn('OOPS: ',  error))
     return {
       title: '',
       imgUrl: '',
@@ -41,8 +39,21 @@ export default {
   },
   methods: {
     show: function(visible) {
-      this.visible = visible;
+      this.visible = visible
     }
   }
 }
 </script>
+
+<style scoped>
+  .card-container {
+    position: relative;
+    cursor: pointer;
+  }
+  .card-hover {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    z-index: 100000;
+  }
+</style>

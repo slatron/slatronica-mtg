@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '@/api/api'
+import apiTools from '@/api/apiTools'
 import { tools } from '@/utils/MStools'
 
 Vue.use(Vuex)
 
 // Export store as function to ensure app settings are passed in before any initializations
 function builder (data) {
+
   return new Vuex.Store({
     state: {
       original_gallery_list: [],
@@ -14,7 +16,6 @@ function builder (data) {
       original_decks: [],
       deck_list: [],
       app_settings: data,
-      // current_deck_id: 1,
       current_deck: {}
     },
 
@@ -26,15 +27,13 @@ function builder (data) {
       },
       setDecks (state, options) {
         const decks = options.decks
-        state.original_decks  = decks
-        state.current_deck    = options.decks[0]
-        // state.current_deck_id = options.decks[0].id
-        state.deck_list       = options.decks[0].cards
+        state.original_decks = decks
+        state.current_deck   = options.decks[0]
+        state.deck_list = apiTools.add_scryfall_data(state)
       },
       selectDeck (state, options) {
-        // state.current_deck_id = options.deck_id
-        state.current_deck    = state.original_decks.find(deck => deck === options.deck)
-        state.deck_list       = state.current_deck.cards
+        state.current_deck = state.original_decks.find(deck => deck === options.deck)
+        state.deck_list = apiTools.add_scryfall_data(state)
       },
       sortGallery (state, options) {
         state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction))

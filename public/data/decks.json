@@ -10,24 +10,21 @@
           "quantity": 1,
           "name": "Kykar, Wind's Fury",
           "has_alter": false,
-          "category": "Commander",
-          "type": "Creature"
+          "category": "Commander"
         },
         {
           "id": "c0d08c40-5c25-47c2-b39d-90f52ba0f6f0",
           "quantity": 1,
           "name": "Izzet Signet",
           "has_alter": true,
-          "category": "Ramp",
-          "type": "Artifact"
+          "category": "Ramp"
         },
         {
           "id": "270a0863-7d07-43f0-925d-a8ce0383a1cb",
           "quantity": 1,
           "name": "Thousand-Year Storm",
           "has_alter": false,
-          "category": "Finisher",
-          "type": "Enchantment"
+          "category": "Finisher"
         }
       ]
     },
@@ -41,16 +38,14 @@
           "quantity": 4,
           "name": "Izzet Signet",
           "has_alter": true,
-          "category": "Ramp",
-          "type": "Artifact"
+          "category": "Ramp"
         },
         {
           "id": "d91a527d-51f1-4fb1-9016-fc923fd43a6a",
           "quantity": 2,
           "name": "Azorius Signet",
           "date": "2019-08-15",
-          "category": "Ramp",
-          "type": "Artifact"
+          "category": "Ramp"
         }
       ]
     }
