@@ -35,7 +35,7 @@ function builder (data) {
               ? 'Creature'
               : card.type_line
 
-          if (!groupedCards.hasOwnProperty(type)) {
+          if (!(type in groupedCards)) {
             groupedCards[type] = []
           }
           tools().fastPush(groupedCards[type], card)
