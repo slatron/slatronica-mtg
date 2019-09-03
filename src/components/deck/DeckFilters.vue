@@ -7,7 +7,7 @@
       <div>
         <select
           v-model="current_deck"
-          v-on:change="applyFilter()">
+          v-on:change="selectDeck()">
           <option
             v-for="deck in original_decks"
             v-bind:value="deck">
@@ -29,8 +29,8 @@ export default {
     }
   },
   methods: {
-    applyFilter: function () {
-      this.$store.commit('selectDeck', {
+    selectDeck: function () {
+      this.$store.dispatch('selectDeck', {
         'deck': this.current_deck
       })
     }

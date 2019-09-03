@@ -23,5 +23,15 @@
 			"name": "Early Attempt",
 			"value": "Early Attempt"
 		}
+	],
+	"default_categories": [
+		"Creature",
+		"Enchantment",
+		"Artifact",
+		"Sorcery",
+		"Instant",
+		"Planeswalker",
+		"Land",
+		"Unspecified"
 	]
 }

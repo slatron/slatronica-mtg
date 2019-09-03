@@ -1,11 +1,17 @@
 <template>
   <div class="deck-container">
-    <!-- <FilterControls /> -->
-    <ListCard
-      v-for="card in deck_list"
-      v-bind:key="card.id"
-      v-bind:card-data="card"
-    ></ListCard>
+    <h2 class="text-xl">{{current_deck.name}} | {{current_deck.format}}</h2>
+    <div
+      v-for="(cards, type) in deck_list"
+      class="mb-6"
+    >
+      <h3 class="text-gray-400">{{type}}</h3>
+      <ListCard
+        v-for="card in cards"
+        v-bind:key="card.id"
+        v-bind:card-data="card"
+      ></ListCard>
+    </div>
   </div>
 </template>
 
@@ -21,10 +27,13 @@ export default {
   computed: {
     deck_list () {
       return this.$store.state.deck_list
+    },
+    current_deck () {
+      return this.$store.state.current_deck
     }
   },
   created: function () {
-    this.$store.dispatch('initDecks');
+    this.$store.dispatch('initDecks')
   }
 }
 </script>
