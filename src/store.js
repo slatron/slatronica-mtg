@@ -16,9 +16,9 @@ function builder (data) {
 
     const card_ids     = tools().pluck(cards, 'id')
     const cardPromises = card_ids.map(id => api.get_scryfall_card(id))
-    Promise.allSettled(cardPromises)
+    Promise.all(cardPromises)
       .then(cardData => {
-        const scryeCards = cardData.map(resposeData => resposeData.value.data)
+        const scryeCards = cardData.map(responseData => responseData.data)
         const combinedDataCardlist = (scryeCards.length === cards.length)
           ? scryeCards.map((scryeCard, idx) => {
               return {...scryeCard, ...cards[idx]}
