@@ -56,7 +56,8 @@ function builder (data) {
       // Decklist Data
       original_decks: [],
       current_deck: {},
-      deck_list: []
+      deck_list: [],
+      card_count: 0
     },
 
     mutations: {
@@ -90,6 +91,9 @@ function builder (data) {
       setDecklist (state, options) {
         const deckList = options.deckList
         state.deck_list = deckList
+      },
+      setCardCount (state, options) {
+        state.card_count = options.count
       }
 
     },
@@ -122,9 +126,10 @@ function builder (data) {
             const selectedDeckOptions = {
               'deck': selectedDeck
             }
-            _combineListScryfallData(state, selectedDeck.cards)
             state.commit('setDecks', deckOptions)
-            state.commit('selectDeck', selectedDeckOptions)
+            this.dispatch('selectDeck', {
+              'deck': selectedDeck
+            })
           })
           .catch(error => {
             console.warn('error getting decks: ')
@@ -133,8 +138,10 @@ function builder (data) {
       },
       selectDeck(state, options) {
         _combineListScryfallData(state, options.deck.cards)
-
         state.commit('selectDeck', {'deck': options.deck})
+        const allQuantities = tools().pluck(options.deck.cards, 'quantity')
+        const addValuesReducer = (acc, cur) => acc + cur;
+        state.commit('setCardCount', {'count': allQuantities.reduce(addValuesReducer)})
       }
     }
   })

@@ -1,6 +1,6 @@
 <template>
   <div class="deck-container">
-    <h2 class="text-xl">{{current_deck.name}} | {{current_deck.format}}</h2>
+    <h2 class="text-xl">{{current_deck.name}} | {{current_deck.format}} | {{ card_count }} Cards</h2>
     <div
       v-for="(cards, type) in deck_list"
       class="mb-6"
@@ -30,6 +30,9 @@ export default {
     },
     current_deck () {
       return this.$store.state.current_deck
+    },
+    card_count () {
+      return this.$store.state.card_count
     }
   },
   created: function () {
