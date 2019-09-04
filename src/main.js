@@ -10,7 +10,11 @@ window.addEventListener('load', () => {
     return
   }
 
-  navigator.serviceWorker.register('/cache.js').then(
+  const baseUrl = window.location.host === 'localhost:8080'
+    ? '/'
+    : '/slatronica-mtg/'
+
+  navigator.serviceWorker.register(`${baseUrl}cache.js`).then(
     () => console.log('Successfully registered cache worker'),
     err => console.warn('Service worker registration failed')
   )

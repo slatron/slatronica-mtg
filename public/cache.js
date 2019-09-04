@@ -6,25 +6,27 @@ const CACHE_NAME   = 'Slatronica'
 
 self.onfetch = function(event) {
   event.respondWith(
-    caches.match(event.request)
-      .then(cachedFiles => {
-          return cachedFiles || fetch(event.request)
-            .then(response => {
-              // cache scryfall API responses and jpg images
-              const requestUrl = event.request.url
-              if (requestUrl.startsWith(URL_TO_CACHE) || requestUrl.startsWith(IMG_TO_CACHE)) {
-                caches.open(CACHE_NAME)
-                  .then(cache => {
-                    cache.put(event.request, response.clone())
-                    return response;
-                  })
-                  .catch(err => console.log('OOPS! cache.js err on cache.open :', err))
-              }
-              return response
-            })
-            .catch(err => console.log('OOPS! cache.js err on fetch(event.request) :', err))
-      })
-      .catch(err => console.log('OOPS! cache.js err on caches.match(event.request) :', err))
+    (async function() {
+       var cache = await caches.open(CACHE_NAME);
+       var cachedFiles = await cache.match(event.request)
+       if(cachedFiles) {
+           return cachedFiles
+       } else {
+           try {
+               var response = await fetch(event.request);
+               const requestUrl = event.request.url
+               if (requestUrl.startsWith(URL_TO_CACHE) || requestUrl.startsWith(IMG_TO_CACHE)) {
+                 await cache.put(event.request, response.clone())
+                 return response
+               } else {
+                 return fetch(event.request)
+               }
+           } catch(e) {
+             console.log('ERROR from cache.js await fetch block: ', e)
+             return fetch(event.request)
+           }
+       }
+   }())
   )
 }
 
