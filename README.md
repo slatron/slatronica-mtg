@@ -1,34 +1,15 @@
 # slatronica-mtg
 
-## Project setup
-```
-npm install
-```
+Customized MTG deck and gallery app focused on altered cards.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Made to evaluate [Vue](https://cli.vuejs.org/config/) as a front end web app framework and explore full-stack technologies.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Also to show off my pained magic cards.
 
-### Run your tests
-```
-npm run test
-```
+## Completed Major Features
 
-### Lints and fixes files
-```
-npm run lint
-```
+- Main gallery page
 
-### Run your unit tests
-```
-npm run test:unit
-```
+## Major Feature In Progress
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Decklist Page
