@@ -7,13 +7,13 @@ const CACHE_NAME   = 'Slatronica'
 self.onfetch = function(event) {
   event.respondWith(
     (async function() {
-       var cache = await caches.open(CACHE_NAME);
-       var cachedFiles = await cache.match(event.request)
+       const cache       = await caches.open(CACHE_NAME)
+       const cachedFiles = await cache.match(event.request)
        if(cachedFiles) {
            return cachedFiles
        } else {
            try {
-               var response = await fetch(event.request);
+               const response   = await fetch(event.request)
                const requestUrl = event.request.url
                if (requestUrl.startsWith(URL_TO_CACHE) || requestUrl.startsWith(IMG_TO_CACHE)) {
                  await cache.put(event.request, response.clone())
