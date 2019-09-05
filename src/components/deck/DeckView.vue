@@ -1,17 +1,30 @@
 <template>
   <div class="deck-container">
-    <h2 class="text-xl">{{current_deck.name}} | {{current_deck.format}} | {{ card_count }} Cards</h2>
-    <div
-      v-for="(cards, type) in deck_list"
-      class="mb-6"
-    >
-      <h3 class="text-gray-400">{{type}}</h3>
-      <ListCard
-        v-for="card in cards"
-        v-bind:key="card.id"
-        v-bind:card-data="card"
-      ></ListCard>
+
+    <h2 class="text-xl m-3">
+      {{current_deck.name}} |
+      <span class="text-sm">{{current_deck.format}}</span> |
+      <span class="text-sm">{{ card_count }} Cards</span>
+    </h2>
+
+    <div class="columns m-1 pl-3 pb-3 overflow-visible flex flex-wrap justify-start flex-initial">
+      <div class="col">
+        <div
+          v-for="(cards, type) in deck_list"
+          class="mb-6"
+        >
+          <h3 class="text-gray-400">
+            {{type}} ({{cards.length}})
+          </h3>
+          <ListCard
+            v-for="card in cards"
+            v-bind:key="card.id"
+            v-bind:card-data="card"
+          ></ListCard>
+        </div>
+      </div>
     </div>
+
   </div>
 </template>
 
