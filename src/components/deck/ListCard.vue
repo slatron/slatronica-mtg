@@ -8,7 +8,7 @@
       {{cardData.quantity || 1}} | {{title}}
       <span
         class="inline-block md:invisible text-gray-600 border-gray-500 hover:text-white hover:border-white">
-        <icon-base icon-name="information-outline"><InformationOutline /></icon-base>
+        <icon-base icon-name="view-show"><ViewShow /></icon-base>
       </span>
     </div>
     <img
@@ -22,7 +22,7 @@
 <script>
 import api from '@/api/api'
 import IconBase from '@/components/IconBase'
-import InformationOutline from '@/components/icons/information-outline'
+import ViewShow from '@/components/icons/view-show'
 
 export default {
   name: 'ListCard',
@@ -31,7 +31,7 @@ export default {
   },
   components: {
     IconBase,
-    InformationOutline
+    ViewShow
   },
   data: function() {
     let vm = this;
@@ -65,6 +65,6 @@ export default {
     top: 30px;
     left: 10px;
     z-index: 100000;
-    width: 200px;
+    width: 300px;
   }
 </style>

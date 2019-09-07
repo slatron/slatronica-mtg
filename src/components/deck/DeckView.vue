@@ -11,7 +11,7 @@
 
       <div
         v-for="(cards, type) in deck_list"
-        class="mb-6 mr-6"
+        class="mb-6 mr-6 w-full"
       >
         <h3 class="text-gray-400">
           {{type}} ({{cards.length}})

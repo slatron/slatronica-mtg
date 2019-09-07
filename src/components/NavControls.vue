@@ -2,7 +2,7 @@
   <nav class="flex items-center fixed w-full p-1 justify-between flex-wrap bg-black border-b border-gray-500">
     <div class="block">
       <button
-        class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-500 hover:text-white hover:border-white">
+        class="flex invisible items-center px-3 py-2 border rounded text-gray-500 border-gray-500 hover:text-white hover:border-white">
         <icon-base icon-name="menu"><Menu /></icon-base>
       </button>
     </div>
