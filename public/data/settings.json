@@ -20,6 +20,10 @@
 			"value": "Blueprint"
 		},
 		{
+			"name": "Character",
+			"value": "Character"
+		},
+		{
 			"name": "Early Attempt",
 			"value": "Early Attempt"
 		}

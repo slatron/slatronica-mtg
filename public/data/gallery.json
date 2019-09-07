@@ -1,6 +1,12 @@
 {
   "alters": [
     {
+      "id": "fc3a4e7d-6667-4c2f-b6b4-484f401b0455",
+      "name": "Grandmaster",
+      "date": "2019-10-06",
+      "tags": ["Character"]
+    },
+    {
       "id": "594cb7dc-ea88-4909-ab40-1d40fecc9817",
       "name": "Kykar, Wind's Fury",
       "date": "2019-10-01",
