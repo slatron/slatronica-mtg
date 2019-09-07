@@ -22,7 +22,7 @@ export default {
   props: {
     iconName: {
       type: String,
-      default: 'box'
+      default: 'calendar'
     },
     width: {
       type: [Number, String],

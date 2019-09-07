@@ -8,20 +8,19 @@
     </h2>
 
     <div class="columns m-1 pl-3 pb-3 overflow-visible flex flex-wrap justify-start flex-initial">
-      <div class="col">
-        <div
-          v-for="(cards, type) in deck_list"
-          class="mb-6"
-        >
-          <h3 class="text-gray-400">
-            {{type}} ({{cards.length}})
-          </h3>
-          <ListCard
-            v-for="card in cards"
-            v-bind:key="card.id"
-            v-bind:card-data="card"
-          ></ListCard>
-        </div>
+
+      <div
+        v-for="(cards, type) in deck_list"
+        class="mb-6 mr-6"
+      >
+        <h3 class="text-gray-400">
+          {{type}} ({{cards.length}})
+        </h3>
+        <ListCard
+          v-for="card in cards"
+          v-bind:key="card.id"
+          v-bind:card-data="card"
+        ></ListCard>
       </div>
     </div>
 
