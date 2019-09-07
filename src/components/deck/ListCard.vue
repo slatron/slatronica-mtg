@@ -11,11 +11,19 @@
         <icon-base icon-name="view-show"><ViewShow /></icon-base>
       </span>
     </div>
-    <img
-      v-bind:src="imgUrl"
+    <div class="card-hover"
       v-show="visible"
-      class="card-hover"
     >
+      <span
+        v-on:click="show(false)"
+        class="button-close text-white bg-black md:invisible"
+      >
+        <icon-base icon-name="close-outline"><CloseOutline /></icon-base>
+      </span>
+      <img
+        v-bind:src="imgUrl"
+      >
+    </div>
   </div>
 </template>
 
@@ -23,6 +31,7 @@
 import api from '@/api/api'
 import IconBase from '@/components/IconBase'
 import ViewShow from '@/components/icons/view-show'
+import CloseOutline from '@/components/icons/close-outline'
 
 export default {
   name: 'ListCard',
@@ -31,7 +40,8 @@ export default {
   },
   components: {
     IconBase,
-    ViewShow
+    ViewShow,
+    CloseOutline
   },
   data: function() {
     let vm = this;
@@ -62,9 +72,14 @@ export default {
   }
   .card-hover {
     position: absolute;
-    top: 30px;
+    top: 35px;
     left: 10px;
     z-index: 100000;
     width: 300px;
+  }
+  .button-close {
+    position: absolute;
+    top: -7px;
+    right: -7px;
   }
 </style>
