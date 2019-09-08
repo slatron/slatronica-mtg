@@ -11,10 +11,10 @@
 
       <div
         v-for="(cards, type) in deck_list"
-        class="mb-6 mr-6 w-full"
+        class="mb-6 mr-6"
       >
         <h3 class="text-gray-400">
-          {{type}} ({{cards.length}})
+          {{type}} ({{cards | display_count}})
         </h3>
         <ListCard
           v-for="card in cards"
@@ -49,6 +49,16 @@ export default {
   },
   created: function () {
     this.$store.dispatch('initDecks')
+  },
+  filters: {
+    display_count: function (cards) {
+      // TODO: WOuld look nicer as reduce function
+      let counted = 0
+      cards.forEach(card => {
+        counted += card.quantity
+      })
+      return counted
+    }
   }
 }
 </script>

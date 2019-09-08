@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import api from '@/api/api'
 
 export default {
   name: 'GalleryCard',
@@ -35,7 +35,7 @@ export default {
   },
   created: function () {
     let vm = this
-    axios.get('https://api.scryfall.com/cards/' + this.cardData.id)
+    api.get_scryfall_card(this.cardData.id)
       .then(response => {
         let localUrl = ''
         if (response.data.card_faces && vm.cardData.hasOwnProperty('face')) {

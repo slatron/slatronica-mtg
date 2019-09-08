@@ -2,7 +2,7 @@
   <div class="filter-controls text-xs">
     <fieldset>
       <div class="block">
-        <label>View</label>
+        <label>Deck</label>
       </div>
       <div>
         <select
@@ -14,6 +14,17 @@
             {{deck.name}}
           </option>
         </select>
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class="block">
+        <label>Colors</label>
+      </div>
+      <div>
+        display checkboxes
+      </div>
+      <div class="block">
+        <label>Types</label>
       </div>
     </fieldset>
   </div>

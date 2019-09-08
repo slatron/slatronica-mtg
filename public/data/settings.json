@@ -37,5 +37,37 @@
 		"Planeswalker",
 		"Land",
 		"Unspecified"
+	],
+	"color_filter_options": [
+		{
+			"name": "White",
+			"value": "white",
+			"short": "W"
+		},
+		{
+			"name": "Blue",
+			"value": "blue",
+			"short": "U"
+		},
+		{
+			"name": "Black",
+			"value": "black",
+			"short": "B"
+		},
+		{
+			"name": "Red",
+			"value": "red",
+			"short": "R"
+		},
+		{
+			"name": "Green",
+			"value": "green",
+			"short": "G"
+		},
+		{
+			"name": "Colorless",
+			"value": "colorless",
+			"short": "C"
+		}
 	]
 }

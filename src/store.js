@@ -4,16 +4,11 @@ import api from '@/api/api'
 import { tools } from '@/utils/MStools'
 
 Vue.use(Vuex)
-
 // Export store as function to ensure app settings are passed in before any initializations
 function builder (data) {
-
   function _combineListScryfallData(state, cards) {
     // Get all scryfall data to add to local list
     // Then sort deck into categories
-    // TODO: implement scryfall data cache
-    //       lower api calls for duplicate cards
-
     const card_ids     = tools().pluck(cards, 'id')
     const cardPromises = card_ids.map(id => api.get_scryfall_card(id))
     Promise.all(cardPromises)
@@ -40,8 +35,20 @@ function builder (data) {
           }
           tools().fastPush(groupedCards[type], card)
         })
+
         state.commit('setDecklist', {'deckList': groupedCards})
       })
+  }
+
+  function _getSortKeys(deckList) {
+    const typesUsed = Object.keys(deckList)
+    const sortArray = typesUsed.map(type => {
+      let sortKey = {'name': type}
+      sortKey.count = deckList[type].length
+      return sortKey
+    })
+    const sortKeys = sortArray.sort(tools().sortBy('count'))
+    return sortKeys
   }
 
   return new Vuex.Store({
@@ -57,7 +64,8 @@ function builder (data) {
       original_decks: [],
       current_deck: {},
       deck_list: [],
-      card_count: 0
+      card_count: 0,
+      sort_keys: []
     },
 
     mutations: {
@@ -89,8 +97,9 @@ function builder (data) {
         state.current_deck = deck
       },
       setDecklist (state, options) {
-        const deckList = options.deckList
-        state.deck_list = deckList
+        const deckList   = options.deckList
+        state.deck_list  = deckList
+        state.sort_keys  = _getSortKeys(deckList)
       },
       setCardCount (state, options) {
         state.card_count = options.count
