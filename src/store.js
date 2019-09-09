@@ -33,8 +33,13 @@ function builder (data) {
           if (!(type in groupedCards)) {
             groupedCards[type] = []
           }
-          // FIX THIS FOR DOUBLE-FACED CARDS
-          // Add "C" to colorless cards for filtering help
+
+          // For cards with 2 faces, merge card data with first face
+          if ('card_faces' in card) {
+            card = {...card, ...card.card_faces[0]}
+          }
+
+          // Add "C" to colorless cards for filtering data
           if (card.colors.length === 0) {
             card.colors = ['C']
           }
@@ -60,6 +65,7 @@ function builder (data) {
   // }
 
   function _filterByColor(options) {
+    // Fix for double-faced cards
     let filteredDeck = {}
     options.types.forEach(type => {
       filteredDeck[type] = options.deck[type].filter(card => {
