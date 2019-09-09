@@ -21,7 +21,12 @@
         <label>Colors</label>
       </div>
       <div>
-        display checkboxes
+        <span
+          v-for="color in color_options"
+        >
+          <input v-on:click="filterDeck()" :id="`c_${color.short}`" type="checkbox" v-model="color.selected" />
+          <label :for="`c_${color.short}`">{{ color.short }}</label>
+        </span>
       </div>
       <div class="block">
         <label>Types</label>
@@ -37,6 +42,10 @@ export default {
     return {
       original_decks: this.$store.state.original_decks,
       current_deck: this.$store.state.current_deck,
+      color_options: this.$store.state.app_settings.color_options.map(option => {
+        option.selected = true
+        return option
+      })
     }
   },
   methods: {
@@ -44,7 +53,13 @@ export default {
       this.$store.dispatch('selectDeck', {
         'deck': this.current_deck
       })
-    }
+    },
+    filterDeck: function () {
+      this.$store.commit('filterDeck', {
+        'filter_type': 'color',
+        'color_options': this.color_options
+      })
+    },
   }
 }
 </script>

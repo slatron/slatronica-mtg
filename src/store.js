@@ -40,15 +40,29 @@ function builder (data) {
       })
   }
 
-  function _getSortKeys(deckList) {
-    const typesUsed = Object.keys(deckList)
-    const sortArray = typesUsed.map(type => {
-      let sortKey = {'name': type}
-      sortKey.count = deckList[type].length
-      return sortKey
+  // This creates a hash of sorted type categories by card length
+  // - could be useful when responsive screens resort deck card types
+  //
+  // function _getSortKeys(deckList) {
+  //   const typesUsed = Object.keys(deckList)
+  //   const sortArray = typesUsed.map(type => {
+  //     let sortKey = {'name': type}
+  //     sortKey.count = deckList[type].length
+  //     return sortKey
+  //   })
+  //   const sortKeys = sortArray.sort(tools().sortBy('count'))
+  //   return sortKeys
+  // }
+
+  function _filterByColor(options) {
+    let filteredDeck = {}
+    options.types.forEach(type => {
+      filteredDeck[type] = options.deck[type].filter(card => {
+        console.log(tools().pluck(options.filters, 'short'))
+        return card.colors.includes('W')
+      })
     })
-    const sortKeys = sortArray.sort(tools().sortBy('count'))
-    return sortKeys
+    return filteredDeck
   }
 
   return new Vuex.Store({
@@ -63,9 +77,10 @@ function builder (data) {
       // Decklist Data
       original_decks: [],
       current_deck: {},
+      original_deck_list: [],
       deck_list: [],
-      card_count: 0,
-      sort_keys: []
+      card_count: 0
+      // sort_keys: []
     },
 
     mutations: {
@@ -97,13 +112,23 @@ function builder (data) {
         state.current_deck = deck
       },
       setDecklist (state, options) {
+        const originalDeckList   = options.deckList
+        state.original_deck_list = originalDeckList
+
         const deckList   = options.deckList
         state.deck_list  = deckList
-        state.sort_keys  = _getSortKeys(deckList)
+        // state.sort_keys  = _getSortKeys(deckList)
       },
       setCardCount (state, options) {
         state.card_count = options.count
-      }
+      },
+      filterDeck (state, options) {
+        state.deck_list = _filterByColor({
+          'deck': state.original_deck_list,
+          'filters': options.color_options,
+          'types': Object.keys(state.original_deck_list)
+        })
+      },
 
     },
 
