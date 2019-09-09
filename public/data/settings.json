@@ -38,7 +38,7 @@
 		"Land",
 		"Unspecified"
 	],
-	"color_filter_options": [
+	"color_options": [
 		{
 			"name": "White",
 			"value": "white",
