@@ -33,6 +33,11 @@ function builder (data) {
           if (!(type in groupedCards)) {
             groupedCards[type] = []
           }
+          // FIX THIS FOR DOUBLE-FACED CARDS
+          // Add "C" to colorless cards for filtering help
+          if (card.colors.length === 0) {
+            card.colors = ['C']
+          }
           tools().fastPush(groupedCards[type], card)
         })
 
@@ -58,8 +63,10 @@ function builder (data) {
     let filteredDeck = {}
     options.types.forEach(type => {
       filteredDeck[type] = options.deck[type].filter(card => {
-        console.log(tools().pluck(options.filters, 'short'))
-        return card.colors.includes('W')
+        const intersection = tools().intersection(card.colors, options.colors)
+        return options.includes === 'includes'
+          ? intersection.length > 0
+          : intersection.length === 0
       })
     })
     return filteredDeck
@@ -122,11 +129,12 @@ function builder (data) {
       setCardCount (state, options) {
         state.card_count = options.count
       },
-      filterDeck (state, options) {
+      filterDeckByColor (state, options) {
         state.deck_list = _filterByColor({
           'deck': state.original_deck_list,
-          'filters': options.color_options,
-          'types': Object.keys(state.original_deck_list)
+          'colors': tools().pluck(options.color_options, 'short'),
+          'types': Object.keys(state.original_deck_list),
+          'includes': options.includes
         })
       },
 
