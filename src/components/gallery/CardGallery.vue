@@ -1,11 +1,14 @@
 <template>
   <div class="grid-container">
-    <!-- <FilterControls /> -->
-    <GalleryCard
+    <div
+      class="image-container"
       v-for="card in gallery_list"
-      v-bind:key="card.name"
-      v-bind:card-data="card"
-    ></GalleryCard>
+    >
+      <GalleryCard
+        v-bind:key="card.name"
+        v-bind:card-data="card"
+      ></GalleryCard>
+    </div>
   </div>
 </template>
 
@@ -43,4 +46,13 @@ export default {
   margin: 0 auto;
   text-align: center;
 }
+
+.image-container {
+  margin: 1em;
+  position: relative;
+  display: inline-block;
+  width: 300px;
+  height: 420px;
+}
+
 </style>
