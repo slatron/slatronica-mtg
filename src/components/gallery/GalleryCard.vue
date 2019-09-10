@@ -38,10 +38,11 @@ export default {
     api.get_scryfall_card(this.cardData.id)
       .then(response => {
         let localUrl = ''
-        if (response.data.card_faces && vm.cardData.hasOwnProperty('face')) {
-          vm.title = response.data.card_faces[vm.cardData.face].name
-          vm.imgUrl = response.data.card_faces[vm.cardData.face].image_uris.normal
-          localUrl = response.data.card_faces[vm.cardData.face].illustration_id
+        if (response.data.card_faces) {
+          let face = vm.cardData.face || 0 // default to front side
+          vm.title = response.data.card_faces[face].name
+          vm.imgUrl = response.data.card_faces[face].image_uris.normal
+          localUrl = response.data.card_faces[face].illustration_id
         } else {
           vm.title = response.data.name
           vm.imgUrl = response.data.image_uris.normal
@@ -63,9 +64,8 @@ export default {
 .card-image-grid {
   position: relative;
   display: inline-block;
-  width: 250px;
+  width: 300px;
   height: 344px;
-  margin: 2em;
 }
 .card-image {
   transform-style: preserve-3d;
@@ -98,6 +98,6 @@ export default {
 }
 h5 {
   position: absolute;
-  bottom: -30px;
+  bottom: -100px;
 }
 </style>

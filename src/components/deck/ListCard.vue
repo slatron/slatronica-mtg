@@ -1,9 +1,11 @@
 <template>
-  <div class="card-container py-1 text-lg">
+  <div
+    class="card-container py-1 text-lg"
+    v-on:mouseover="show(true)"
+    v-on:mouseout="show(false)"
+  >
     <div
       class="card-title"
-      v-on:mouseover="show(true)"
-      v-on:mouseout="show(false)"
     >
       {{cardData.quantity || 1}} | {{title}}
       <span
@@ -22,7 +24,13 @@
       </span>
       <img
         v-bind:src="imgUrl"
+        v-if="!(cardData.has_alter)"
       >
+      <GalleryCard
+        v-if="cardData.has_alter"
+        v-bind:key="cardData.name"
+        v-bind:card-data="cardData"
+      ></GalleryCard>
     </div>
   </div>
 </template>
@@ -32,6 +40,7 @@ import api from '@/api/api'
 import IconBase from '@/components/IconBase'
 import ViewShow from '@/components/icons/view-show'
 import CloseOutline from '@/components/icons/close-outline'
+import GalleryCard from '@/components/gallery/GalleryCard'
 
 export default {
   name: 'ListCard',
@@ -41,7 +50,8 @@ export default {
   components: {
     IconBase,
     ViewShow,
-    CloseOutline
+    CloseOutline,
+    GalleryCard
   },
   data: function() {
     let vm = this;
