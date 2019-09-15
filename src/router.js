@@ -10,7 +10,10 @@ export default new Router({
     {
       path: '/',
       name: 'GalleryPage',
-      component: () => import('./views/GalleryPage.vue')
+      components: {
+        default: () => import('./views/GalleryPage.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
     },
     {
       path: '/about',

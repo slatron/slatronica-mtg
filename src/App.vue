@@ -6,9 +6,7 @@
     <main class="pt-10 md:pt-16 z-0">
       <router-view/>
     </main>
-    <footer class="text-xs text-blue-700 md:text-sm bg-black fixed bottom-0 right-0 h-4 px-2 pb-6 z-10">
-      <p>alters by mike slater</p>
-    </footer>
+    <router-view name="footer"/>
   </div>
 </template>
 
