@@ -3,15 +3,15 @@
     <div>
       <router-link to="/">View All Cards</router-link>
     </div>
-    <GalleryCard
+    <FlipCard
       v-if="card.id"
       v-bind:card-data="card"
-    ></GalleryCard>
+    ></FlipCard>
   </div>
 </template>
 
 <script>
-import GalleryCard from '@/components/gallery/GalleryCard'
+import FlipCard from '@/components/common/FlipCard'
 import api from '@/api/api'
 
 export default {
@@ -22,7 +22,7 @@ export default {
     }
   },
   components: {
-    GalleryCard
+    FlipCard
   },
   created: function () {
     let cardID = this.$route.params.cardID;
