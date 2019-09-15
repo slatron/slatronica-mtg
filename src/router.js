@@ -11,6 +11,7 @@ export default new Router({
       path: '/',
       name: 'GalleryPage',
       components: {
+        header: () => import('./views/HeaderView.vue'),
         default: () => import('./views/GalleryPage.vue'),
         footer: () => import('./views/Footer.vue')
       }
@@ -18,22 +19,38 @@ export default new Router({
     {
       path: '/about',
       name: 'AboutPage',
-      component: () => import('./views/AboutPage.vue')
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/AboutPage.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
     },
     {
       path: '/decks',
       name: 'DeckPage',
-      component: () => import('./views/DeckPage.vue')
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/DeckPage.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
     },
     {
       path: '/card/gallery/:cardID',
       name: 'SingleGalleryCard',
-      component: () => import('./views/SingleGalleryCardPage.vue')
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/SingleGalleryCardPage.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
     },
     {
       path: '*',
       name: 'Error404Page',
-      component: () => import('./views/404.vue')
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/404.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
     }
   ]
 })

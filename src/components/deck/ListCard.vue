@@ -26,21 +26,21 @@
         v-bind:src="imgUrl"
         v-if="!(cardData.has_alter)"
       >
-      <GalleryCard
+      <FlipCard
         v-if="cardData.has_alter"
         v-bind:key="cardData.name"
         v-bind:card-data="cardData"
-      ></GalleryCard>
+      ></FlipCard>
     </div>
   </div>
 </template>
 
 <script>
 import api from '@/api/api'
-import IconBase from '@/components/IconBase'
+import IconBase from '@/components/common/IconBase'
 import ViewShow from '@/components/icons/view-show'
 import CloseOutline from '@/components/icons/close-outline'
-import GalleryCard from '@/components/gallery/GalleryCard'
+import FlipCard from '@/components/common/FlipCard'
 
 export default {
   name: 'ListCard',
@@ -51,7 +51,7 @@ export default {
     IconBase,
     ViewShow,
     CloseOutline,
-    GalleryCard
+    FlipCard
   },
   data: function() {
     let vm = this;

@@ -21,7 +21,7 @@
 import api from '@/api/api'
 
 export default {
-  name: 'GalleryCard',
+  name: 'FlipCard',
   props: {
     cardData: Object
   },

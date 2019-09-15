@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      page_name: this.$router.currentRoute.name
+      page_name: this.$route.name
     }
   }
 }

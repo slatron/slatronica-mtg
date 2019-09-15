@@ -31,7 +31,7 @@
 <script>
 import FilterControls from '@/components/common/FilterControls'
 import api from '@/api/api'
-import IconBase from '@/components/IconBase'
+import IconBase from '@/components/common/IconBase'
 import MenuFilter from '@/components/icons/menu-filter'
 import Menu from '@/components/icons/menu'
 
@@ -51,6 +51,11 @@ export default {
   methods: {
     toggleMenu: function() {
       this.open = !this.open
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.open = false;
     }
   }
 }

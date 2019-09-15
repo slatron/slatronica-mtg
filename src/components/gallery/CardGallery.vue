@@ -4,16 +4,16 @@
       class="image-container"
       v-for="card in gallery_list"
     >
-      <GalleryCard
+      <FlipCard
         v-bind:key="card.name"
         v-bind:card-data="card"
-      ></GalleryCard>
+      ></FlipCard>
     </div>
   </div>
 </template>
 
 <script>
-import GalleryCard from '@/components/gallery/GalleryCard'
+import FlipCard from '@/components/common/FlipCard'
 import FilterControls from '@/components/common/FilterControls'
 import api from '@/api/api'
 
@@ -25,7 +25,7 @@ export default {
     }
   },
   components: {
-    GalleryCard,
+    FlipCard,
     FilterControls
   },
   computed: {
