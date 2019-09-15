@@ -11,6 +11,7 @@
     </div>
     <div class="block">
       <button
+        v-if="has_filter"
         v-on:click="toggleMenu"
         v-bind:class="{'active': open}"
         class="flex items-center px-3 py-2 border md:border-none rounded text-gray-500 border-gray-500 hover:text-white">
@@ -39,7 +40,8 @@ export default {
   name: 'NavControls',
   data () {
     return {
-      'open': false
+      'open': false,
+      'has_filter': ['GalleryPage', 'DeckPage'].indexOf(this.$route.name) !== -1
     }
   },
   components: {
@@ -56,6 +58,7 @@ export default {
   watch: {
     '$route' (to, from) {
       this.open = false;
+      this.has_filter = ['GalleryPage', 'DeckPage'].indexOf(this.$route.name) !== -1
     }
   }
 }
