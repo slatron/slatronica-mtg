@@ -14,7 +14,6 @@
 
 <script>
 import FlipCard from '@/components/common/FlipCard'
-import FilterControls from '@/components/common/FilterControls'
 import api from '@/api/api'
 
 export default {
@@ -25,8 +24,7 @@ export default {
     }
   },
   components: {
-    FlipCard,
-    FilterControls
+    FlipCard
   },
   computed: {
     gallery_list () {
@@ -42,7 +40,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .grid-container {
-  max-width: 1120px;
+  max-width: 1336px;
   margin: 0 auto;
   text-align: center;
 }

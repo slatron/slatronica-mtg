@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import CardGallery from '@/components/gallery/CardGallery.vue'
+import CardGallery from '@/components/gallery/CardGallery'
 
 export default {
   name: 'GalleryPage',

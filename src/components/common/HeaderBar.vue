@@ -2,8 +2,10 @@
   <nav class="flex items-center fixed w-full p-1 justify-between flex-wrap bg-black border-b border-gray-500">
     <div class="block">
       <button
-        class="flex invisible items-center px-3 py-2 border rounded text-gray-500 border-gray-500 hover:text-white hover:border-white">
-        <icon-base icon-name="menu"><Menu /></icon-base>
+        class="px-3 py-2 text-gray-500 hover:text-white"
+        v-on:click="toggleDrawer"
+      >
+        <IconBase icon-name="menu"><IconMenu /></IconBase>
       </button>
     </div>
     <div class="flex-shrink-0">
@@ -12,8 +14,8 @@
     <div class="block">
       <button
         v-if="has_filter"
-        v-on:click="toggleMenu"
-        v-bind:class="{'active': open}"
+        v-on:click="toggleFilterMenu"
+        v-bind:class="{'active': filters_open}"
         class="flex items-center px-3 py-2 border md:border-none rounded text-gray-500 border-gray-500 hover:text-white">
         <icon-base icon-name="menu-filter"><MenuFilter /></icon-base>
       </button>
@@ -21,43 +23,46 @@
     <transition name="slide">
       <div
         class="filter-menu w-1/2 sm:w-1/4 lg:w-1/5 xl:w-1/6 block absolute right-0 bg-black z-20 text-right rounded-bl-lg border-b border-gray-500  border-l"
-        v-if="open"
+        v-if="filters_open"
       >
-        <FilterControls />
+        <FilterSwitcher />
       </div>
     </transition>
   </nav>
 </template>
 
 <script>
-import FilterControls from '@/components/common/FilterControls'
+import FilterSwitcher from '@/components/common/FilterSwitcher'
 import api from '@/api/api'
 import IconBase from '@/components/common/IconBase'
 import MenuFilter from '@/components/icons/menu-filter'
-import Menu from '@/components/icons/menu'
+import IconMenu from '@/components/icons/menu'
 
 export default {
-  name: 'NavControls',
+  name: 'HeaderBar',
   data () {
     return {
-      'open': false,
+      'filters_open': false,
       'has_filter': ['GalleryPage', 'DeckPage'].indexOf(this.$route.name) !== -1
     }
   },
   components: {
-    FilterControls,
+    FilterSwitcher,
     IconBase,
     MenuFilter,
-    Menu
+    IconMenu
   },
   methods: {
-    toggleMenu: function() {
-      this.open = !this.open
+    toggleFilterMenu: function() {
+      this.filters_open = !this.filters_open
+    },
+    toggleDrawer: function() {
+      this.$store.commit('toggleDrawer')
     }
   },
   watch: {
     '$route' (to, from) {
-      this.open = false;
+      this.filters_open = false;
       this.has_filter = ['GalleryPage', 'DeckPage'].indexOf(this.$route.name) !== -1
     }
   }

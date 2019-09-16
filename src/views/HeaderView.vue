@@ -1,13 +1,13 @@
 <template>
-  <NavControls />
+  <HeaderBar />
 </template>
 
 <script>
-import NavControls from '@/components/common/NavControls.vue'
+import HeaderBar from '@/components/common/HeaderBar'
 export default {
   name: 'HeaderView',
   components: {
-    NavControls
+    HeaderBar
   }
 }
 </script>
