@@ -8,6 +8,12 @@
         <router-link to="/decks">Decks</router-link>
       </li>
       <li>
+        <router-link to="/card/gallery/fc3a4e7d-6667-4c2f-b6b4-484f401b0455">Grand Master</router-link>
+      </li>
+      <li>
+        <router-link to="/about">About</router-link>
+      </li>
+      <li>
         <a v-on:click="toggleDrawer()">Close Menu</a>
       </li>
     </ul>
