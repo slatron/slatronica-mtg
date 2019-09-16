@@ -22,7 +22,28 @@ export const tools = () => {
 
     intersection: (...arrays) => {
       return arrays.reduce((a, b) => a.filter(c => b.includes(c)))
-    }
+    },
+
+    /**
+     *  Safely access data from nested objects with tools().get(fn)
+     *  - Replicates _.get
+     *  - Pass accesor as function to use
+     *  - Pass defaultVal param to return in place of undefined
+     *
+     *  Example:
+     *  - const obj = {foo: bar: { fizz: 'buzz' }}
+     *
+     *  - tools().get(() => obj.foo.bar.fizz)      // returns 'buzz'
+     *  - tools().get(() => obj.foo.yes.no)        // returns undefined
+     *  - tools().get(() => obj.foo.yes.no, 'boo') // returns 'boo'
+     **/
+    get: (fn, defaultVal) => {
+           try {
+             return fn();
+           } catch (e) {
+             return defaultVal;
+           }
+         }
 
   }
 }
