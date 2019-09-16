@@ -67,7 +67,7 @@ export default {
 <style scoped lang="scss">
 // Move this to layout for multiple pages when slider is built
 .deck-container {
-  max-width: 1120px;
+  max-width: 1336px;
   margin: 0 auto;
 }
 </style>

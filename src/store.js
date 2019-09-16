@@ -83,6 +83,8 @@ function builder (data) {
       // Sent to store during app initialization
       app_settings: data,
 
+      drawer_open: false,
+
       // Gallery Data
       original_gallery_list: [],
       gallery_list: [],
@@ -97,6 +99,13 @@ function builder (data) {
     },
 
     mutations: {
+      // Layout Mutations
+      toggleDrawer (state, options = {}) {
+        state.drawer_open = options.hasOwnProperty('force')
+          ? options.force
+          : !state.drawer_open
+      },
+
       // Gallery Mutations
       setGallery (state, options) {
         const alters = options.alters

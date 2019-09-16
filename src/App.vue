@@ -1,21 +1,26 @@
 <template>
-  <div id="app" class="text-blue-600">
+  <div id="app" class="text-blue-600" v-bind:class="{'drawer-open': drawer_open}">
 
-    <nav id="main-navigation" class="navigation z-20 bg-gray-200">
-      <ul>
-        <li><a href="#">Nav Links</a></li>
-        <li><a href="#">Close Menu</a></li>
-      </ul>
+    <nav id="drawer" class="navigation top-0 h-full z-30 bg-gray-200 overflow-hidden fixed">
+      <DrawerContents />
     </nav>
 
     <div class="page-wrap">
+
+      <div
+        class="window-shade opacity-75 absolute z-20 top-0 left-0 bottom-0 right-0 bg-black"
+        v-if="drawer_open"
+        v-on:click="toggleDrawer()"
+      ></div>
+
       <header class="bg-black fixed w-full top-0 z-10">
-        <a href="#main-navigation">Menu</a>
         <router-view name="header"/>
-      </header
+      </header>
+
       <main class="pt-10 md:pt-16 z-0">
         <router-view/>
       </main>
+
       <footer class="text-xs text-blue-700 md:text-sm bg-black fixed bottom-0 right-0 h-4 px-2 pb-6 z-10">
         <router-view name="footer"/>
       </footer>
@@ -24,27 +29,40 @@
   </div>
 </template>
 
-<style scoped lang="scss">
-#main-navigation:target {
-  width: 20%;
-}
 
-#main-navigation:target + .page-wrap {
-  width: 80%;
+<script>
+import DrawerContents from '@/components/common/DrawerContents'
+export default {
+  name: 'AppLayout',
+  computed: {
+    drawer_open () {
+      return this.$store.state.drawer_open
+    }
+  },
+  components: {
+    DrawerContents
+  },
+  watch: {
+    '$route' (to, from) {
+      this.$store.commit('toggleDrawer', {'force': false})
+    }
+  },
+  methods: {
+    toggleDrawer: function() {
+      this.$store.commit('toggleDrawer')
+    }
+  }
+}
+</script>
+
+<style scoped lang="scss">
+.drawer-open > nav#drawer {
+  left: 0;
 }
 
 .navigation {
-  width: 0;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  transition: width 0.3s ease;
-}
-
-.page-wrap {
-  width: 100%;
-  float: right;
+  width: 300px;
+  left: -300px;
+  transition: left 0.4s ease;
 }
 </style>

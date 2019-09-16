@@ -11,7 +11,7 @@ import GalleryFilters from '@/components/gallery/GalleryFilters'
 import DeckFilters from '@/components/deck/DeckFilters'
 
 export default {
-  name: 'FilterControls',
+  name: 'FilterSwitcher',
   components: {
     GalleryFilters,
     DeckFilters
