@@ -1,16 +1,16 @@
 <template>
   <div class="deck-page">
-    <DeckView />
+    <DeckList />
   </div>
 </template>
 
 <script>
-import DeckView from '@/components/deck/DeckView.vue'
+import DeckList from '@/components/deck/DeckList.vue'
 
 export default {
   name: 'DeckPage',
   components: {
-    DeckView
+    DeckList
   }
 }
 </script>

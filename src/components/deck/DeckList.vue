@@ -32,7 +32,7 @@ import api from '@/api/api'
 import ListCard from '@/components/deck/ListCard'
 
 export default {
-  name: 'DeckView',
+  name: 'DeckList',
   components: {
     ListCard
   },
@@ -52,7 +52,7 @@ export default {
   },
   filters: {
     display_count: function (cards) {
-      // TODO: WOuld look nicer as reduce function
+      // TODO: Would look nicer as reduce function
       let counted = 0
       cards.forEach(card => {
         counted += card.quantity
