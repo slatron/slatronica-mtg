@@ -32,14 +32,10 @@ export default {
 </script>
 
 <style scoped>
-.drawer-menu {
-  border: 3px solid #3182ce;
-}
 
 li > a {
   display: block;
   padding: 10px;
-  border-bottom: 1px solid black;
   cursor: pointer;
 }
 </style>

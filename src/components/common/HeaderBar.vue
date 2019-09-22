@@ -72,6 +72,7 @@ export default {
 <style scoped>
 nav {
   height: 45px;
+  transition: height .5s;
 }
 
 button.active {

@@ -1,14 +1,14 @@
 <template>
   <div id="app" class="text-blue-600" v-bind:class="{'drawer-open': drawer_open}">
 
-    <nav id="drawer" class="navigation top-0 h-full z-30 bg-gray-200 overflow-hidden fixed">
+    <nav id="drawer" class="navigation h-full z-30 bg-gray-200 overflow-hidden fixed">
       <DrawerContents />
     </nav>
 
     <div class="page-wrap">
 
       <div
-        class="window-shade opacity-75 absolute z-20 top-0 left-0 bottom-0 right-0 bg-black"
+        class="window-shade opacity-75 absolute z-20 left-0 bottom-0 right-0 bg-black"
         v-if="drawer_open"
         v-on:click="toggleDrawer()"
       ></div>
@@ -60,9 +60,24 @@ export default {
   left: 0;
 }
 
+.navigation,
+.window-shade {
+  top: 45px;
+  transition-property: left, top;
+  transition-duration: .5s, .35s;
+  transition-timing-function: ease;
+}
+
 .navigation {
   width: 300px;
   left: -300px;
-  transition: left 0.4s ease;
 }
+
+@media (min-width: 768px) {
+  .navigation,
+  .window-shade {
+    top: 55px;
+  }
+}
+
 </style>
