@@ -3,7 +3,14 @@
     {
       "id": "1",
       "title": "About This...",
-      "content": "<p>I began altering cards again about a year ago. </p>"
+      "content": "
+        <p>I've been playing Magic since around the Dark expansion in 1994. I've never played at tournament level, but have ran a number of kitchen table groups.</p>
+        <p>When I returned to the game for the third time in 2010, I began to paint on my cards. I've never done much with painting or sketching, so these early attempts never got me through the early shedding hump.</p>
+        <p>Eight years later on my fourth return, I had just gotten back into cubing. I like to make insane personal goals, so I started to alter every card in the cube.</p>
+        <p>Having the cube to rely on took out most of my procrastination. Rather than fret over what to paint and what card to alter, I forced myself to grab a random card and go with the first idea I had. It worked fairly well</p>
+        <p>While I'm still not a good artist, I do well enough to include my alters in my decks. I wanted a way to display my decklists with my altered cards. I also wanted a central gallery space to show off what I've altered.</p>
+        <p>This site is my place to make a web app I wish was available for MTG alterists who deckbuild. I'll be exploring this tech stack anyway, especially using Vue and Mongo. I intend to add several game tools such as a multiplayer life tracker.</p>
+      "
     }
   ]
 }

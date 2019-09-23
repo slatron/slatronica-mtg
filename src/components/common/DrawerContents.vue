@@ -13,21 +13,13 @@
       <li>
         <router-link to="/about">About</router-link>
       </li>
-      <li>
-        <a v-on:click="toggleDrawer()">Close Menu</a>
-      </li>
     </ul>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'DrawerContents',
-  methods: {
-    toggleDrawer: function() {
-      this.$store.commit('toggleDrawer')
-    }
-  }
+  name: 'DrawerContents'
 }
 </script>
 
