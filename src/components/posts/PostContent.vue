@@ -33,4 +33,27 @@ p {
   margin-bottom: 1rem;
   font-size: 0.9rem;
 }
+
+ul {
+  clear: both;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+li {
+  padding: 5px 10px;
+}
+
+dt {
+  font-weight: bold;
+  float: left;
+  padding: 5px;
+  color: #3182CE;
+}
+
+dd {
+  padding: 5px;
+}
 </style>

@@ -2,10 +2,20 @@
   "posts": [
     {
       "id": "1",
+      "date": "2019-09-24",
       "category": "altering",
       "tags": ["process"],
       "title": "Blueprint Alter Steps",
       "content": "<p>I should put some images and captions here</p>"
+    },
+    {
+      "id": "2",
+      "date": "2019-09-25",
+      "category": "game report",
+      "tags": ["lunch", "process"],
+      "title": "How to Sixty-Nine a Sexy Pirate Mage*",
+      "content": "        <ol>          <li>Cast Doubling Season</li>          <li>Cast Jace, Cunning Castaway</li>          <li>Activate Jace's Ultimate, getting four copies of everyone's favorite sexy pirate mage. Repeat seventeen times</li>          <li>Bask in Jace's sexy, sexy pirate glory</li>        </ol>        <dl>          <dt>Players</dt>          <dd>Warren, Myself</dd>          <dt>Games Played</dt>          <dd>2</dd>          <dt>Decks</dt>          <dd>            <ul>              <li>Game 1: Gishath Dino Ramp (Warren), (W)Malestrom Wanderer Walkers (Myself)</li>              <li>Game 2: Same</li>            </ul>          </dd>        </dl>        <p>* My wife and I refer to this Jace as \"Sexy Jace, the Pirate Mage\"</p>      "
     }
+
   ]
 }

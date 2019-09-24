@@ -25,7 +25,16 @@ export default new Router({
         default: () => import('./views/DynamicPage.vue'),
         footer: () => import('./views/Footer.vue')
       }
-
+    },
+    {
+      path: '/house-rules',
+      name: 'HouseRules',
+      props: { default: {page_key: 'edh-house-rules'} },
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/DynamicPage.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
     },
     {
       path: '/decks',

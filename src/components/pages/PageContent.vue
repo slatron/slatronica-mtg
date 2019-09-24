@@ -19,6 +19,7 @@ export default {
   created: function () {
     api.get_pages()
       .then(response => {
+        debugger;
         const pages = response.data.pages
         this.page_data = pages.find(page => {
           return this.page_key === page.page_key

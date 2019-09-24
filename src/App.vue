@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="text-blue-400" v-bind:class="{'drawer-open': drawer_open}">
 
-    <nav id="drawer" class="navigation h-full z-30 bg-gray-200 overflow-hidden fixed">
+    <nav id="drawer" class="navigation h-full z-40 bg-gray-200 overflow-hidden fixed">
       <DrawerContents />
     </nav>
 
@@ -13,7 +13,7 @@
         v-on:click="toggleDrawer()"
       ></div>
 
-      <header class="bg-black fixed w-full top-0 z-10">
+      <header class="bg-black fixed w-full top-0 z-30">
         <router-view name="header"/>
       </header>
 
