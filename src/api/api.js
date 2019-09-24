@@ -19,5 +19,13 @@ export default {
 
   get_scryfall_card: id => {
     return axios.get(`https://api.scryfall.com/cards/${id}`)
+  },
+
+  get_pages: () => {
+    return axios.get(`${baseUrl}data/pages.json`)
+  },
+
+  get_posts: () => {
+    return axios.get(`${baseUrl}data/posts.json`)
   }
 }

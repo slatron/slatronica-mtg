@@ -9,7 +9,7 @@
       </button>
     </div>
     <div class="flex-shrink-0">
-      <h1 class="text-xl md:text-3xl text-center">Slatronica Alters</h1>
+      <h1 class="text-blue-600 tracking-wider text-xl md:text-3xl text-center">Slatronica Alters</h1>
     </div>
     <div class="block">
       <button

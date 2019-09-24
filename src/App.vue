@@ -1,14 +1,14 @@
 <template>
-  <div id="app" class="text-blue-600" v-bind:class="{'drawer-open': drawer_open}">
+  <div id="app" class="text-blue-400" v-bind:class="{'drawer-open': drawer_open}">
 
     <nav id="drawer" class="navigation h-full z-30 bg-gray-200 overflow-hidden fixed">
       <DrawerContents />
     </nav>
 
-    <div class="page-wrap">
+    <div class="page-wrap relative min-h-full pb-5">
 
       <div
-        class="window-shade opacity-75 absolute z-20 left-0 bottom-0 right-0 bg-black"
+        class="window-shade opacity-75 absolute z-20 left-0 bottom-0 right-0 bg-black md:hidden"
         v-if="drawer_open"
         v-on:click="toggleDrawer()"
       ></div>

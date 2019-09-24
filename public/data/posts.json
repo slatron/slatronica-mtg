@@ -1,0 +1,11 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "category": "altering",
+      "tags": ["process"],
+      "title": "Blueprint Alter Steps",
+      "content": "<p>I should put some images and captions here</p>"
+    }
+  ]
+}

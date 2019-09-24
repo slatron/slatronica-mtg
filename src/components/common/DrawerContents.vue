@@ -1,5 +1,5 @@
 <template>
-  <div class="drawer-menu">
+  <div class="text-blue-600 drawer-menu">
     <ul>
       <li>
         <router-link to="/">Gallery</router-link>
@@ -8,7 +8,7 @@
         <router-link to="/decks">Decks</router-link>
       </li>
       <li>
-        <router-link to="/card/gallery/fc3a4e7d-6667-4c2f-b6b4-484f401b0455">Grand Master</router-link>
+        <router-link to="/post/1">Post</router-link>
       </li>
       <li>
         <router-link to="/about">About</router-link>

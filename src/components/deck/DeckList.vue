@@ -1,7 +1,7 @@
 <template>
   <div class="deck-container">
 
-    <h2 class="text-xl m-3">
+    <h2 class="text-xl m-3 text-blue-600 tracking-wide">
       {{current_deck.name}} |
       <span class="text-sm">{{current_deck.format}}</span> |
       <span class="text-sm">{{ card_count }} Cards</span>
