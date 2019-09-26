@@ -21,7 +21,6 @@
         v-bind:class="{'bg-gray-100': white_bg, 'bg-black': !white_bg}"
       >
         <router-view/>
-        <div class="full-spacer"></div>
       </main>
 
       <footer class="text-xs text-blue-700 md:text-sm bg-black fixed bottom-0 right-0 h-4 px-2 pb-6 z-10">
@@ -96,9 +95,4 @@ body,
 .default-content {
   transition: background-color 1.5s ease;
 }
-
-.full-spacer {
-  height: 50px;
-}
-
 </style>
