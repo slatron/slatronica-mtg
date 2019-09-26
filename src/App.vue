@@ -1,11 +1,11 @@
 <template>
-  <div class="text-blue-400 min-h-full" v-bind:class="{'drawer-open': drawer_open}">
+  <div class="text-blue-400 layout-wrap" v-bind:class="{'drawer-open': drawer_open}">
 
     <nav id="drawer" class="navigation h-full z-40 bg-gray-200 overflow-hidden fixed">
       <DrawerContents />
     </nav>
 
-    <div class="page-wrap relative min-h-full pb-5">
+    <div class="page-wrap relative">
       <div
         class="window-shade opacity-75 absolute z-20 left-0 bottom-0 right-0 bg-black md:hidden"
         v-if="drawer_open"
@@ -18,9 +18,10 @@
 
       <main
         class="default-content pt-10 md:pt-16 z-0"
-        v-bind:class="{'article-page': white_bg}"
+        v-bind:class="{'bg-gray-100': white_bg, 'bg-black': !white_bg}"
       >
         <router-view/>
+        <div class="full-spacer"></div>
       </main>
 
       <footer class="text-xs text-blue-700 md:text-sm bg-black fixed bottom-0 right-0 h-4 px-2 pb-6 z-10">
@@ -54,7 +55,8 @@ export default {
     '$route' (to, from) {
       this.$store.commit('toggleDrawer', {'force': false})
       const setWhiteBg = tools().intersection([to.name], ['BlogPost', 'AboutPage', 'HouseRules']).length
-      this.white_bg =  setWhiteBg ? true : false;
+      this.white_bg = setWhiteBg ? true : false;
+      document.body.className = setWhiteBg ? 'bg-gray-100' : 'bg-black';
     }
   },
   methods: {
@@ -90,13 +92,13 @@ export default {
   }
 }
 
+body,
 .default-content {
-  background-color: #000000;
   transition: background-color 1.5s ease;
 }
 
-.default-content.article-page {
-  background-color: #eeeeee;
+.full-spacer {
+  height: 50px;
 }
 
 </style>
