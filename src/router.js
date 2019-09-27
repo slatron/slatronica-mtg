@@ -19,9 +19,20 @@ export default new Router({
     {
       path: '/about',
       name: 'AboutPage',
+      props: { default: {page_key: 'about-page'} },
       components: {
         header: () => import('./views/HeaderView.vue'),
-        default: () => import('./views/AboutPage.vue'),
+        default: () => import('./views/DynamicPage.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
+    },
+    {
+      path: '/house-rules',
+      name: 'HouseRules',
+      props: { default: {page_key: 'edh-house-rules'} },
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/DynamicPage.vue'),
         footer: () => import('./views/Footer.vue')
       }
     },
@@ -31,6 +42,16 @@ export default new Router({
       components: {
         header: () => import('./views/HeaderView.vue'),
         default: () => import('./views/DeckPage.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
+    },
+    {
+      path: '/post/:id',
+      name: 'BlogPost',
+      props: { default: true },
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/PostView.vue'),
         footer: () => import('./views/Footer.vue')
       }
     },

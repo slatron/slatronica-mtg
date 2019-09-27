@@ -10,7 +10,7 @@
         <img v-if="!localImg" class="card" :src="imgUrl">
       </div>
       <div class="card-original">
-        <img class="card" v-bind:src="imgUrl">
+        <img class="card" :src="imgUrl">
       </div>
     </div>
     <h5>{{title}}</h5>
