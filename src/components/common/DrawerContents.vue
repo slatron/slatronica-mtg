@@ -4,25 +4,22 @@
       <li>
         <router-link to="/">Gallery</router-link>
       </li>
-      <li>
+      <!-- <li>
         <router-link to="/decks">Decks</router-link>
-      </li>
+      </li> -->
       <li>
-        EDH Game Reports
-        <ul>
+        <span v-on:click="toggle('reports')">EDH Game Reports</span>
+        <ul v-bind:class="{'active': true}">
           <li
            v-for="report in reports"
            class="text-sm"
           >
-            <router-link :to="`/post/${report.id}`">{{report.date}}</router-link>
+            <router-link :to="`/post/${report.id}`">- {{report.date}}</router-link>
           </li>
         </ul>
       </li>
       <li>
-        Pages
-        <ul>
-          <li><router-link to="/about">About</router-link></li>
-        </ul>
+        <li><router-link to="/about">About</router-link></li>
       </li>
     </ul>
   </div>
@@ -40,17 +37,45 @@ export default {
   },
   data () {
     return {
-      reports: []
+      reports: [],
+      active_nav: {
+        'pages': true,
+        'reports': true
+      }
+    }
+  },
+  methods: {
+    toggle: section => {
+      // this.active_nav[section] = !(this.active_nav[section])
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.drawer-menu > ul > li {
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 0 1rem;
+}
 
-ul > li > a {
+.drawer-menu > ul > li > a,
+.drawer-menu > ul > li > span {
   display: block;
-  padding: 10px;
+  padding: 1rem 0.5rem 0 1rem;
+  cursor: pointer;
+}
+
+.drawer-menu > ul > li > ul {
+  max-height: 0;
+  transition: max-height 1.5s ease;
+  overflow: hidden;
+  &.active {
+    max-height: 80rem;
+  }
+}
+
+.drawer-menu > ul > li li > a {
+  padding: 0.5rem 0 0 2rem;
   cursor: pointer;
 }
 </style>

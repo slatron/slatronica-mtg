@@ -81,6 +81,10 @@ export default {
 .navigation {
   width: 300px;
   left: -300px;
+  border-top: 3px solid purple;
+  border-right: 3px solid purple;
+  border-bottom: 3px solid purple;
+  border-radius: 0 1rem;
 }
 
 @media (min-width: 768px) {
