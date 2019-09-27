@@ -13,7 +13,7 @@
     </div>
     <div class="flex-shrink-0">
       <h1 class="text-blue-600 tracking-wider text-xl md:text-3xl text-center">
-        <span class="invisible">Slatronica Alters</span>
+        <router-link :to="{name: 'GalleryPage'}">Slatronica Alters</router-link>
       </h1>
     </div>
     <div class="block">

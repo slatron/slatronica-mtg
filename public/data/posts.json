@@ -1,29 +1,40 @@
 {
-  "posts": [
-    {
-      "id": "1",
-      "date": "2019-09-24",
-      "category": "altering",
-      "tags": ["process"],
-      "title": "Blueprint Alter Steps",
-      "content": "<p>I should put some images and captions here</p>"
-    },
+  "game_reports": [
     {
       "id": "2",
-      "date": "2019-09-25",
-      "category": "game report",
-      "tags": ["lunch-game", "process"],
+      "date": "2019-09-24",
+      "tags": ["lunch", "process"],
       "title": "How to Sixty-Nine a Sexy Pirate Mage*",
-      "content": "        <ol>          <li>Cast Doubling Season</li>          <li>Cast Jace, Cunning Castaway</li>          <li>Activate Jace's Ultimate, getting four copies of everyone's favorite sexy pirate mage. Repeat seventeen times</li>          <li>Bask in Jace's sexy, sexy pirate glory</li>        </ol>        <dl>          <dt>Players</dt>          <dd>Warren, Myself</dd>          <dt>Games Played</dt>          <dd>2</dd>          <dt>Decks</dt>          <dd>            <ul>              <li>Game 1: Gishath Dino Ramp (Warren) vs (W)Malestrom Wanderer Walkers (Myself)</li>              <li>Game 2: Same</li>            </ul>          </dd>        </dl>        <p>* My wife and I refer to this Jace as \"Sexy Jace, the Pirate Mage\"</p>      "
+      "players": "Warren, Myself",
+      "games_played": 2,
+      "decks": [
+        ["Gishath Dino Ramp (Warren)", "Malestrom Wanderer Walkers (Myself)(W)"],
+        ["Gishath Dino Ramp (Warren)", "Malestrom Wanderer Walkers (Myself)(W)"]
+      ],
+      "content": "<ol><li>Cast Doubling Season</li><li>Cast Jace, Cunning Castaway</li>          <li>Activate Jace's Ultimate, getting four copies of everyone's favorite sexy pirate mage. Repeat seventeen times</li>          <li>Bask in Jace's sexy, sexy pirate glory</li></ol><p class='text-xs'>* Carin and I refer to Castaway Jace as \"Sexy Jace, the Pirate Mage\"</p>"
     },
     {
       "id": "3",
-      "date": "2019-09-26",
-      "category": "game report",
-      "tags": ["lunch-game"],
+      "date": "2019-09-25",
+      "tags": ["lunch"],
       "title": "Dinos, Lazev and Mistakes Made",
-      "content": "<dl><dt>Players</dt><dd>Tom, Myself</dd><dt>Games Played</dt><dd>1</dd><dt>Decks</dt><dd><ul><li>Game 1: (W)Gishath Dino Ramp (Myself) vs Lazav, Dimir Mastermind (Tom)</li></ul></dd></dl><p>My early mistake: forgetting Lazav has hexproof. Tom's fatal mistake: forgetting your opponent can recast permanents bounced with Cyclonic Rift. 50 points for Ravenclaw!</p>"
+      "players": "Tom, Myself",
+      "games_played": 1,
+      "decks": [["Gishath Dino Ramp (Myself)(W)", "Lazav, Dimir Mastermind (Tom)"]],
+      "content": "<p class='pb-4'>My early mistake: forgetting Lazav has hexproof. Tom's fatal mistake: forgetting your opponent can recast permanents bounced with Cyclonic Rift. 50 points for Ravenclaw!</p>"
+    },
+    {
+      "id": "4",
+      "date": "2019-09-26",
+      "tags": ["lunch", "process"],
+      "title": "How to Short-Circuit an Infinite Angry Locust Swarm",
+      "players": "Warren, Myself",
+      "games_played": 3,
+      "decks": [
+        ["Gishath Dino Ramp (Warren)", "The Locust God (Myself)(W)"],
+        ["Gishath Dino Ramp (Warren)", "The Locust God (Myself)(W)"]
+      ],
+      "content": "<p class='pb-4'>Game 1: About to be eaten by dinos. Untap with Conscecrated Sphinx + Purpheros + Whirlpool Warrior on board. Smile. Cast Locust God. Crack Whirlpool dude for lotsa cards, locusts and lethal Purpheros damage.</p><p class='pb-4'>Game 2: About to be eaten by dinos. Locust God is out as I start my last turn. Draw Kindred Discovery. Have exactly 8 mana with 4 U available. Smile. Play Kindred. Attack with newly crated locust. Kindred activates infinate draw loop on attack step. Draw until I get to Dispell. Cast dispell on Locust God Ability before drawing final card. End turn, keep Lab Man and coule counterspells in hand. Block dinos with locusts and counter another dino. Next turn, cast lab man and attack to draw for win.</p><p class='pb-4'>Game 3: Eaten by dinos. Frown.</p>"
     }
-
   ]
 }

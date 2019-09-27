@@ -18,7 +18,6 @@
 
       <main
         class="default-content pt-10 md:pt-16 z-0"
-        v-bind:class="{'bg-gray-100': white_bg, 'bg-black': !white_bg}"
       >
         <router-view/>
       </main>
@@ -51,11 +50,11 @@ export default {
     DrawerContents
   },
   watch: {
+    // Close Drawer and set background color
     '$route' (to, from) {
       this.$store.commit('toggleDrawer', {'force': false})
       const setWhiteBg = tools().intersection([to.name], ['BlogPost', 'AboutPage', 'HouseRules']).length
-      this.white_bg = setWhiteBg ? true : false;
-      document.body.className = setWhiteBg ? 'bg-gray-100' : 'bg-black';
+      document.body.className = setWhiteBg ? 'bg-gray-100' : 'bg-black'
     }
   },
   methods: {
@@ -91,8 +90,7 @@ export default {
   }
 }
 
-body,
-.default-content {
+body {
   transition: background-color 1.5s ease;
 }
 </style>
