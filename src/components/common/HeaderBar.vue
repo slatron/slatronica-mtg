@@ -1,15 +1,20 @@
 <template>
   <nav class="flex items-center fixed w-full p-1 justify-between flex-wrap bg-black border-b border-gray-500">
-    <div class="block">
+    <div>
       <button
-        class="px-3 py-2 text-gray-500 hover:text-white"
+        class="px-2 py-1 hamburger hamburger--collapse" type="button"
+        v-bind:class="{'is-active': drawer_open}"
         v-on:click="toggleDrawer"
       >
-        <IconBase icon-name="menu"><IconMenu /></IconBase>
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
       </button>
     </div>
     <div class="flex-shrink-0">
-      <h1 class="text-xl md:text-3xl text-center">Slatronica Alters</h1>
+      <h1 class="text-blue-600 tracking-wider text-xl md:text-3xl text-center">
+        <router-link :to="{name: 'GalleryPage'}">Slatronica Alters</router-link>
+      </h1>
     </div>
     <div class="block">
       <button
@@ -36,7 +41,7 @@ import FilterSwitcher from '@/components/common/FilterSwitcher'
 import api from '@/api/api'
 import IconBase from '@/components/common/IconBase'
 import MenuFilter from '@/components/icons/menu-filter'
-import IconMenu from '@/components/icons/menu'
+// import IconMenu from '@/components/icons/menu'
 
 export default {
   name: 'HeaderBar',
@@ -46,11 +51,15 @@ export default {
       'has_filter': ['GalleryPage', 'DeckPage'].indexOf(this.$route.name) !== -1
     }
   },
+  computed: {
+    drawer_open () {
+      return this.$store.state.drawer_open
+    }
+  },
   components: {
     FilterSwitcher,
     IconBase,
-    MenuFilter,
-    IconMenu
+    MenuFilter
   },
   methods: {
     toggleFilterMenu: function() {
@@ -69,9 +78,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 nav {
   height: 45px;
+  transition: height .5s;
 }
 
 button.active {
@@ -84,7 +94,6 @@ button.active {
   }
 }
 
-
 .filter-menu {
   top: 44px;
   overflow: hidden;
@@ -95,7 +104,6 @@ button.active {
     top: 54px;
   }
 }
-
 
 .slide-enter-active,
 .slide-leave-active {
@@ -111,4 +119,35 @@ button.active {
 .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
   max-height: 0;
 }
+
+// TODO: Move to external hamburger.css file if needed anywhere else
+// These are from John Shu's hambuurger library: https://jonsuh.com/hamburgers/
+// - I grabbed only the neccesary styles for the collapse hamburger
+.hamburger {outline:none;font:inherit;display:inline-block;overflow:visible;margin:0;padding:5px;cursor:pointer;transition-timing-function:linear;transition-duration:.15s;transition-property:opacity,filter;text-transform:none;border:0;background-color:transparent}
+.hamburger.is-active:hover,
+.hamburger:hover {color: #fff}
+.hamburger.is-active .hamburger-inner,
+.hamburger.is-active .hamburger-inner:after,
+.hamburger.is-active .hamburger-inner:before {background-color:#e2e8f0}
+.hamburger-box {position:relative;display:inline-block;width:40px;height:24px}
+.hamburger-inner {top:50%;display:block;margin-top:-2px}
+.hamburger-inner,
+.hamburger-inner:after,
+.hamburger-inner:before {position:absolute;width:40px;height:4px;transition-timing-function:ease;transition-duration:.15s;transition-property:transform;border-radius:4px;background-color:#e2e8f0}
+.hamburger-inner:after,
+.hamburger-inner:before {display:block;content:""}
+.hamburger-inner:before {top:-10px}
+.hamburger-inner:after {bottom:-10px}
+.hamburger--collapse .hamburger-inner {top:auto;bottom:0;transition-delay:.13s;transition-timing-function:cubic-bezier(.55,.055,.675,.19);transition-duration:.13s}
+.hamburger--collapse .hamburger-inner:after {top:-20px;transition:top .2s cubic-bezier(.33333,.66667,.66667,1) .2s,opacity .1s linear}
+.hamburger--collapse .hamburger-inner:before {transition:top .12s cubic-bezier(.33333,.66667,.66667,1) .2s,transform .13s cubic-bezier(.55,.055,.675,.19)}
+.hamburger--collapse.is-active .hamburger-inner {transition-delay:.22s;transition-timing-function:cubic-bezier(.215,.61,.355,1);transform:translate3d(0,-10px,0) rotate(-45deg)}
+.hamburger--collapse.is-active .hamburger-inner:after {top:0;transition:top .2s cubic-bezier(.33333,0,.66667,.33333),opacity .1s linear .22s;opacity:0}
+.hamburger--collapse.is-active .hamburger-inner:before {top:0;transition:top .1s cubic-bezier(.33333,0,.66667,.33333) .16s,transform .13s cubic-bezier(.215,.61,.355,1) .25s;transform:rotate(-90deg)}
+.hamburger--collapse-r .hamburger-inner {top:auto;bottom:0;transition-delay:.13s;transition-timing-function:cubic-bezier(.55,.055,.675,.19);transition-duration:.13s}
+.hamburger--collapse-r .hamburger-inner:after {top:-20px;transition:top .2s cubic-bezier(.33333,.66667,.66667,1) .2s,opacity .1s linear}
+.hamburger--collapse-r .hamburger-inner:before {transition:top .12s cubic-bezier(.33333,.66667,.66667,1) .2s,transform .13s cubic-bezier(.55,.055,.675,.19)}
+.hamburger--collapse-r.is-active .hamburger-inner {transition-delay:.22s;transition-timing-function:cubic-bezier(.215,.61,.355,1);transform:translate3d(0,-10px,0) rotate(45deg)}
+.hamburger--collapse-r.is-active .hamburger-inner:after {top:0;transition:top .2s cubic-bezier(.33333,0,.66667,.33333),opacity .1s linear .22s;opacity:0}
+.hamburger--collapse-r.is-active .hamburger-inner:before {top:0;transition:top .1s cubic-bezier(.33333,0,.66667,.33333) .16s,transform .13s cubic-bezier(.215,.61,.355,1) .25s;transform:rotate(90deg)}
 </style>

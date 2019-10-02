@@ -26,11 +26,10 @@ export default {
   },
   created: function () {
     let cardID = this.$route.params.cardID;
-    let vm = this;
     api.get_cards()
       .then((cards) => {
         let alters = cards.data.alters;
-        vm.card = alters.find(card => card.id === cardID);
+        this.card = alters.find(card => card.id === cardID);
       })
       .catch(error => console.warn(error));
   }

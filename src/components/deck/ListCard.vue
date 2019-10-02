@@ -23,7 +23,7 @@
         <icon-base icon-name="close-outline"><CloseOutline /></icon-base>
       </span>
       <img
-        v-bind:src="imgUrl"
+        :src="imgUrl"
         v-if="!(cardData.has_alter)"
       >
       <FlipCard

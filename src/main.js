@@ -22,6 +22,29 @@ window.addEventListener('load', () => {
 
 Vue.config.productionTip = false
 
+// Universal Filters
+Vue.filter('format-datestring', function (value) {
+  const months = {
+    '01': 'Jan',
+    '02': 'Feb',
+    '03': 'Mar',
+    '04': 'Apr',
+    '05': 'May',
+    '06': 'Jun',
+    '07': 'Jul',
+    '08': 'Aug',
+    '09': 'Sep',
+    '10': 'Oct',
+    '11': 'Nov',
+    '12': 'Dec'
+  }
+  if (!value) return ''
+  const vals = value.toString().split('-')
+  if (vals.length !== 3) return ''
+  const month = months[vals[1]]
+  return `${month} ${vals[2]}, ${vals[0]}`
+})
+
 api.get_settings()
   .then(function (response) {
     new Vue({

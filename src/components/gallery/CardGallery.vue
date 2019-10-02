@@ -1,7 +1,7 @@
 <template>
   <div class="grid-container">
     <div
-      class="image-container"
+      class="image-container text-blue-500 tracking-wide"
       v-for="card in gallery_list"
     >
       <FlipCard

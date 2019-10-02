@@ -2,6 +2,7 @@
   <div class="post-content m-8 sm:mx-16 md:mx-24 lg:mx-36 xl:mx-48">
     <h2 class="text-blue-600 text-lg sm:text-2xl tracking-wider">{{ report.title }}</h2>
     <h3 class="text-xs pb-4">
+      <span>{{report.date | format-datestring}}</span> |
       <span v-for="(tag, idx) in report.tags">
         "{{tag}}"
         <span v-if="idx + 1 < report.tags.length">, </span>
