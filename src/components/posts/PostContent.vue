@@ -23,32 +23,48 @@
       </dd>
     </dl>
     <section v-html="report.content"></section>
+    <div class="pagination flex">
+      <div
+        class="text-left flex-grow"
+        v-on:click="goPrev"
+      >
+        prev
+      </div>
+      <div
+        class="text-right flex-grow"
+        v-on:click="goNext"
+      >
+        next
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import api from '@/api/api'
+import { tools } from '@/utils/MStools'
 
-const getPost = postContent => {
-  const setReport = reports => {
-    const report = reports.find(report => {
-      return postContent.id === report.id
-    })
-    if (!report) {
-      postContent.$router.push({'path': '/404'})
-    } else {
-      postContent.report = report
-    }
+const setReport = vm => {
+  const report = vm.reports.find(report => {
+    return vm.id === report.id
+  })
+  if (!report) {
+    vm.$router.push({'path': '/404'})
+  } else {
+    vm.report = report
   }
+}
 
-  if (postContent.reports.length) {
-    setReport(postContent.reports)
+const fetchReports = vm => {
+  if (vm.reports.length) {
+    setReport(vm)
   } else {
     api.get_posts()
       .then(response => {
-        setReport(response.data.game_reports)
+        vm.reports = response.data.game_reports.sort(tools().sortBy('date', false))
+        setReport(vm)
       })
-      .catch(error => postContent.$router.push({'path': '/404'}))
+      .catch(error => vm.$router.push({'path': '/404'}))
   }
 }
 
@@ -62,13 +78,21 @@ export default {
     }
   },
   created: function () {
-    getPost(this);
+    fetchReports(this);
   },
   watch: {
     '$route' (to, from) {
       if (to.name === 'BlogPost') {
-        getPost(this);
+        fetchReports(this);
       }
+    }
+  },
+  methods: {
+    goPrev: () => {
+      console.log('prev')
+    },
+    goNext: () => {
+      console.log('next')
     }
   }
 }
