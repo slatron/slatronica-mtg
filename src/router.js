@@ -27,6 +27,15 @@ export default new Router({
       }
     },
     {
+      path: '/all-reports',
+      name: 'AllReports',
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/AllReportsView.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
+    },
+    {
       path: '/edh-mulligan',
       name: 'HouseMulligan',
       props: { default: {page_key: 'edh-house-mulligan'} },

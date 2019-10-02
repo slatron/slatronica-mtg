@@ -14,6 +14,7 @@
           <li v-for="report in reports">
             <router-link :to="`/post/${report.id}`">{{report.date | format-datestring}}</router-link>
           </li>
+          <li><router-link to="/all-reports">All</router-link></li>
         </ul>
       </li>
       <li v-bind:class="{'active': active_nav === 'pages'}">

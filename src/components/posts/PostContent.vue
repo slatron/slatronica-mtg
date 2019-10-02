@@ -23,18 +23,16 @@
       </dd>
     </dl>
     <section v-html="report.content"></section>
-    <div class="pagination flex">
-      <div
-        class="text-left flex-grow"
-        v-on:click="goPrev"
-      >
-        prev
+    <div class="pagination flex m-5">
+      <div class="text-left flex-grow">
+        <span v-on:click="goPrev" class="cursor-pointer">
+          previous report
+        </span>
       </div>
-      <div
-        class="text-right flex-grow"
-        v-on:click="goNext"
-      >
-        next
+      <div class="text-right flex-grow">
+        <span v-on:click="goNext" class="cursor-pointer">
+          next report
+        </span>
       </div>
     </div>
   </div>
@@ -88,11 +86,19 @@ export default {
     }
   },
   methods: {
-    goPrev: () => {
-      console.log('prev')
+    goPrev: function() {
+      const currentPosition = this.reports.indexOf(this.report)
+      if (currentPosition > 0) {
+        const targetPostId = this.reports[currentPosition - 1].id
+        this.$router.push(`/post/${targetPostId}`)
+      }
     },
-    goNext: () => {
-      console.log('next')
+    goNext: function() {
+      const currentPosition = this.reports.indexOf(this.report)
+      if (currentPosition < this.reports.length - 1) {
+        const targetPostId = this.reports[currentPosition + 1].id
+        this.$router.push(`/post/${targetPostId}`)
+      }
     }
   }
 }

@@ -29,7 +29,7 @@
       "tags": ["lunch", "process"],
       "title": "How to Short-Circuit an Infinite Angry Locust Swarm",
       "players": "Warren, Myself",
-      "games_played": 3,
+      "games_played": 2,
       "decks": [
         ["Gishath Dino Ramp (Warren)", "The Locust God (Myself)(W)"],
         ["Gishath Dino Ramp (Warren)", "The Locust God (Myself)(W)"]
@@ -49,6 +49,19 @@
         ["Gishath Dino Ramp (Warren)", "The Locust God (Myself)(W)", "Lazav, Dimir Mastermind (Tom)"]
       ],
       "content": "<p class='pb-4'>Locust God has been a bully. I became very worried when my boy pulled a Narset(WAR) out and Spiraled everyone else down to one card with Commit // Memory. I fully realized that I managed to raise a bully when he won 5/6 games this week.</p><p class='pb-4'>Bad God! Timeout for you.</p>"
+    },
+    {
+      "id": "6",
+      "date": "2019-10-02",
+      "tags": ["lunch"],
+      "title": "Much ado about stuffing",
+      "players": "Warren, Myself, Tom",
+      "games_played": 2,
+      "decks": [
+        ["Gishath Dino Ramp (Warren)", "Kykar, Wind's Fury (Myself)", "Marath, Will of the Wild (Tom)(W)"],
+        ["Gishath Dino Ramp (Warren)", "Arixmethes, Slumbering Isle (Myself)", "Marath, Will of the Wild (Tom)(W)"]
+      ],
+      "content": "<p class='pb-4'>While I like the spellslinger buld of Kykar, it clearly is the poor wizard's Locust God. I plan on tuning it a bit more before permanently going back to the token build.</p><p class='pb-4'>It's pretty hit and miss. I need to have Kykar out to do anything with the deck. Without many tutors, I'm at the mercy of my draws. It seems to function best as a second-tier cobmo deck for lower powered tables at the current build.</p><p class='pb-4'>Not too much to report about this game. Tom let us know repeatedly how unpowered his deck is. Then proceeded to win through our disruption both games. Marath is one hell of a shotgun.</p>"
     }
   ]
 }

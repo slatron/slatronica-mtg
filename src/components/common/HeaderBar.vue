@@ -11,16 +11,15 @@
         </span>
       </button>
     </div>
-    <div class="flex-shrink-0">
+    <div>
       <h1 class="text-blue-600 tracking-wider text-xl md:text-3xl text-center">
-        <router-link :to="{name: 'GalleryPage'}">Slatronica Alters</router-link>
+        <router-link :to="{name: 'GalleryPage'}"></router-link>
       </h1>
     </div>
     <div class="block">
       <button
-        v-if="has_filter"
         v-on:click="toggleFilterMenu"
-        v-bind:class="{'active': filters_open}"
+        v-bind:class="{'active': filters_open, 'invisible': !has_filter}"
         class="flex items-center px-3 py-2 border md:border-none rounded text-gray-500 border-gray-500 hover:text-white">
         <icon-base icon-name="menu-filter"><MenuFilter /></icon-base>
       </button>

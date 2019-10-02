@@ -42,7 +42,9 @@ Vue.filter('format-datestring', function (value) {
   const vals = value.toString().split('-')
   if (vals.length !== 3) return ''
   const month = months[vals[1]]
-  return `${month} ${vals[2]}, ${vals[0]}`
+  let day = vals[2]
+  day = day[0] === '0' ? day[1] : day
+  return `${month} ${day}, ${vals[0]}`
 })
 
 api.get_settings()
