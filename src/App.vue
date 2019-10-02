@@ -79,8 +79,8 @@ export default {
 }
 
 .navigation {
-  width: 300px;
-  left: -300px;
+  width: 250px;
+  left: -250px;
   border-top: 3px solid purple;
   border-right: 3px solid purple;
   border-bottom: 3px solid purple;
@@ -88,6 +88,12 @@ export default {
 }
 
 @media (min-width: 768px) {
+  .navigation {
+    width: 325px;
+    left: -325px;
+  }
+
+
   .navigation,
   .window-shade {
     top: 55px;
