@@ -12,7 +12,7 @@
       <dt>Players</dt>
       <dd>{{report.players}}</dd>
       <dt>Games Played</dt>
-      <dd>{{report.games_played}}</dd>
+      <dd>{{report.decks.length}}</dd>
       <dt>Decks</dt>
       <dd>
         <ul>
@@ -25,12 +25,18 @@
     <section v-html="report.content"></section>
     <div class="pagination flex m-5">
       <div class="text-left flex-grow">
-        <span v-on:click="goPrev" class="cursor-pointer">
+        <span
+          v-on:click="goNext" class="cursor-pointer"
+          v-show="!last_post"
+        >
           previous report
         </span>
       </div>
       <div class="text-right flex-grow">
-        <span v-on:click="goNext" class="cursor-pointer">
+        <span
+          v-on:click="goPrev" class="cursor-pointer"
+          v-show="!first_post"
+        >
           next report
         </span>
       </div>
@@ -71,7 +77,9 @@ export default {
   props: ['id'],
   data () {
     return {
-      'report': {},
+      'report': {
+        'decks': []
+      },
       'reports': []
     }
   },
@@ -83,6 +91,14 @@ export default {
       if (to.name === 'BlogPost') {
         fetchReports(this);
       }
+    }
+  },
+  computed: {
+    first_post: function() {
+      return this.reports.indexOf(this.report) === 0
+    },
+    last_post: function() {
+      return this.reports.indexOf(this.report) === this.reports.length - 1
     }
   },
   methods: {

@@ -4,15 +4,20 @@
       class="repeat-reports"
       v-for="(report, idx) in reports"
     >
-      <h2 class="text-blue-600 text-lg sm:text-2xl tracking-wider">{{ report.title }}</h2>
-      <h3 class="text-xs pb-4">
+      <h2 class="inline-block text-blue-600 sm:text-2xl tracking-widest">
+
+        <router-link :to="`/post/${report.id}`">{{ report.title }}</router-link>
+      </h2>
+      <h3
+        class="text-xs pb-8 mb-8"
+        v-bind:class="{'border-b': (idx !== (reports.length - 1))}"
+      >
         <span>{{report.date | format-datestring}}</span> |
         <span v-for="(tag, idx) in report.tags">
           "{{tag}}"
           <span v-if="idx + 1 < report.tags.length">, </span>
         </span>
       </h3>
-      <hr ng-if="idx !== (reports.length - 1)">
     </div>
   </div>
 </template>
