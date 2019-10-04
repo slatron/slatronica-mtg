@@ -64,7 +64,6 @@
       "tags": ["kitchen-table"],
       "title": "Alesha, who Eats Minotaur Face",
       "players": "Dan, Myself, Louis",
-      "games_played": 3,
       "decks": [
         ["Nichol Bolas (Dan)(W)", "Kykar, Wind's Fury (Myself)", "Alesha, who Smiles at Death (Louis)"],
         ["Varina, Lich Lord (Dan)", "Teysa Karlov (Myself)", "Riku of the Two Reflections (Louis)(W)"],
@@ -73,12 +72,11 @@
       "content": "<p class='pb-4'>Game 1: Kykar was not cooperating on the mama front. We did a good job of eliminating Nicol Bolas every time he appeared. I got to take out Louis with a Piked up Kykar from nowhere. But had no gas to continue after Dan's Cruel Ultimatum. Frown.</p><p class='pb-4'>Game 2: Insane lifegain triggers from the aristovamps kept me goin'. Zombie Jesus Oketra kept Dan's zombies monster mashing. Louis was treading water with Riku until he announced that he had the combo and played Riku... then announced that he don't got it and passed. Fortunately for Louis, Dan and I had to recover from a board wipe with hands of land. Louis got to untap and flippy-dip an infinate Palinchron to burn me to death and draw dan to death with that neat-o izzet dual card I'm too lazy to look up now. Let's call it \"Burny hot draw death of me and Dan\"</p><p class='pb-4'>Game 3: Took Ruhan out for his first spin. Was a purpously chaotic game as Dan chose Xantcha. Louis had little trouble building up a board of creaturs from the Alesha combat trigger. Alesha ate minotaur face.</p>"
     },
     {
-      "id": "7",
+      "id": "8",
       "date": "2019-10-03",
       "tags": ["lunch"],
       "title": "Ruhan No Play Well in Pairs",
       "players": "Warren, Myself",
-      "games_played": 3,
       "decks": [
         ["Ruhan of the Fomori (Myself)(W)", "Gishath Dino Ramp (Warren)"],
         ["Kykar, Wind's Fury (Myself)", "Gishath Dino Ramp (Warren)(W)"],
