@@ -93,7 +93,7 @@ export default {
 }
 
 .drawer-menu > ul > li.active > ul {
-  max-height: 8rem;
+  max-height: 11.75rem;
 }
 
 .drawer-menu > ul > li li > a {

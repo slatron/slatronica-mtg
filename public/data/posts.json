@@ -6,7 +6,6 @@
       "tags": ["lunch", "process"],
       "title": "How to Sixty-Nine a Sexy Pirate Mage*",
       "players": "Warren, Myself",
-      "games_played": 2,
       "decks": [
         ["Gishath Dino Ramp (Warren)", "Malestrom Wanderer Walkers (Myself)(W)"],
         ["Gishath Dino Ramp (Warren)", "Malestrom Wanderer Walkers (Myself)(W)"]
@@ -19,7 +18,6 @@
       "tags": ["lunch"],
       "title": "Dinos, Lazev and Mistakes Made",
       "players": "Tom, Myself",
-      "games_played": 1,
       "decks": [["Gishath Dino Ramp (Myself)(W)", "Lazav, Dimir Mastermind (Tom)"]],
       "content": "<p class='pb-4'>My early mistake: forgetting Lazav has hexproof. Tom's fatal mistake: forgetting your opponent can recast permanents bounced with Cyclonic Rift. 50 points for Ravenclaw!</p>"
     },
@@ -29,7 +27,6 @@
       "tags": ["lunch", "process"],
       "title": "How to Short-Circuit an Infinite Angry Locust Swarm",
       "players": "Warren, Myself",
-      "games_played": 2,
       "decks": [
         ["Gishath Dino Ramp (Warren)", "The Locust God (Myself)(W)"],
         ["Gishath Dino Ramp (Warren)", "The Locust God (Myself)(W)"]
@@ -42,7 +39,6 @@
       "tags": ["lunch"],
       "title": "Large God Placed in Timeout",
       "players": "Warren, Myself, Tom",
-      "games_played": 3,
       "decks": [
         ["Gishath Dino Ramp (Warren)", "The Locust God (Myself)(W)"],
         ["Gishath Dino Ramp (Warren)", "The Locust God (Myself)(W)"],
@@ -54,9 +50,8 @@
       "id": "6",
       "date": "2019-10-02",
       "tags": ["lunch"],
-      "title": "Much ado about stuffing",
+      "title": "Much ado about Kykar",
       "players": "Warren, Myself, Tom",
-      "games_played": 2,
       "decks": [
         ["Gishath Dino Ramp (Warren)", "Kykar, Wind's Fury (Myself)", "Marath, Will of the Wild (Tom)(W)"],
         ["Gishath Dino Ramp (Warren)", "Arixmethes, Slumbering Isle (Myself)", "Marath, Will of the Wild (Tom)(W)"]
