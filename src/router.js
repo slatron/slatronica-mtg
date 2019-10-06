@@ -27,21 +27,21 @@ export default new Router({
       }
     },
     {
-      path: '/all-reports',
-      name: 'AllReports',
-      components: {
-        header: () => import('./views/HeaderView.vue'),
-        default: () => import('./views/AllReportsView.vue'),
-        footer: () => import('./views/Footer.vue')
-      }
-    },
-    {
       path: '/edh-mulligan',
       name: 'HouseMulligan',
       props: { default: {page_key: 'edh-house-mulligan'} },
       components: {
         header: () => import('./views/HeaderView.vue'),
         default: () => import('./views/DynamicPage.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
+    },
+    {
+      path: '/blueprint-process',
+      name: 'BlueprintProcess',
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/BlueprintProcessView.vue'),
         footer: () => import('./views/Footer.vue')
       }
     },
@@ -56,11 +56,11 @@ export default new Router({
       }
     },
     {
-      path: '/decks',
-      name: 'DeckPage',
+      path: '/all-reports',
+      name: 'AllReports',
       components: {
         header: () => import('./views/HeaderView.vue'),
-        default: () => import('./views/DeckPage.vue'),
+        default: () => import('./views/AllReportsView.vue'),
         footer: () => import('./views/Footer.vue')
       }
     },
@@ -71,6 +71,15 @@ export default new Router({
       components: {
         header: () => import('./views/HeaderView.vue'),
         default: () => import('./views/PostView.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
+    },
+    {
+      path: '/decks',
+      name: 'DeckPage',
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/DeckPage.vue'),
         footer: () => import('./views/Footer.vue')
       }
     },

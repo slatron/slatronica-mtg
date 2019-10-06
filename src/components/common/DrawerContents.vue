@@ -27,6 +27,7 @@
           <li><router-link to="/about">About</router-link></li>
           <li><router-link to="/house-rules">EDH House Rules</router-link></li>
           <li><router-link to="/edh-mulligan">EDH House Mulligan</router-link></li>
+          <li><router-link to="/blueprint-process">Blueprint Process</router-link></li>
         </ul>
       </li>
     </ul>
@@ -35,15 +36,9 @@
 
 <script>
 import api from '@/api/api'
-import {tools} from '@/utils/MStools'
 import IconBase from '@/components/common/IconBase'
 import MinusOutline from '@/components/icons/minus-outline'
 import AddOutline from '@/components/icons/add-outline'
-
-const sorted = function(items, field) {
-  debugger
-  return items.sort(tools().sortBy(field, false))
-}
 
 export default {
   name: 'DrawerContents',
@@ -52,11 +47,11 @@ export default {
     MinusOutline,
     AddOutline
   },
-  created: function () {
+  created () {
+    // figure out sorting here
     api.get_posts()
-      .then(function(response) {
-        this.reports = sorted(response.data.game_reports.slice(0, 5), 'date')
-      })
+      .then(response => this.reports = response.data.game_reports.slice(0, 5))
+      .catch(err => console.log(err => console.log(`Error in DrawerContents get posts: ${err}`)))
   },
   data () {
     return {
