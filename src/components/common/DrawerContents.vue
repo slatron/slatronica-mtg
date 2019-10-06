@@ -36,6 +36,7 @@
 
 <script>
 import api from '@/api/api'
+import { tools } from '@/utils/MStools'
 import IconBase from '@/components/common/IconBase'
 import MinusOutline from '@/components/icons/minus-outline'
 import AddOutline from '@/components/icons/add-outline'
@@ -50,7 +51,10 @@ export default {
   created () {
     // figure out sorting here
     api.get_posts()
-      .then(response => this.reports = response.data.game_reports.slice(0, 5))
+      .then(response => {
+        this.reports = response.data.game_reports.sort(tools().sortBy('date', false))
+        this.reports = this.reports.slice(0, 5)
+      })
       .catch(err => console.log(err => console.log(`Error in DrawerContents get posts: ${err}`)))
   },
   data () {
