@@ -26,18 +26,24 @@
     <div class="pagination flex m-5">
       <div class="text-left flex-grow">
         <span
-          v-on:click="goNext" class="cursor-pointer"
+          v-on:click="goPrev" class="cursor-pointer"
           v-show="!last_post"
+          flex
+          flex-col
         >
-          previous report
+          <icon-base icon-name="arrow-thick-left"><ArrowLeft /></icon-base>
+          <span>prev</span>
         </span>
       </div>
-      <div class="text-right flex-grow">
+      <div class="text-right">
         <span
-          v-on:click="goPrev" class="cursor-pointer"
+          v-on:click="goNext" class="cursor-pointer"
           v-show="!first_post"
+          flex
+          flex-col
         >
-          next report
+          <icon-base icon-name="arrow-thick-right"><ArrowRight /></icon-base>
+          <span>next</span>
         </span>
       </div>
     </div>
@@ -47,6 +53,9 @@
 <script>
 import api from '@/api/api'
 import { tools } from '@/utils/MStools'
+import IconBase from '@/components/common/IconBase'
+import ArrowLeft from '@/components/icons/arrow-thick-left'
+import ArrowRight from '@/components/icons/arrow-thick-right'
 
 const setReport = vm => {
   const report = vm.reports.find(report => {
@@ -75,6 +84,7 @@ const fetchReports = vm => {
 export default {
   name: 'postContent',
   props: ['id'],
+  components: {ArrowLeft, ArrowRight, IconBase},
   data () {
     return {
       'report': {
@@ -102,14 +112,14 @@ export default {
     }
   },
   methods: {
-    goPrev: function() {
+    goNext: function() {
       const currentPosition = this.reports.indexOf(this.report)
       if (currentPosition > 0) {
         const targetPostId = this.reports[currentPosition - 1].id
         this.$router.push(`/post/${targetPostId}`)
       }
     },
-    goNext: function() {
+    goPrev: function() {
       const currentPosition = this.reports.indexOf(this.report)
       if (currentPosition < this.reports.length - 1) {
         const targetPostId = this.reports[currentPosition + 1].id

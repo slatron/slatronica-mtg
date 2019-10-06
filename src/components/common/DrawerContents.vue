@@ -35,9 +35,15 @@
 
 <script>
 import api from '@/api/api'
+import {tools} from '@/utils/MStools'
 import IconBase from '@/components/common/IconBase'
 import MinusOutline from '@/components/icons/minus-outline'
 import AddOutline from '@/components/icons/add-outline'
+
+const sorted = function(items, field) {
+  debugger
+  return items.sort(tools().sortBy(field, false))
+}
 
 export default {
   name: 'DrawerContents',
@@ -48,8 +54,8 @@ export default {
   },
   created: function () {
     api.get_posts()
-      .then(response => {
-        this.reports = response.data.game_reports.slice(0, 5)
+      .then(function(response) {
+        this.reports = sorted(response.data.game_reports.slice(0, 5), 'date')
       })
   },
   data () {

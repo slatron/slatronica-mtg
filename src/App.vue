@@ -1,31 +1,29 @@
 <template>
-  <div class="text-blue-400 layout-wrap" v-bind:class="{'drawer-open': drawer_open}">
+  <div class="text-blue-400 layout-wrap relative" v-bind:class="{'drawer-open': drawer_open}">
 
-    <nav id="drawer" class="navigation h-full z-40 bg-gray-200 overflow-hidden fixed">
+    <nav id="drawer" class="bottom-0 z-40 bg-gray-200 overflow-hidden fixed">
       <DrawerContents />
     </nav>
 
-    <div class="page-wrap relative">
-      <div
-        class="window-shade opacity-75 absolute z-20 left-0 bottom-0 right-0 bg-black md:hidden"
-        v-if="drawer_open"
-        v-on:click="toggleDrawer()"
-      ></div>
+    <div
+      class="window-shade opacity-75 z-20 left-0 bottom-0 right-0 overflow-hidden fixed bg-black md:hidden"
+      v-if="drawer_open"
+      v-on:click="toggleDrawer()"
+    ></div>
 
-      <header class="bg-black fixed w-full top-0 z-30">
-        <router-view name="header"/>
-      </header>
+    <header class="bg-black fixed w-full top-0 z-30">
+      <router-view name="header"/>
+    </header>
 
-      <main
-        class="default-content pt-10 md:pt-16 z-0"
-      >
-        <router-view/>
-      </main>
+    <main
+      class="default-content pt-10 md:pt-16 z-0"
+    >
+      <router-view/>
+    </main>
 
-      <footer class="text-xs text-blue-700 md:text-sm bg-black fixed bottom-0 right-0 h-4 px-2 pb-6 z-10">
-        <router-view name="footer"/>
-      </footer>
-    </div>
+    <footer class="text-xs text-blue-700 md:text-sm bg-black fixed bottom-0 right-0 h-4 px-2 pb-6 z-10">
+      <router-view name="footer"/>
+    </footer>
   </div>
 </template>
 
@@ -53,8 +51,8 @@ export default {
     // Close Drawer and set background color
     '$route' (to, from) {
       this.$store.commit('toggleDrawer', {'force': false})
-      const setWhiteBg = tools().intersection([to.name], ['BlogPost', 'AboutPage', 'HouseRules', 'HouseMulligan']).length
-      document.body.className = setWhiteBg ? 'bg-gray-100' : 'bg-black'
+      const setBlackBg = tools().intersection([to.name], ['DeckPage', 'GalleryPage', 'SingleGalleryCard']).length
+      document.body.className = setBlackBg ? 'bg-black' : 'bg-gray-100'
     }
   },
   methods: {
@@ -70,7 +68,7 @@ export default {
   left: 0;
 }
 
-.navigation,
+#drawer,
 .window-shade {
   top: 45px;
   transition-property: left, top;
@@ -78,23 +76,22 @@ export default {
   transition-timing-function: ease;
 }
 
-.navigation {
+#drawer {
   width: 250px;
   left: -250px;
   border-top: 3px solid purple;
   border-right: 3px solid purple;
   border-bottom: 3px solid purple;
-  border-radius: 0 1rem;
+  border-radius: 0 1rem 1rem 0;
 }
 
 @media (min-width: 768px) {
-  .navigation {
+  #drawer {
     width: 325px;
     left: -325px;
   }
 
-
-  .navigation,
+  #drawer,
   .window-shade {
     top: 55px;
   }
