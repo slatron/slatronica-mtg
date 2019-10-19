@@ -1,47 +1,47 @@
 {
   "decks": [
     {
-      "id": 1,
+      "deck_id": 1,
       "name": "Kykar, Stormslinger",
       "format": "edh",
       "cards": [
         {
-          "id": "594cb7dc-ea88-4909-ab40-1d40fecc9817",
+          "scryfall_id": "594cb7dc-ea88-4909-ab40-1d40fecc9817",
           "quantity": 1,
           "name": "Kykar, Wind's Fury",
           "has_alter": true,
           "category": "Commander"
         },
         {
-          "id": "c0d08c40-5c25-47c2-b39d-90f52ba0f6f0",
+          "scryfall_id": "c0d08c40-5c25-47c2-b39d-90f52ba0f6f0",
           "quantity": 1,
           "name": "Izzet Signet",
           "has_alter": true,
           "category": "Ramp"
         },
         {
-          "id": "270a0863-7d07-43f0-925d-a8ce0383a1cb",
+          "scryfall_id": "270a0863-7d07-43f0-925d-a8ce0383a1cb",
           "quantity": 1,
           "name": "Thousand-Year Storm",
           "has_alter": false,
           "category": "Finisher"
         },
         {
-          "id": "5e14060f-9167-4e28-a053-77689e066e30",
+          "scryfall_id": "5e14060f-9167-4e28-a053-77689e066e30",
           "quantity": 1,
           "name": "God-Eternal Kefnet",
           "has_alter": false,
           "category": "Spellslinger Support"
         },
         {
-          "id": "2b7472f4-37b0-439f-b4ac-80706d40d191",
+          "scryfall_id": "2b7472f4-37b0-439f-b4ac-80706d40d191",
           "quantity": 1,
           "name": "Past in Flames",
           "has_alter": false,
           "category": "Spellslinger Support"
         },
         {
-          "id": "91382955-bcfc-4fb6-8cce-dc107e5b4c32",
+          "scryfall_id": "91382955-bcfc-4fb6-8cce-dc107e5b4c32",
           "quantity": 1,
           "name": "Ponder",
           "has_alter": true,
@@ -50,114 +50,114 @@
       ]
     },
     {
-      "id": 2,
+      "deck_id": 2,
       "name": "Izzet Spellcaster",
       "format": "modern",
       "cards": [
         {
-          "id": "359d1b13-6156-43b0-a9a7-6bfff36c1a91",
+          "scryfall_id": "359d1b13-6156-43b0-a9a7-6bfff36c1a91",
           "name": "Thing in the Ice",
           "quantity": 4,
           "has_alter": true
         },
         {
-          "id": "280f2a85-1900-460b-a768-164fc2dea636",
+          "scryfall_id": "280f2a85-1900-460b-a768-164fc2dea636",
           "name": "Pteramander",
           "quantity": 3,
           "has_alter": false
         },
         {
-          "id": "e3285e6b-3e79-4d7c-bf96-d920f973b122",
+          "scryfall_id": "e3285e6b-3e79-4d7c-bf96-d920f973b122",
           "name": "Lightning Bolt",
           "quantity": 4,
           "has_alter": false
         },
         {
-          "id": "25f2e4d0-effd-4e83-b7aa-1a0d8f120951",
+          "scryfall_id": "25f2e4d0-effd-4e83-b7aa-1a0d8f120951",
           "name": "Opt",
           "quantity": 4,
           "has_alter": false
         },
         {
-          "id": "f079df56-60f9-46e5-8f2e-032e62b6a5f1",
+          "scryfall_id": "f079df56-60f9-46e5-8f2e-032e62b6a5f1",
           "name": "Manamorphose",
           "quantity": 4,
           "has_alter": false
         },
         {
-          "id": "18d32e59-54e7-4be0-99b7-261cd433bd03",
+          "scryfall_id": "18d32e59-54e7-4be0-99b7-261cd433bd03",
           "name": "Thought Scour",
           "quantity": 4,
           "has_alter": false
         },
         {
-          "id": "1766d117-6ee1-4103-88e8-47b932a94d65",
+          "scryfall_id": "1766d117-6ee1-4103-88e8-47b932a94d65",
           "name": "Sleight of Hand",
           "quantity": 4,
           "has_alter": false
         },
         {
-          "id": "20296a5b-4e15-4f07-8bce-9a37abb35729",
+          "scryfall_id": "20296a5b-4e15-4f07-8bce-9a37abb35729",
           "name": "Serum Visions",
           "quantity": 4,
           "has_alter": false
         },
         {
-          "id": "811b2dda-e1b7-4a46-83cc-5cdc17554836",
+          "scryfall_id": "811b2dda-e1b7-4a46-83cc-5cdc17554836",
           "name": "Finale of Promise",
           "quantity": 1,
           "has_alter": false
         },
         {
-          "id": "0f9cea68-4390-4d73-a374-d6299cbc9271",
+          "scryfall_id": "0f9cea68-4390-4d73-a374-d6299cbc9271",
           "name": "Pyromancer Ascension",
           "quantity": 3,
           "has_alter": true
         },
         {
-          "id": "95a96eb1-f87c-4b1d-82c7-f239bcbc62b8",
+          "scryfall_id": "95a96eb1-f87c-4b1d-82c7-f239bcbc62b8",
           "name": "Aria of Flame",
           "quantity": 2,
           "has_alter": false
         },
         {
-          "id": "f2661d4a-450a-433a-b893-b1ee15982494",
+          "scryfall_id": "f2661d4a-450a-433a-b893-b1ee15982494",
           "name": "Scalding Tarn",
           "quantity": 4,
           "has_alter": false
         },
         {
-          "id": "b8ebe3cf-7143-453a-b0ef-2f5bdaac3185",
+          "scryfall_id": "b8ebe3cf-7143-453a-b0ef-2f5bdaac3185",
           "name": "Steam Vents",
           "quantity": 4,
           "has_alter": false
         },
         {
-          "id": "cc101b90-3e17-4beb-a606-3e76088e362c",
+          "scryfall_id": "cc101b90-3e17-4beb-a606-3e76088e362c",
           "name": "Island",
           "quantity": 2,
           "has_alter": false
         },
         {
-          "id": "399f7531-e137-463b-bec3-e86756b6ed71",
+          "scryfall_id": "399f7531-e137-463b-bec3-e86756b6ed71",
           "name": "Mountain",
           "quantity": 2,
           "has_alter": false
         },
         {
-          "id": "8c2996d9-3287-4480-8c04-7a378e37e3cf",
+          "scryfall_id": "8c2996d9-3287-4480-8c04-7a378e37e3cf",
           "name": "Flooded Strand",
           "quantity": 1,
           "has_alter": false
         },
         {
-          "id": "4e587ea7-0632-4789-ba75-3c410da2bb96",
+          "scryfall_id": "4e587ea7-0632-4789-ba75-3c410da2bb96",
           "name": "Spirebluff Canal",
           "quantity": 4,
           "has_alter": false
         },
         {
-          "id": "6bc412fc-e9d4-4283-bd4a-811384e79b5c",
+          "scryfall_id": "6bc412fc-e9d4-4283-bd4a-811384e79b5c",
           "name": "Sulfur Falls",
           "quantity": 1,
           "has_alter": false

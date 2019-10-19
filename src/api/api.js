@@ -6,7 +6,7 @@ let baseUrl = window.location.host === 'localhost:8080'
 
 export default {
   get_cards: () => {
-    return axios.get(`${baseUrl}data/gallery.json`)
+    return axios.get('https://icyzqzjclk.execute-api.us-east-1.amazonaws.com/dev/gallery')
   },
 
   get_settings: () => {

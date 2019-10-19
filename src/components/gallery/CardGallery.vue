@@ -5,7 +5,7 @@
       v-for="card in gallery_list"
     >
       <FlipCard
-        v-bind:key="card.name"
+        v-bind:key="card.scryfall_id"
         v-bind:card-data="card"
       ></FlipCard>
     </div>
