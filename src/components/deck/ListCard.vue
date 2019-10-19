@@ -55,7 +55,7 @@ export default {
   },
   data: function() {
     let vm = this;
-    api.get_scryfall_card(this.cardData.id)
+    api.get_scryfall_card(this.cardData.scryfall_id)
       .then(response => {
         const hasFaces = response.data.card_faces
         vm.title  = response.data.name

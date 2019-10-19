@@ -18,7 +18,7 @@
         </h3>
         <ListCard
           v-for="card in cards"
-          v-bind:key="card.id"
+          v-bind:key="card.scryfall_id"
           v-bind:card-data="card"
         ></ListCard>
       </div>
@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import api from '@/api/api'
 import ListCard from '@/components/deck/ListCard'
 
 export default {

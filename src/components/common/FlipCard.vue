@@ -35,7 +35,7 @@ export default {
   },
   created: function () {
     let vm = this
-    api.get_scryfall_card(this.cardData.id)
+    api.get_scryfall_card(this.cardData.scryfall_id)
       .then(response => {
         let localUrl = ''
         if (response.data.card_faces) {

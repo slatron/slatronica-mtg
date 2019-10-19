@@ -4,7 +4,7 @@
       <router-link to="/">View All Cards</router-link>
     </div>
     <FlipCard
-      v-if="card.id"
+      v-if="card.scryfall_id"
       v-bind:card-data="card"
     ></FlipCard>
   </div>
@@ -28,8 +28,8 @@ export default {
     let cardID = this.$route.params.cardID;
     api.get_cards()
       .then((cards) => {
-        let alters = cards.data.alters;
-        this.card = alters.find(card => card.id === cardID);
+        let alters = cards.data;
+        this.card = alters.find(card => card.scryfall_id === cardID);
       })
       .catch(error => console.warn(error));
   }

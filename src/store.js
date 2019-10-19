@@ -9,7 +9,7 @@ function builder (data) {
   function _combineListScryfallData(state, cards) {
     // Get all scryfall data to add to local list
     // Then sort deck into categories
-    const card_ids     = tools().pluck(cards, 'id')
+    const card_ids     = tools().pluck(cards, 'scryfall_id')
     const cardPromises = card_ids.map(id => api.get_scryfall_card(id))
     Promise.all(cardPromises)
       .then(cardData => {
@@ -161,7 +161,7 @@ function builder (data) {
         api.get_cards()
           .then(response => {
             let options = {
-              'alters': response.data.alters
+              'alters': response.data
             }
             commit('setGallery', options)
           })
