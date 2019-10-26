@@ -31,6 +31,7 @@
 <script>
 import DrawerContents from '@/components/common/DrawerContents'
 import { tools } from '@/utils/MStools'
+import api from '@/api/api'
 
 export default {
   name: 'AppLayout',
@@ -58,6 +59,18 @@ export default {
   methods: {
     toggleDrawer: function() {
       this.$store.commit('toggleDrawer')
+    }
+  },
+  created: function() {
+    let vm = this
+    const token = window.localStorage.getItem('token')
+    if (token) {
+      api.verify(token)
+        .then(function(response) {
+          if (response.data.verification.username) {
+            vm.$store.commit('setUsername', {username: response.data.verification.username})
+          }
+        })
     }
   }
 }

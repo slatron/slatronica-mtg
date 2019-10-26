@@ -83,6 +83,9 @@ function builder (data) {
       // Sent to store during app initialization
       app_settings: data,
 
+      // Logged-in user
+      username: '',
+
       drawer_open: false,
 
       // Gallery Data
@@ -95,10 +98,14 @@ function builder (data) {
       original_deck_list: [],
       deck_list: [],
       card_count: 0
-      // sort_keys: []
     },
 
     mutations: {
+      // Authentication Mutations
+      setUsername (state, options = {}) {
+        state.username = options.username
+      },
+
       // Layout Mutations
       toggleDrawer (state, options = {}) {
         state.drawer_open = options.hasOwnProperty('force')

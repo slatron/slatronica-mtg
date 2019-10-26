@@ -13,6 +13,7 @@ self.onfetch = function(event) {
            return cachedFiles
        } else {
            try {
+               event = event.clone()
                const response   = await fetch(event.request)
                const requestUrl = event.request.url
                if (requestUrl.startsWith(URL_TO_CACHE) || requestUrl.startsWith(IMG_TO_CACHE)) {

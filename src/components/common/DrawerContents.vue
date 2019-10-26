@@ -1,6 +1,12 @@
 <template>
   <div class="text-blue-700 drawer-menu">
     <ul>
+      <li v-show="!username">
+        <router-link to="/login">login</router-link>
+      </li>
+      <li v-show="username">
+        <span>Hello {{username}}</span>
+      </li>
       <li>
         <router-link to="/">Gallery</router-link>
       </li>
@@ -30,6 +36,9 @@
           <li><router-link to="/blueprint-process">Blueprint Process</router-link></li>
         </ul>
       </li>
+      <li v-show="username">
+        <a v-on:click="logout()">Logout</a>
+      </li>
     </ul>
   </div>
 </template>
@@ -49,7 +58,6 @@ export default {
     AddOutline
   },
   created () {
-    // figure out sorting here
     api.get_posts()
       .then(response => {
         this.reports = response.data.game_reports.sort(tools().sortBy('date', false))
@@ -63,11 +71,20 @@ export default {
       active_nav: ''
     }
   },
+  computed: {
+    username () {
+      return this.$store.state.username
+    }
+  },
   methods: {
     toggle: function (section) {
       this.active_nav = section === this.active_nav
         ? ''
         : section
+    },
+    logout: function() {
+      window.localStorage.removeItem('token')
+      this.$store.commit('setUsername', {username: ''})
     }
   }
 }
@@ -79,12 +96,29 @@ export default {
   padding: 0 0 1rem;
 }
 
+@media (min-width: 768px) {
+  .drawer-menu > ul > li {
+    padding: 0 0 0.5rem;
+  }
+}
+
 .drawer-menu > ul > li > a,
 .drawer-menu > ul > li > span {
   display: block;
   padding: 1rem 0.5rem 0 1rem;
-  cursor: pointer;
   font-size: 1.25em;
+}
+
+@media (min-width: 768px) {
+  .drawer-menu > ul > li > a,
+  .drawer-menu > ul > li > span {
+    padding: 0.5rem 0.25rem 0 0.5rem;
+    font-size: 1em;
+  }
+}
+
+.drawer-menu > ul > li > a {
+  cursor: pointer;
 }
 
 .drawer-menu > ul > li > span > svg {
