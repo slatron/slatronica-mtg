@@ -27,6 +27,16 @@ export default new Router({
       }
     },
     {
+      path: '/login',
+      name: 'LoginPage',
+      props: { default: {page_key: 'login-page'} },
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/LoginPage.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
+    },
+    {
       path: '/edh-mulligan',
       name: 'HouseMulligan',
       props: { default: {page_key: 'edh-house-mulligan'} },
