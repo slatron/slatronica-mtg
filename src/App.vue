@@ -67,8 +67,8 @@ export default {
     if (token) {
       api.verify(token)
         .then(function(response) {
-          if (response.data.username) {
-            vm.$store.commit('setUsername', {username: response.data.username})
+          if (response.data.verification.username) {
+            vm.$store.commit('setUsername', {username: response.data.verification.username})
           }
         })
     }
