@@ -39,9 +39,6 @@
       <li v-show="username">
         <a v-on:click="logout()">Logout</a>
       </li>
-      <li>
-        <a v-on:click="testPost()">test post</a>
-      </li>
     </ul>
   </div>
 </template>
