@@ -39,6 +39,9 @@
       <li v-show="username">
         <a v-on:click="logout()">Logout</a>
       </li>
+      <li>
+        <a v-on:click="testPost()">test post</a>
+      </li>
     </ul>
   </div>
 </template>
@@ -85,6 +88,15 @@ export default {
     logout: function() {
       window.localStorage.removeItem('token')
       this.$store.commit('setUsername', {username: ''})
+    },
+    testPost: function() {
+      api.post_gallery()
+        .then(response => {
+          console.log('post response: ', response)
+        })
+        .catch(error => {
+          console.log('post response error: ', error)
+        })
     }
   }
 }
