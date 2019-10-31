@@ -5,7 +5,7 @@
         <router-link to="/login">login</router-link>
       </li>
       <li v-show="username">
-        <span>Hello {{username}}</span>
+        <span>Hello, {{username}}</span>
       </li>
       <li>
         <router-link to="/">Gallery</router-link>

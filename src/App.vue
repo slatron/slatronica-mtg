@@ -1,7 +1,7 @@
 <template>
   <div class="text-blue-400 layout-wrap relative" v-bind:class="{'drawer-open': drawer_open}">
 
-    <nav id="drawer" class="bottom-0 z-40 bg-gray-200 overflow-hidden fixed">
+    <nav id="drawer" class="z-40 bg-gray-200">
       <DrawerContents />
     </nav>
 
@@ -14,6 +14,8 @@
     <header class="bg-black fixed w-full top-0 z-30">
       <router-view name="header"/>
     </header>
+
+    <AddAlter/>
 
     <main
       class="default-content pt-10 md:pt-16 z-0"
@@ -30,6 +32,7 @@
 
 <script>
 import DrawerContents from '@/components/common/DrawerContents'
+import AddAlter from '@/components/gallery/AddAlter'
 import { tools } from '@/utils/MStools'
 import api from '@/api/api'
 
@@ -46,7 +49,8 @@ export default {
     }
   },
   components: {
-    DrawerContents
+    DrawerContents,
+    AddAlter
   },
   watch: {
     // Close Drawer and set background color
@@ -70,6 +74,10 @@ export default {
           if (response.data.verification.username) {
             vm.$store.commit('setUsername', {username: response.data.verification.username})
           }
+        })
+        .catch(error => {
+          console.log('Your session has expired. Please login again.')
+          window.localStorage.removeItem('token')
         })
     }
   }
@@ -96,6 +104,9 @@ export default {
   border-right: 3px solid purple;
   border-bottom: 3px solid purple;
   border-radius: 0 1rem 1rem 0;
+  overflow-y: auto;
+  position: fixed;
+  bottom: 0;
 }
 
 @media (min-width: 768px) {

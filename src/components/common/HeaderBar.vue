@@ -12,15 +12,21 @@
       </button>
     </div>
     <div>
-      <h1 class="text-blue-600 tracking-wider text-xl md:text-3xl text-center">
+      <h1 class="text-blue-600 tracking-wider text-lg md:text-2xl text-center">
         <router-link :to="{name: 'GalleryPage'}">Slatronica Alters</router-link>
       </h1>
     </div>
     <div class="block">
       <button
+        v-on:click="triggerAdd()"
+        v-bind:class="{'invisible': !has_add}"
+        class="px-3 py-2 border md:border-none rounded text-gray-500 border-gray-500 hover:text-white">
+        <icon-base icon-name="document-add"><DocumentAdd /></icon-base>
+      </button>
+      <button
         v-on:click="toggleFilterMenu"
         v-bind:class="{'active': filters_open, 'invisible': !has_filter}"
-        class="flex items-center px-3 py-2 border md:border-none rounded text-gray-500 border-gray-500 hover:text-white">
+        class="ml-2 px-3 py-2 border md:border-none rounded text-gray-500 border-gray-500 hover:text-white">
         <icon-base icon-name="menu-filter"><MenuFilter /></icon-base>
       </button>
     </div>
@@ -40,7 +46,7 @@ import FilterSwitcher from '@/components/common/FilterSwitcher'
 import api from '@/api/api'
 import IconBase from '@/components/common/IconBase'
 import MenuFilter from '@/components/icons/menu-filter'
-// import IconMenu from '@/components/icons/menu'
+import DocumentAdd from '@/components/icons/document-add'
 
 export default {
   name: 'HeaderBar',
@@ -53,14 +59,21 @@ export default {
   computed: {
     drawer_open () {
       return this.$store.state.drawer_open
+    },
+    has_add () {
+      return (this.$route.name === 'GalleryPage') && (this.$store.state.username !== '')
     }
   },
   components: {
     FilterSwitcher,
     IconBase,
-    MenuFilter
+    MenuFilter,
+    DocumentAdd
   },
   methods: {
+    triggerAdd: function() {
+      this.$store.commit('triggerAdd')
+    },
     toggleFilterMenu: function() {
       this.filters_open = !this.filters_open
     },
