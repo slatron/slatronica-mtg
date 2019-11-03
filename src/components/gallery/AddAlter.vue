@@ -28,6 +28,9 @@
             Save
           </button>
         </fieldset>
+        <fieldset class="error-msg" v-if="msg.length">
+          <span v-on:click="removeMsg()">{{msg}}</span>
+        </fieldset>
       </form>
     </div>
   </div>
@@ -42,7 +45,8 @@ export default {
       scryfall_id: '',
       name: '',
       date: '',
-      tags: []
+      tags: [],
+      msg: ''
     }
   },
   computed: {
@@ -54,6 +58,9 @@ export default {
     closeAlterForm: function () {
       this.$store.commit('triggerAdd')
     },
+    removeMsg: function () {
+      this.msg = ''
+    },
     addCard: function() {
       const newAlter = {
         scryfall_id: this.scryfall_id,
@@ -64,20 +71,22 @@ export default {
       let vm = this
       api.post_gallery(newAlter)
         .then(function(response) {
-          console.log('post_gallery_response: ', response)
+          if (response.data.errors) {
+            vm.msg = response.data.message
+          } else {
+            vm.$store.commit('triggerAdd')
+          }
         })
         .catch(function(error) {
           console.warn(error)
-        })
-        .finally(function() {
-          vm.$store.commit('triggerAdd')
+          vm.msg = 'error posting alter'
         })
     }
   }
 }
 </script>
 
-<style lang="css" scoped>
+<style lang="scss" scoped>
   h2 {
     font-size: 24px;
     margin-bottom: 0.5em;
@@ -94,16 +103,19 @@ export default {
     background: #efefef;
     border-radius: 0 1rem 1rem 0;
     position: fixed;
-    top: 140px;
+    top: 80px;
     left: 10%;
     right: 10%;
+    input {
+      width: 100%;
+    }
   }
+
   @media (min-width: 768px) {
     .add-alterform {
-      margin: 0 auto;
-      max-width: 400px;
-      left: auto;
-      right: auto;
+      top: 140px;
+      left: 30%;
+      right: 30%;
     }
   }
   input {
@@ -121,5 +133,9 @@ export default {
     border-color: #2b6cb0;
     border-width: 1px;
     font-size: 0.75rem;
+  }
+  .error-msg {
+    color: red;
+    cursor: pointer;
   }
 </style>
