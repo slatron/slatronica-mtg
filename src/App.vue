@@ -1,17 +1,17 @@
 <template>
   <div class="text-blue-400 layout-wrap relative" v-bind:class="{'drawer-open': drawer_open}">
 
-    <nav id="drawer" class="z-40 bg-gray-200">
+    <nav id="drawer" class="z-50 bg-gray-200">
       <DrawerContents />
     </nav>
 
     <div
-      class="window-shade opacity-75 z-20 left-0 bottom-0 right-0 overflow-hidden fixed bg-black md:hidden"
+      class="window-shade z-40 md:hidden"
       v-if="drawer_open"
       v-on:click="toggleDrawer()"
     ></div>
 
-    <header class="bg-black fixed w-full top-0 z-30">
+    <header class="bg-black fixed w-full top-0 z-50">
       <router-view name="header"/>
     </header>
 
@@ -89,6 +89,22 @@ export default {
   left: 0;
 }
 
+.window-shade {
+  top: 45px;
+  transition-property: left, top;
+  transition-duration: .5s, .35s;
+  transition-timing-function: ease;
+  opacity: 0.75;
+  z-index: 20;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  position: fixed;
+  background: #000;
+}
+
+
 #drawer,
 .window-shade {
   top: 45px;
@@ -107,12 +123,14 @@ export default {
   overflow-y: auto;
   position: fixed;
   bottom: 0;
+  max-height: 500px;
 }
 
 @media (min-width: 768px) {
   #drawer {
     width: 325px;
     left: -325px;
+    max-height: 350px;
   }
 
   #drawer,

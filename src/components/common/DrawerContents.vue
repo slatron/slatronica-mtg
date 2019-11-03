@@ -2,10 +2,10 @@
   <div class="text-blue-700 drawer-menu">
     <ul>
       <li v-show="!username">
-        <router-link to="/login">login</router-link>
+        <router-link to="/login">Login</router-link>
       </li>
       <li v-show="username">
-        <span>Hello, {{username}}</span>
+        <a v-on:click="logout()">Welcome, {{username}} | Logout</a>
       </li>
       <li>
         <router-link to="/">Gallery</router-link>
@@ -35,9 +35,6 @@
           <li><router-link to="/edh-mulligan">EDH House Mulligan</router-link></li>
           <li><router-link to="/blueprint-process">Blueprint Process</router-link></li>
         </ul>
-      </li>
-      <li v-show="username">
-        <a v-on:click="logout()">Logout</a>
       </li>
     </ul>
   </div>
