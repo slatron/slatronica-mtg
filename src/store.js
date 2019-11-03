@@ -86,7 +86,9 @@ function builder (data) {
       // Logged-in user
       username: '',
 
+      // Layout Data
       drawer_open: false,
+      add_click: false, // toggles when user clicks on add button in header
 
       // Gallery Data
       original_gallery_list: [],
@@ -111,6 +113,10 @@ function builder (data) {
         state.drawer_open = options.hasOwnProperty('force')
           ? options.force
           : !state.drawer_open
+      },
+
+      triggerAdd (state, options = {}) {
+        state.add_click = !state.add_click
       },
 
       // Gallery Mutations

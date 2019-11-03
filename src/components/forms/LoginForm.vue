@@ -1,5 +1,5 @@
 <template lang="html">
-  <form class="">
+  <form class="" v-on:submit.prevent="doLogin">
     <h2>Login</h2>
     <fieldset>
       <label for="">Username:</label>

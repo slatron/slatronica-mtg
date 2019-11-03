@@ -32,8 +32,8 @@ export default {
     })
   },
 
-  post_gallery: () => {
-    return axios.post(`${apiUrl}gallery/`)
+  post_gallery: (postData) => {
+    return axios.post(`${apiUrl}gallery/`, postData)
   },
 
   get_cards: () => {

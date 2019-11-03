@@ -6,12 +6,17 @@ Made to evaluate [Vue](https://cli.vuejs.org/config/) as a front end web app fra
 
 Also to show off my painted magic cards.
 
-## Completed Major Features
+## Completed Features
 
 - [gallery page](https://slatron.github.io/slatronica-mtg)
 - [decklist page](https://slatron.github.io/slatronica-mtg/#/decks)
 - [drawer navigation](https://slatron.github.io/slatronica-mtg)
+- [EDH Game Reports](https://slatron.github.io/slatronica-mtg/#/all-reports)
+- [Process Page](https://slatron.github.io/slatronica-mtg/#/blueprint-process)
+- [API Authentication](https://slatron.github.io/slatronica-mtg/#/login)
 
-## Major Feature In Progress
+## Features In Progress
 
-- Blog Section
+- UI forms for API/DB interactions
+- Move .json files to Mongo
+- Life Tracker
