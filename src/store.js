@@ -136,6 +136,10 @@ function builder (data) {
         // Apply Sort
         state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction))
       },
+      deleteAlter (state, options) {
+        const alterIdx = state.gallery_list.findIndex(alter => alter._id === options.id)
+        state.gallery_list.splice(alterIdx, 1)
+      },
 
       // Decklist Mutations
       setDecks (state, options) {
@@ -181,6 +185,16 @@ function builder (data) {
           .catch(error => {
             console.warn('error getting altered card list: ')
             console.error(error);
+          })
+      },
+      deleteAlter (state, options) {
+        api.delete_alter(options.id)
+          .then(() => {
+            state.commit('deleteAlter', options)
+          })
+          .catch(err => {
+            console.warn(' ** Err Deleting Alter')
+            console.error(err);
           })
       },
 

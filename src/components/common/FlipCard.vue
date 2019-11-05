@@ -1,5 +1,26 @@
 <template>
   <div class="card-image-grid">
+    <h5
+      class="card-heading"
+    >
+      {{cardData.name || title}}
+
+      <button
+        v-if="username"
+        v-on:click="editAlter(cardData._id)"
+        class="edit-alter"
+      >
+        <icon-base icon-name="edit-icon"><EditIcon /></icon-base>
+      </button>
+
+      <button
+        v-if="username"
+        v-on:click="deleteAlter(cardData._id)"
+        class="delete-alter"
+      >
+        <icon-base icon-name="trash-icon"><TrashIcon /></icon-base>
+      </button>
+    </h5>
     <div
       class="card-image"
       v-on:click="flip()"
@@ -13,12 +34,14 @@
         <img class="card" :src="imgUrl">
       </div>
     </div>
-    <h5>{{title}}</h5>
   </div>
 </template>
 
 <script>
 import api from '@/api/api'
+import IconBase from '@/components/common/IconBase'
+import EditIcon from '@/components/icons/edit-pencil'
+import TrashIcon from '@/components/icons/trash'
 
 export default {
   name: 'FlipCard',
@@ -31,6 +54,16 @@ export default {
       imgUrl: '',
       flipped: false,
       localImg: ''
+    }
+  },
+  components: {
+    IconBase,
+    EditIcon,
+    TrashIcon
+  },
+  computed: {
+    username () {
+      return this.$store.state.username
     }
   },
   created: function () {
@@ -55,17 +88,39 @@ export default {
   methods: {
     flip: function () {
       this.flipped = !this.flipped
+    },
+    deleteAlter: function(id) {
+      if (window.confirm('Confirm Delete')) {
+        this.$store.dispatch('deleteAlter', {
+          'id': id
+        })
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+.card-heading {
+  margin-bottom: 0.25em;
+  text-align:left;
+}
+button {
+  color: #a0aec0;
+}
+button:hover {
+  color: #fff;
+}
+.delete-alter {
+  float: right;
+}
+.edit-alter {
+  font-size: 10px;
+}
 .card-image-grid {
   position: relative;
   display: inline-block;
   width: 300px;
-  height: 344px;
 }
 .card-image {
   transform-style: preserve-3d;
@@ -95,9 +150,5 @@ export default {
 }
 .card-image.flipped {
   transform: rotateY(-180deg);
-}
-h5 {
-  position: absolute;
-  bottom: -100px;
 }
 </style>
