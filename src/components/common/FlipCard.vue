@@ -90,10 +90,11 @@ export default {
       this.flipped = !this.flipped
     },
     deleteAlter: function(id) {
-      api.delete_alter(id)
-        .then(response => console.log(' ** response ', response))
-        .catch(err => console.log(' ** err ', err))
-        .finally(() => console.log(' ** finally'))
+      if (window.confirm('Confirm Delete')) {
+        this.$store.dispatch('deleteAlter', {
+          'id': id
+        })
+      }
     }
   }
 }
