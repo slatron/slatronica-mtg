@@ -19,37 +19,49 @@ axios.interceptors.request.use(function (config) {
   });
 
 export default {
+  // /authenticate
+  // -----------------------------------------------------------
   login: (username, password) => {
     return axios.post(`${apiUrl}authenticate`, {
       username: username,
       password: password
     })
   },
-
   verify: (token) => {
     return axios.post(`${apiUrl}authenticate/verify`, {
       token: token
     })
   },
 
+  // /gallery
+  // -----------------------------------------------------------
   post_gallery: (postData) => {
     return axios.post(`${apiUrl}gallery/`, postData)
   },
-
+  delete_alter: id => {
+    return axios.delete(`${apiUrl}gallery/${id}`)
+  },
   get_cards: () => {
     return axios.get(`${apiUrl}gallery/`)
   },
+  // update_card: () => {
+  //   return axios.update(`${apiUrl}gallery/`)
+  // },
 
+  // external
+  // -----------------------------------------------------------
+  get_scryfall_card: id => {
+    return axios.get(`https://api.scryfall.com/cards/${id}`)
+  },
+
+  // local json
+  // -----------------------------------------------------------
   get_settings: () => {
     return axios.get(`${baseUrl}data/settings.json`)
   },
 
   get_decks: () => {
     return axios.get(`${baseUrl}data/decks.json`)
-  },
-
-  get_scryfall_card: id => {
-    return axios.get(`https://api.scryfall.com/cards/${id}`)
   },
 
   get_pages: () => {

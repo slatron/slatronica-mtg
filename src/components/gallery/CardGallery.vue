@@ -50,7 +50,7 @@ export default {
   position: relative;
   display: inline-block;
   width: 300px;
-  height: 420px;
+  height: 440px;
 }
 
 </style>
