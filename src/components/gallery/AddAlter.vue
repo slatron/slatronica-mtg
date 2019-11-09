@@ -5,7 +5,7 @@
       v-on:click="closeAlterForm()"
     ></div>
     <div class="add-alterform z-20">
-      <form v-on:submit.prevent="addCard">
+      <form v-on:submit.prevent="newAlter">
         <h2>Add New Alter</h2>
         <fieldset>
           <label for="scryfall_id">Scryfall ID</label>
@@ -24,7 +24,7 @@
           <input type="text" name="tags" v-model="tags">
         </fieldset>
         <fieldset class="text-right">
-          <button type="button" name="button" v-on:click="addCard()">
+          <button type="button" name="button" v-on:click="newAlter()">
             Save
           </button>
         </fieldset>
@@ -61,26 +61,16 @@ export default {
     removeMsg: function () {
       this.msg = ''
     },
-    addCard: function() {
+    newAlter: function() {
       const newAlter = {
         scryfall_id: this.scryfall_id,
         name: this.name,
         date: this.date,
         tags: this.tags
       }
-      let vm = this
-      api.post_gallery(newAlter)
-        .then(function(response) {
-          if (response.data.errors) {
-            vm.msg = response.data.message
-          } else {
-            vm.$store.commit('triggerAdd')
-          }
-        })
-        .catch(function(error) {
-          console.warn(error)
-          vm.msg = 'error posting alter'
-        })
+      this.$store.dispatch('postAlter', {
+        'alter': newAlter
+      })
     }
   }
 }

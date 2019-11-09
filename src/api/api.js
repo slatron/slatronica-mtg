@@ -11,7 +11,7 @@ let apiUrl = window.location.host === 'localhost:8080'
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
     var token = window.localStorage.getItem('token')
-    if (token)
+    if (token && (config.method !== 'get'))
       config.headers['x-access-token'] = token
     return config;
   }, function (error) {
@@ -44,9 +44,9 @@ export default {
   get_cards: () => {
     return axios.get(`${apiUrl}gallery/`)
   },
-  // update_card: () => {
-  //   return axios.update(`${apiUrl}gallery/`)
-  // },
+  update_card: (putData) => {
+    return axios.put(`${apiUrl}gallery/`, putData)
+  },
 
   // external
   // -----------------------------------------------------------

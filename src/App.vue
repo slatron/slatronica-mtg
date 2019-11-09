@@ -142,4 +142,9 @@ export default {
 body {
   transition: background-color 1.5s ease;
 }
+
+// state classes
+.hand {
+  cursor: pointer;
+}
 </style>

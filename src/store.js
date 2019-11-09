@@ -125,6 +125,11 @@ function builder (data) {
         state.original_gallery_list = alters
         state.gallery_list = options.alters.sort(tools().sortBy('date', false))
       },
+      addAlter (state, options) {
+        const alter = options.alter
+        state.gallery_list.push(alter)
+        state.gallery_list.sort(tools().sortBy('date', false))
+      },
       sortGallery (state, options) {
         state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction))
       },
@@ -195,6 +200,31 @@ function builder (data) {
           .catch(err => {
             console.warn(' ** Err Deleting Alter')
             console.error(err);
+          })
+      },
+      postAlter (state, options) {
+        api.post_gallery(options.alter)
+          .then(function(response) {
+            if (response.data.errors) {
+              console.warn(' ** Error posting new alter', response.data.message);
+            } else {
+              state.commit('triggerAdd')
+              state.commit('addAlter', {'alter': options.alter})
+            }
+          })
+          .catch(function(error) {
+            console.warn(' ** error posting alter', error)
+          })
+      },
+      putAlter (state, options) {
+        api.update_card(options.alter)
+          .then(function(response) {
+            if (response.data.errors) {
+              console.warn(' ** Error updating alter', response.data.message);
+            }
+          })
+          .catch(function(error) {
+            console.error(' ** error updating alter', error)
           })
       },
 
