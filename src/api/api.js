@@ -44,9 +44,9 @@ export default {
   get_cards: () => {
     return axios.get(`${apiUrl}gallery/`)
   },
-  // update_card: () => {
-  //   return axios.update(`${apiUrl}gallery/`)
-  // },
+  update_card: (putData) => {
+    return axios.put(`${apiUrl}gallery/`, putData)
+  },
 
   // external
   // -----------------------------------------------------------

@@ -216,6 +216,17 @@ function builder (data) {
             console.warn(' ** error posting alter', error)
           })
       },
+      putAlter (state, options) {
+        api.update_card(options.alter)
+          .then(function(response) {
+            if (response.data.errors) {
+              console.warn(' ** Error updating alter', response.data.message);
+            }
+          })
+          .catch(function(error) {
+            console.error(' ** error updating alter', error)
+          })
+      },
 
       // Decklist Actions
       initDecks (state) {

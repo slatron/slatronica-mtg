@@ -3,16 +3,16 @@
     <h5
       class="card-heading"
     >
-      {{cardData.name || title}}
-
-      <button
-        v-if="username"
-        v-on:click="editAlter(cardData._id)"
-        class="edit-alter"
+      <span
+        v-bind:class="{'hand': username}"
+        v-show="!editNameMode"
+        v-on:click="editNameToggle()"
       >
-        <icon-base icon-name="edit-icon"><EditIcon /></icon-base>
-      </button>
-
+        {{cardData.name}}
+      </span>
+      <form v-on:submit="handleEditName(cardData._id)" v-show="editNameMode">
+        <input v-model="cardData.name">
+      </form>
       <button
         v-if="username"
         v-on:click="deleteAlter(cardData._id)"
@@ -53,7 +53,8 @@ export default {
       title: '',
       imgUrl: '',
       flipped: false,
-      localImg: ''
+      localImg: '',
+      editNameMode: false
     }
   },
   components: {
@@ -68,6 +69,7 @@ export default {
   },
   created: function () {
     let vm = this
+    vm.cardData.name = vm.cardData.name || title
     api.get_scryfall_card(this.cardData.scryfall_id)
       .then(response => {
         let localUrl = ''
@@ -95,6 +97,20 @@ export default {
           'id': id
         })
       }
+    },
+    editNameToggle: function(id) {
+      if (this.username) {
+        this.editNameMode = !this.editNameMode
+      }
+    },
+    handleEditName: function(id) {
+      this.$store.dispatch('putAlter', {
+        'alter': {
+          'id': id,
+          'name': this.cardData.name
+        }
+      })
+      this.editNameMode = false
     }
   }
 }
@@ -104,6 +120,9 @@ export default {
 .card-heading {
   margin-bottom: 0.25em;
   text-align:left;
+}
+.card-heading > form {
+  display: inline-block;
 }
 button {
   color: #a0aec0;
@@ -116,6 +135,7 @@ button:hover {
 }
 .edit-alter {
   font-size: 10px;
+  padding-left: 0.5em;
 }
 .card-image-grid {
   position: relative;

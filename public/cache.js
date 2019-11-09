@@ -23,7 +23,7 @@ self.onfetch = function(event) {
                  return fetch(event.request)
                }
            } catch(e) {
-             console.log('ERROR from cache.js await fetch block: ', e)
+             // console.log('ERROR from cache.js await fetch block: ', e)
              return fetch(event.request)
            }
        }
