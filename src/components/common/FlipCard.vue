@@ -2,6 +2,7 @@
   <div class="card-image-grid">
     <h5
       class="card-heading"
+      v-show="!this.cardOnly"
     >
       <span
         v-bind:class="{'hand': username}"
@@ -46,7 +47,8 @@ import TrashIcon from '@/components/icons/trash'
 export default {
   name: 'FlipCard',
   props: {
-    cardData: Object
+    cardData: Object,
+    cardOnly: Boolean
   },
   data: () => {
     return {
@@ -64,7 +66,7 @@ export default {
   },
   computed: {
     username () {
-      return this.$store.state.username
+      return this.$store.state.username && !this.cardOnly
     }
   },
   created: function () {

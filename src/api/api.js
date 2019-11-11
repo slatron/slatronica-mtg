@@ -48,6 +48,12 @@ export default {
     return axios.put(`${apiUrl}gallery/`, putData)
   },
 
+  // /decks
+  // -----------------------------------------------------------
+  get_decks: () => {
+    return axios.get(`${apiUrl}decks/`)
+  },
+
   // external
   // -----------------------------------------------------------
   get_scryfall_card: id => {
@@ -58,10 +64,6 @@ export default {
   // -----------------------------------------------------------
   get_settings: () => {
     return axios.get(`${baseUrl}data/settings.json`)
-  },
-
-  get_decks: () => {
-    return axios.get(`${baseUrl}data/decks.json`)
   },
 
   get_pages: () => {

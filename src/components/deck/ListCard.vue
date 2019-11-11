@@ -18,7 +18,7 @@
     >
       <span
         v-on:click="show(false)"
-        class="button-close text-white bg-black md:invisible"
+        class="button-close text-white bg-black md:hidden"
       >
         <icon-base icon-name="close-outline"><CloseOutline /></icon-base>
       </span>
@@ -26,11 +26,16 @@
         :src="imgUrl"
         v-if="!(cardData.has_alter)"
       >
-      <FlipCard
+      <div
+        class="flip-container"
         v-if="cardData.has_alter"
-        v-bind:key="cardData.name"
-        v-bind:card-data="cardData"
-      ></FlipCard>
+      >
+        <FlipCard
+          v-bind:key="cardData.name"
+          v-bind:card-data="cardData"
+          v-bind:card-only="true"
+        ></FlipCard>
+      </div>
     </div>
   </div>
 </template>
@@ -85,7 +90,6 @@ export default {
   }
   .card-hover {
     position: absolute;
-    top: 35px;
     left: 10px;
     z-index: 100000;
     width: 300px;
@@ -94,5 +98,9 @@ export default {
     position: absolute;
     top: -7px;
     right: -7px;
+  }
+  .flip-container {
+    position: relative;
+    top: -15px;
   }
 </style>

@@ -232,7 +232,7 @@ function builder (data) {
       initDecks (state) {
         api.get_decks()
           .then(response => {
-            const decks = response.data.decks
+            const decks = response.data
             const deckOptions = {
               'decks': decks
             }
