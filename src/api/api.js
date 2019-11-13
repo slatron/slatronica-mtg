@@ -44,7 +44,7 @@ export default {
   get_cards: () => {
     return axios.get(`${apiUrl}gallery/`)
   },
-  update_card: (putData) => {
+  update_gallery_card: (putData) => {
     return axios.put(`${apiUrl}gallery/`, putData)
   },
 
@@ -52,6 +52,9 @@ export default {
   // -----------------------------------------------------------
   get_decks: () => {
     return axios.get(`${apiUrl}decks/`)
+  },
+  add_deck_card: (cardData, deckId) => {
+    return axios.put(`${apiUrl}decks/${deckId}/card/`, cardData)
   },
 
   // external

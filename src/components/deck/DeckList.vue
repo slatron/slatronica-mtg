@@ -1,6 +1,6 @@
 <template>
   <div class="deck-container">
-
+    <AddCard/>
     <h2 class="text-xl m-3 text-blue-600 tracking-wide">
       {{current_deck.name}} |
       <span class="text-sm">{{current_deck.format}}</span> |
@@ -29,11 +29,13 @@
 
 <script>
 import ListCard from '@/components/deck/ListCard'
+import AddCard from '@/components/deck/AddCard'
 
 export default {
   name: 'DeckList',
   components: {
-    ListCard
+    ListCard,
+    AddCard
   },
   computed: {
     deck_list () {

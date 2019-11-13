@@ -10,6 +10,9 @@
       <li>
         <router-link to="/">Gallery</router-link>
       </li>
+      <li>
+        <router-link to="/decks">Decks</router-link>
+      </li>
       <li v-bind:class="{'active': active_nav === 'reports'}">
         <span v-on:click="toggle('reports')">
           EDH Reports

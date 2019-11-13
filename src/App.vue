@@ -15,8 +15,6 @@
       <router-view name="header"/>
     </header>
 
-    <AddAlter/>
-
     <main
       class="default-content pt-10 md:pt-16 z-0"
     >
@@ -32,7 +30,6 @@
 
 <script>
 import DrawerContents from '@/components/common/DrawerContents'
-import AddAlter from '@/components/gallery/AddAlter'
 import { tools } from '@/utils/MStools'
 import api from '@/api/api'
 
@@ -49,8 +46,7 @@ export default {
     }
   },
   components: {
-    DrawerContents,
-    AddAlter
+    DrawerContents
   },
   watch: {
     // Close Drawer and set background color

@@ -61,7 +61,7 @@ export default {
       return this.$store.state.drawer_open
     },
     has_add () {
-      return (this.$route.name === 'GalleryPage') && (this.$store.state.username !== '')
+      return (['GalleryPage', 'DeckPage'].indexOf(this.$route.name) > -1) && (this.$store.state.username !== '')
     }
   },
   components: {

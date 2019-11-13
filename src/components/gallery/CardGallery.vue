@@ -1,5 +1,6 @@
 <template>
   <div class="grid-container">
+    <AddAlter/>
     <div
       class="image-container text-blue-500 tracking-wide"
       v-for="card in gallery_list"
@@ -14,6 +15,7 @@
 
 <script>
 import FlipCard from '@/components/common/FlipCard'
+import AddAlter from '@/components/gallery/AddAlter'
 import api from '@/api/api'
 
 export default {
@@ -24,7 +26,8 @@ export default {
     }
   },
   components: {
-    FlipCard
+    FlipCard,
+    AddAlter
   },
   computed: {
     gallery_list () {
