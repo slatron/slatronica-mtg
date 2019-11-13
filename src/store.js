@@ -217,7 +217,7 @@ function builder (data) {
           })
       },
       putAlter (state, options) {
-        api.update_card(options.alter)
+        api.update_gallery_card(options.alter)
           .then(function(response) {
             if (response.data.errors) {
               console.warn(' ** Error updating alter', response.data.message);
@@ -256,6 +256,18 @@ function builder (data) {
         const allQuantities = tools().pluck(options.deck.cards, 'quantity')
         const addValuesReducer = (acc, cur) => acc + cur;
         state.commit('setCardCount', {'count': allQuantities.reduce(addValuesReducer)})
+      },
+      addDeckCard(state, options) {
+        debugger
+        api.add_deck_card(options.card, state.state.current_deck._id)
+          .then(function(response) {
+            if (response.data.errors) {
+              console.warn(' ** Error updating alter', response.data.message);
+            }
+          })
+          .catch(function(error) {
+            console.error(' ** error updating alter', error)
+          })
       }
     }
   })
