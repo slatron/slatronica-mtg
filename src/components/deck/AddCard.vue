@@ -7,9 +7,17 @@
     <div class="add-cardform z-20">
       <form v-on:submit.prevent="addDeckCard">
         <h2>Add New Card</h2>
-        <fieldset>
-          <label for="scryfall_id">Scryfall ID</label>
-          <input type="text" name="scryfall_id" v-model="scryfall_id">
+        <div class="card-selected">
+          Selected: {{card_selected}}
+        </div>
+        <fieldset class="autocomplete-fieldset">
+          <label for="search_term">Search Names</label>
+          <input type="text" v-model="search_term">
+          <ul class="autocomplete-list" v-show="autocomplete_names.length">
+            <li v-for="name in autocomplete_names">
+              <a v-on:click="selectName(name)">{{name}}</a>
+            </li>
+          </ul>
         </fieldset>
         <fieldset>
           <label for="scryfall_id">Name</label>
@@ -34,14 +42,18 @@
 
 <script>
 import api from '@/api/api'
+import { tools } from '@/utils/MStools'
 export default {
   name: 'addCard',
   data: () => {
     return {
+      search_term: '',
       scryfall_id: '',
       name: '',
       has_alter: false,
-      msg: ''
+      msg: '',
+      autocomplete_names: [],
+      card_selected: ''
     }
   },
   computed: {
@@ -49,7 +61,33 @@ export default {
       return this.$store.state.add_click
     }
   },
+  watch: {
+    search_term: function (newTerm, oldTerm) {
+      this.autocomplete_names = []
+      this.debounceSearchCards()
+    }
+  },
+  created: function() {
+    this.debounceSearchCards = tools().debounce(this.searchCards, 500)
+  },
   methods: {
+    selectName: function(name) {
+      this.autocomplete_names = []
+      api.get_card_named(name)
+        .then(card => {
+          this.card_selected = card.data.name
+          this.scryfall_id = card.data.id
+        })
+        .catch(err => console.error(err))
+    },
+    searchCards: function() {
+      this.autocomplete_names = ['** ...loading... **']
+      api.search_scryfall_names(this.search_term)
+        .then(cards => {
+          this.autocomplete_names = cards.data.data
+        })
+        .catch(err => console.error(err))
+    },
     closeForm: function () {
       this.$store.commit('triggerAdd')
     },
@@ -65,6 +103,7 @@ export default {
       this.$store.dispatch('addDeckCard', {
         'card': newCard
       })
+      this.closeForm()
     }
   }
 }
@@ -121,5 +160,35 @@ export default {
   .error-msg {
     color: red;
     cursor: pointer;
+  }
+
+  .autocomplete-fieldset {
+    position: relative;
+  }
+
+  .autocomplete-list {
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+
+    position: absolute;
+    top: 50px;
+    max-height: 100px;
+    overflow-y: auto;
+
+    background: #eee;
+
+    li {
+      border-bottom: 1px solid #000;
+      color: #000;
+      font-size: 11px;
+      padding: 1px 4px;
+      cursor: pointer;
+    }
+
+    li:hover {
+      background: #d5d4d3;
+    }
   }
 </style>

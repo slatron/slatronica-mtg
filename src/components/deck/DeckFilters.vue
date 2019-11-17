@@ -37,8 +37,6 @@
 </template>
 
 <script>
-import { tools } from '@/utils/MStools'
-
 export default {
   name: 'DeckFilters',
   data () {
