@@ -103,7 +103,15 @@ function builder (data) {
           'includes': options.includes
         })
       },
-
+      addDeckCard (state, options) {
+        const category = deckTools().getCardCategoryName(options.card)
+        if (!(category in state.deck_list)) {
+          state.deck_list[category] = []
+        }
+        deckTools().prepCardForDeckpageDisplay(options.card)
+        tools().fastPush(state.deck_list[category], options.card)
+        state.deck_list = {...state.deck_list}
+      }
     },
 
     actions: {
@@ -192,12 +200,17 @@ function builder (data) {
       addDeckCard(state, options) {
         api.add_deck_card(options.card, state.state.current_deck._id)
           .then(function(response) {
-            if (response.data.errors) {
-              console.warn(' ** Error updating alter', response.data.message);
-            }
+            if (response.data.errors) console.warn('tripped error in add card response')
+            deckTools().combineCardWithScryfallData(options.card)
+              .then(function(card) {
+                state.commit('addDeckCard', {'card': card})
+              })
+              .catch(function(error) {
+                console.error(' ** error adding new card', error)
+              })
           })
           .catch(function(error) {
-            console.error(' ** error updating alter', error)
+            console.error(' ** error adding new card', error)
           })
       }
     }

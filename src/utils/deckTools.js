@@ -4,17 +4,47 @@ import api from '@/api/api'
 export const deckTools = () => {
   return {
     combineCardWithScryfallData: function(card) {
-      api.get_scryfall_card(card.scryfall_id)
+      return api.get_scryfall_card(card.scryfall_id)
         .then(function(scryeCard) {
-          return {...scryeCard, ...card}
+          return {...scryeCard.data, ...card}
         })
     },
+
+    getCardCategoryName: function(card) {
+      // Fix extra words in type_line (ex... Legendary)
+      // Make all planeswalkers category: "Planeswalker"
+      // Make all creatures category: "Creature"
+      // Make all lands category: "Land"
+      // Else use type_line as category
+      return (card.type_line.indexOf('Planeswalker') > -1)
+        ? 'Planeswalker'
+        : (card.type_line.indexOf('Artifact') > -1)
+          ? 'Artifact'
+          : (card.type_line.indexOf('Enchantment') > -1)
+            ? 'Enchantment'
+            : (card.type_line.indexOf('Creature') > -1)
+              ? 'Creature'
+              : (card.type_line.indexOf('Land') > -1)
+                ? 'Land'
+                : card.type_line
+    },
+
+    prepCardForDeckpageDisplay: function(card) {
+      // For cards with 2 faces, merge card data with first face
+      if ('card_faces' in card) {
+        card = {...card, ...card.card_faces[0]}
+      }
+      // Add "C" to colorless cards for filtering data
+      if (card.colors.length === 0) {
+        card.colors = ['C']
+      }
+    },
+
     combineListScryfallData: function(cards) {
       // Get all scryfall data to add to local list
       // Then sort deck into categories
       const card_ids     = tools().pluck(cards, 'scryfall_id')
       const cardPromises = card_ids.map(id => api.get_scryfall_card(id))
-
       return Promise.all(cardPromises)
         .then(cardData => {
           const scryeCards = cardData.map(responseData => responseData.data)
@@ -25,32 +55,17 @@ export const deckTools = () => {
             : decks[0].cards
           const groupedCards = {}
           combinedDataCardlist.forEach(card => {
-            // Make all lands type: "Land"
-            // Make all legendary creatures type: "Creature"
-            const type = (card.type_line.indexOf('Land') > -1)
-              ? 'Land'
-              : (card.type_line.indexOf('Creature') > -1)
-                ? 'Creature'
-                : card.type_line
-
-            if (!(type in groupedCards)) {
-              groupedCards[type] = []
+            const category = this.getCardCategoryName(card)
+            if (!(category in groupedCards)) {
+              groupedCards[category] = []
             }
-
-            // For cards with 2 faces, merge card data with first face
-            if ('card_faces' in card) {
-              card = {...card, ...card.card_faces[0]}
-            }
-
-            // Add "C" to colorless cards for filtering data
-            if (card.colors.length === 0) {
-              card.colors = ['C']
-            }
-            tools().fastPush(groupedCards[type], card)
+            this.prepCardForDeckpageDisplay(card)
+            tools().fastPush(groupedCards[category], card)
           })
           return groupedCards
         })
     },
+
     filterByColor: function(options) {
       // Fix for double-faced cards
       let filteredDeck = {}
@@ -64,18 +79,5 @@ export const deckTools = () => {
       })
       return filteredDeck
     }
-    // This creates a hash of sorted type categories by card length
-    // - could be useful when responsive screens resort deck card types
-    //
-    // function _getSortKeys(deckList) {
-    //   const typesUsed = Object.keys(deckList)
-    //   const sortArray = typesUsed.map(type => {
-    //     let sortKey = {'name': type}
-    //     sortKey.count = deckList[type].length
-    //     return sortKey
-    //   })
-    //   const sortKeys = sortArray.sort(tools().sortBy('count'))
-    //   return sortKeys
-    // }
   }
 }
