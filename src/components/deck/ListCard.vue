@@ -63,14 +63,14 @@ export default {
     api.get_scryfall_card(this.cardData.scryfall_id)
       .then(response => {
         const hasFaces = response.data.card_faces
-        vm.title  = this.cardData.name || response.data.name || ''
+        vm.title  = this.cardData.name || response.data.name
         vm.imgUrl = hasFaces
                     ? response.data.card_faces[0].image_uris.normal
                     : response.data.image_uris.border_crop
       })
       .catch(error => console.warn('OOPS: ',  error))
     return {
-      title: '',
+      title: 'loading...',
       imgUrl: '',
       visible: false
     };

@@ -28,6 +28,7 @@ function builder (data) {
       current_deck: {},
       original_deck_list: [],
       deck_list: [],
+      decklist_loading: false,
       card_count: 0
     },
 
@@ -76,6 +77,9 @@ function builder (data) {
       },
 
       // Decklist Mutations
+      decklistLoading (state, options) {
+        state.decklist_loading = options.loading
+      },
       setDecks (state, options) {
         const decks = options.decks
         state.original_decks = decks
@@ -90,7 +94,6 @@ function builder (data) {
 
         const deckList   = options.deckList
         state.deck_list  = deckList
-        // state.sort_keys  = _getSortKeys(deckList)
       },
       setCardCount (state, options) {
         state.card_count = options.count
@@ -188,6 +191,7 @@ function builder (data) {
           })
       },
       selectDeck(state, options) {
+        state.commit('decklistLoading', {loading: true})
         deckTools().combineListScryfallData(options.deck.cards)
           .then(function(groupedCards) {
             state.commit('setDecklist', {'deckList': groupedCards})
@@ -196,8 +200,15 @@ function builder (data) {
             const addValuesReducer = (acc, cur) => acc + cur;
             state.commit('setCardCount', {'count': allQuantities.reduce(addValuesReducer)})
           })
+          .catch(function(error) {
+            console.error(' ** error adding new card', error)
+          })
+          .finally(function() {
+            state.commit('decklistLoading', {loading: false})
+          })
       },
       addDeckCard(state, options) {
+        state.commit('decklistLoading', {loading: true})
         api.add_deck_card(options.card, state.state.current_deck._id)
           .then(function(response) {
             if (response.data.errors) console.warn('tripped error in add card response')
@@ -207,6 +218,9 @@ function builder (data) {
               })
               .catch(function(error) {
                 console.error(' ** error adding new card', error)
+              })
+              .finally(function() {
+                state.commit('decklistLoading', {loading: false})
               })
           })
           .catch(function(error) {
