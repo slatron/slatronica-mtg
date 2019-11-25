@@ -118,9 +118,10 @@ export default {
       this.msg = ''
     },
     addDeckCard: function() {
+      if (!this.scryfall_id) return false
       const newCard = {
         scryfall_id: this.scryfall_id,
-        name: this.name,
+        name: this.name || '',
         has_alter: this.has_alter,
         quantity: 1
       }
@@ -128,6 +129,12 @@ export default {
         'card': newCard
       })
       this.closeForm()
+      this.search_term        = ''
+      this.scryfall_id        = ''
+      this.name               = ''
+      this.has_alter          = false
+      this.autocomplete_names = []
+      this.card_selected      = ''
     }
   }
 }
@@ -137,6 +144,11 @@ export default {
   h2 {
     font-size: 24px;
     margin-bottom: 0.5em;
+  }
+  .loading-container-black img {
+    background: #000;
+    padding: 5px;
+    display: inline-block;
   }
   .add-card-container {
     position: absolute;
@@ -214,7 +226,6 @@ export default {
     li:hover {
       background: #d5d4d3;
     }
-
     .list-loading {
       background: #000;
     }

@@ -19,7 +19,7 @@
 import api from '@/api/api'
 export default {
   name: 'LoginForm',
-  data: function() {
+  data: () => {
     return {
       username: '',
       password: '',
@@ -34,7 +34,7 @@ export default {
           if (response.data.token) {
             window.localStorage.setItem('token', response.data.token)
             vm.$store.commit('setUsername', {username: vm.username})
-            vm.$router.push('/')
+            vm.$router.go(-1)
           }
           else {
             window.localStorage.removeItem('token')

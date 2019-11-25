@@ -128,6 +128,11 @@ function builder (data) {
         let originalCard = state.current_deck.cards.find(card => card._id === options.card_id)
         state.deck_list[options.category].splice(state.deck_list[options.category].indexOf(currentCard), 1)
         state.current_deck.cards.splice(state.current_deck.cards.indexOf(originalCard), 1)
+
+        // Check for empty category delete
+        if (state.deck_list[options.category].length === 0) {
+          delete state.deck_list[options.category]
+        }
       }
     },
 

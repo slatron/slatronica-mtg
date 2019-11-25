@@ -1,12 +1,17 @@
 <template>
   <div class="deck-card-controls">
-    <section class="quantity-controls-bg"></section>
+    <section
+      class="quantity-controls-bg"
+      v-bind:class="{'hover-green': quantity_color_green, 'hover-red': quantity_color_red}"
+    ></section>
     <button
       v-on:click="addQuantity()"
       class="add-icon" type="button" name="button">
       <icon-base
         v-bind:width="28"
         v-bind:height="28"
+        @mouseover.native="upHover(true)"
+        @mouseleave.native="upHover(false)"
         icon-name="add-solid"
       >
         <AddSolid />
@@ -18,6 +23,8 @@
       <icon-base
         v-bind:width="28"
         v-bind:height="28"
+        @mouseover.native="downHover(true)"
+        @mouseleave.native="downHover(false)"
         icon-name="minus-solid"
       >
         <MinusSolid />
@@ -38,10 +45,22 @@ export default {
     MinusSolid,
     IconBase
   },
+  data() {
+    return {
+      quantity_color_green: false,
+      quantity_color_red: false
+    }
+  },
   props: {
     card: Object
   },
   methods: {
+    upHover: function(on) {
+      this.quantity_color_green = on
+    },
+    downHover: function(on) {
+      this.quantity_color_red = on
+    },
     addQuantity: function() {
       const options = {
         'card_id': this.card._id,
@@ -95,6 +114,7 @@ export default {
     background: #fff;
     opacity: 0.45;
     border-radius : 0 1rem 1rem 0;
+    transition: all 1s ease;
   }
   [class*="-icon"] {
     outline: none;
@@ -105,14 +125,14 @@ export default {
   }
   .add-icon {
     top: 64px;
-    &:hover {
-      color: green;
-    }
   }
   .remove-icon {
     top: 105px;
-    &:hover {
-      color: red;
-    }
+  }
+  .hover-green {
+    background-color: green;
+  }
+  .hover-red {
+    background-color: red;
   }
 </style>
