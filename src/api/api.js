@@ -56,7 +56,13 @@ export default {
     return axios.get(`${apiUrl}decks/`)
   },
   add_deck_card: (cardData, deckId) => {
-    return axios.put(`${apiUrl}decks/${deckId}/card/`, cardData)
+    return axios.put(`${apiUrl}decks/${deckId}/addcard/`, cardData)
+  },
+  update_deck_card: (deckId, options) => {
+    return axios.put(`${apiUrl}decks/${deckId}/updateCard/`, options)
+  },
+  remove_deck_card: (deckId, options) => {
+    return axios.delete(`${apiUrl}decks/${deckId}/card/${options.card_id}`, options)
   },
 
   // external

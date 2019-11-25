@@ -112,8 +112,22 @@ function builder (data) {
           state.deck_list[category] = []
         }
         deckTools().prepCardForDeckpageDisplay(options.card)
+        options.card.category = category
         tools().fastPush(state.deck_list[category], options.card)
+        tools().fastPush(state.current_deck.cards, options.card)
         state.deck_list = {...state.deck_list}
+      },
+      updateDeckCard (state, options) {
+        let currentCard = state.deck_list[options.category].find(card => card._id === options.card_id)
+        let originalCard = state.current_deck.cards.find(card => card._id === options.card_id)
+        currentCard = Object.assign(currentCard, options.update_data)
+        originalCard = Object.assign(originalCard, options.update_data)
+      },
+      removeDeckCard (state, options) {
+        let currentCard = state.deck_list[options.category].find(card => card._id === options.card_id)
+        let originalCard = state.current_deck.cards.find(card => card._id === options.card_id)
+        state.deck_list[options.category].splice(state.deck_list[options.category].indexOf(currentCard), 1)
+        state.current_deck.cards.splice(state.current_deck.cards.indexOf(originalCard), 1)
       }
     },
 
@@ -211,7 +225,7 @@ function builder (data) {
         state.commit('decklistLoading', {loading: true})
         api.add_deck_card(options.card, state.state.current_deck._id)
           .then(function(response) {
-            if (response.data.errors) console.warn('tripped error in add card response')
+            options.card._id = response.data.card_id
             deckTools().combineCardWithScryfallData(options.card)
               .then(function(card) {
                 state.commit('addDeckCard', {'card': card})
@@ -226,6 +240,20 @@ function builder (data) {
           .catch(function(error) {
             console.error(' ** error adding new card', error)
           })
+      },
+      updateDeckCard(state, options) {
+        api.update_deck_card(state.state.current_deck._id, options)
+          .then(function(response) {
+            state.commit('updateDeckCard', options)
+          })
+          .catch(err => console.error(err))
+      },
+      removeDeckCard(state, options) {
+        api.remove_deck_card(state.state.current_deck._id, options)
+          .then(function(response) {
+            state.commit('removeDeckCard', options)
+          })
+          .catch(err => console.error(err))
       }
     }
   })

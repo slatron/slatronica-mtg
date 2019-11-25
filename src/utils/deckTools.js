@@ -60,6 +60,7 @@ export const deckTools = () => {
               groupedCards[category] = []
             }
             this.prepCardForDeckpageDisplay(card)
+            card.category = category
             tools().fastPush(groupedCards[category], card)
           })
           return groupedCards

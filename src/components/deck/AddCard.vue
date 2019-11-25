@@ -7,13 +7,20 @@
     <div class="add-cardform z-20">
       <form v-on:submit.prevent="addDeckCard">
         <h2>Add New Card</h2>
-        <div class="card-selected">
-          Selected: {{card_selected}}
+        <div class="card-selected" v-show="cardLoading || card_selected">
+          <b>Selected</b>
+          <div class="loading-container-black">
+            <img  v-show="cardLoading" src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
+            {{card_selected}}
+          </div>
         </div>
         <fieldset class="autocomplete-fieldset">
-          <label for="search_term">Search Names</label>
+          <label for="search_term">Search Names (min 3 chars)</label>
           <input type="text" v-model="search_term">
-          <ul class="autocomplete-list" v-show="autocomplete_names.length">
+          <ul class="autocomplete-list" v-show="autocompleteLoading || autocomplete_names.length">
+            <li v-show="autocompleteLoading" class="list-loading">
+              <img src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
+            </li>
             <li v-for="name in autocomplete_names">
               <a v-on:click="selectName(name)">{{name}}</a>
             </li>
@@ -53,7 +60,9 @@ export default {
       has_alter: false,
       msg: '',
       autocomplete_names: [],
-      card_selected: ''
+      autocompleteLoading: false,
+      card_selected: '',
+      cardLoading: false
     }
   },
   computed: {
@@ -63,8 +72,10 @@ export default {
   },
   watch: {
     search_term: function (newTerm, oldTerm) {
-      this.autocomplete_names = []
-      this.debounceSearchCards()
+      if (newTerm && newTerm !== oldTerm && newTerm.length > 2) {
+        this.autocomplete_names = []
+        this.debounceSearchCards()
+      }
     }
   },
   created: function() {
@@ -72,21 +83,33 @@ export default {
   },
   methods: {
     selectName: function(name) {
+      this.card_selected = ''
+      this.scryfall_id = ''
       this.autocomplete_names = []
+
+      let vm = this
+      vm.cardLoading = true
       api.get_card_named(name)
         .then(card => {
           this.card_selected = card.data.name
           this.scryfall_id = card.data.id
         })
         .catch(err => console.error(err))
+        .finally(() => {
+          vm.cardLoading = false
+        })
     },
     searchCards: function() {
-      this.autocomplete_names = ['** ...loading... **']
+      this.autocompleteLoading = true
+      let vm = this
       api.search_scryfall_names(this.search_term)
         .then(cards => {
           this.autocomplete_names = cards.data.data
         })
         .catch(err => console.error(err))
+        .finally(function() {
+          vm.autocompleteLoading = false
+        })
     },
     closeForm: function () {
       this.$store.commit('triggerAdd')
@@ -98,7 +121,8 @@ export default {
       const newCard = {
         scryfall_id: this.scryfall_id,
         name: this.name,
-        has_alter: this.has_alter
+        has_alter: this.has_alter,
+        quantity: 1
       }
       this.$store.dispatch('addDeckCard', {
         'card': newCard
@@ -189,6 +213,10 @@ export default {
 
     li:hover {
       background: #d5d4d3;
+    }
+
+    .list-loading {
+      background: #000;
     }
   }
 </style>
