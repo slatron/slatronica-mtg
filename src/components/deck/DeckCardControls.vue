@@ -118,10 +118,12 @@ export default {
   }
   [class*="-icon"] {
     outline: none;
+    background-color: #cdcdcd;
     position: absolute;
     color: #000;
     left: 8px;
     transition: all 1s ease;
+    border-radius: 1rem;
   }
   .add-icon {
     top: 64px;
