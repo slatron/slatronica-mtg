@@ -111,7 +111,7 @@ function builder (data) {
         if (!(category in state.deck_list)) {
           state.deck_list[category] = []
         }
-        deckTools().prepCardForDeckpageDisplay(options.card)
+        options.card = deckTools().prepCardForDeckpageDisplay(options.card)
         options.card.category = category
         tools().fastPush(state.deck_list[category], options.card)
         tools().fastPush(state.current_deck.cards, options.card)

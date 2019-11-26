@@ -113,7 +113,7 @@ export default {
     border-left: 5px solid #000;
     background: #fff;
     opacity: 0.45;
-    border-radius : 0 1rem 1rem 0;
+    border-radius: 0 1rem 1rem 0;
     transition: all 1s ease;
   }
   [class*="-icon"] {

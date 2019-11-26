@@ -38,6 +38,7 @@ export const deckTools = () => {
       if (card.colors.length === 0) {
         card.colors = ['C']
       }
+      return card
     },
 
     combineListScryfallData: function(cards) {
@@ -59,7 +60,7 @@ export const deckTools = () => {
             if (!(category in groupedCards)) {
               groupedCards[category] = []
             }
-            this.prepCardForDeckpageDisplay(card)
+            card = this.prepCardForDeckpageDisplay(card)
             card.category = category
             tools().fastPush(groupedCards[category], card)
           })
@@ -72,7 +73,7 @@ export const deckTools = () => {
       let filteredDeck = {}
       options.types.forEach(type => {
         filteredDeck[type] = options.deck[type].filter(card => {
-          const intersection = tools().intersection(card.color_identity, options.colors)
+          const intersection = tools().intersection(card.colors, options.colors)
           return options.includes === 'includes'
             ? intersection.length > 0
             : intersection.length === 0
