@@ -72,7 +72,7 @@ export const deckTools = () => {
       let filteredDeck = {}
       options.types.forEach(type => {
         filteredDeck[type] = options.deck[type].filter(card => {
-          const intersection = tools().intersection(card.colors, options.colors)
+          const intersection = tools().intersection(card.color_identity, options.colors)
           return options.includes === 'includes'
             ? intersection.length > 0
             : intersection.length === 0
