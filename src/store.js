@@ -2,82 +2,11 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import api from '@/api/api'
 import { tools } from '@/utils/MStools'
+import { deckTools } from '@/utils/deckTools'
 
 Vue.use(Vuex)
 // Export store as function to ensure app settings are passed in before any initializations
 function builder (data) {
-  function _combineListScryfallData(state, cards) {
-    // Get all scryfall data to add to local list
-    // Then sort deck into categories
-    const card_ids     = tools().pluck(cards, 'scryfall_id')
-    const cardPromises = card_ids.map(id => api.get_scryfall_card(id))
-    Promise.all(cardPromises)
-      .then(cardData => {
-        const scryeCards = cardData.map(responseData => responseData.data)
-        const combinedDataCardlist = (scryeCards.length === cards.length)
-          ? scryeCards.map((scryeCard, idx) => {
-              return {...scryeCard, ...cards[idx]}
-            })
-          : decks[0].cards
-
-        const groupedCards = {}
-        combinedDataCardlist.forEach(card => {
-          // Make all lands type: "Land"
-          // Make all legendary creatures type: "Creature"
-          const type = (card.type_line.indexOf('Land') > -1)
-            ? 'Land'
-            : (card.type_line.indexOf('Creature') > -1)
-              ? 'Creature'
-              : card.type_line
-
-          if (!(type in groupedCards)) {
-            groupedCards[type] = []
-          }
-
-          // For cards with 2 faces, merge card data with first face
-          if ('card_faces' in card) {
-            card = {...card, ...card.card_faces[0]}
-          }
-
-          // Add "C" to colorless cards for filtering data
-          if (card.colors.length === 0) {
-            card.colors = ['C']
-          }
-          tools().fastPush(groupedCards[type], card)
-        })
-
-        state.commit('setDecklist', {'deckList': groupedCards})
-      })
-  }
-
-  // This creates a hash of sorted type categories by card length
-  // - could be useful when responsive screens resort deck card types
-  //
-  // function _getSortKeys(deckList) {
-  //   const typesUsed = Object.keys(deckList)
-  //   const sortArray = typesUsed.map(type => {
-  //     let sortKey = {'name': type}
-  //     sortKey.count = deckList[type].length
-  //     return sortKey
-  //   })
-  //   const sortKeys = sortArray.sort(tools().sortBy('count'))
-  //   return sortKeys
-  // }
-
-  function _filterByColor(options) {
-    // Fix for double-faced cards
-    let filteredDeck = {}
-    options.types.forEach(type => {
-      filteredDeck[type] = options.deck[type].filter(card => {
-        const intersection = tools().intersection(card.colors, options.colors)
-        return options.includes === 'includes'
-          ? intersection.length > 0
-          : intersection.length === 0
-      })
-    })
-    return filteredDeck
-  }
-
   return new Vuex.Store({
     state: {
       // Sent to store during app initialization
@@ -99,6 +28,7 @@ function builder (data) {
       current_deck: {},
       original_deck_list: [],
       deck_list: [],
+      decklist_loading: false,
       card_count: 0
     },
 
@@ -147,6 +77,9 @@ function builder (data) {
       },
 
       // Decklist Mutations
+      decklistLoading (state, options) {
+        state.decklist_loading = options.loading
+      },
       setDecks (state, options) {
         const decks = options.decks
         state.original_decks = decks
@@ -161,20 +94,46 @@ function builder (data) {
 
         const deckList   = options.deckList
         state.deck_list  = deckList
-        // state.sort_keys  = _getSortKeys(deckList)
       },
       setCardCount (state, options) {
         state.card_count = options.count
       },
       filterDeckByColor (state, options) {
-        state.deck_list = _filterByColor({
+        state.deck_list = deckTools().filterByColor({
           'deck': state.original_deck_list,
           'colors': tools().pluck(options.color_options, 'short'),
           'types': Object.keys(state.original_deck_list),
           'includes': options.includes
         })
       },
+      addDeckCard (state, options) {
+        const category = deckTools().getCardCategoryName(options.card)
+        if (!(category in state.deck_list)) {
+          state.deck_list[category] = []
+        }
+        options.card = deckTools().prepCardForDeckpageDisplay(options.card)
+        options.card.category = category
+        tools().fastPush(state.deck_list[category], options.card)
+        tools().fastPush(state.current_deck.cards, options.card)
+        state.deck_list = {...state.deck_list}
+      },
+      updateDeckCard (state, options) {
+        let currentCard = state.deck_list[options.category].find(card => card._id === options.card_id)
+        let originalCard = state.current_deck.cards.find(card => card._id === options.card_id)
+        currentCard = Object.assign(currentCard, options.update_data)
+        originalCard = Object.assign(originalCard, options.update_data)
+      },
+      removeDeckCard (state, options) {
+        let currentCard = state.deck_list[options.category].find(card => card._id === options.card_id)
+        let originalCard = state.current_deck.cards.find(card => card._id === options.card_id)
+        state.deck_list[options.category].splice(state.deck_list[options.category].indexOf(currentCard), 1)
+        state.current_deck.cards.splice(state.current_deck.cards.indexOf(originalCard), 1)
 
+        // Check for empty category delete
+        if (state.deck_list[options.category].length === 0) {
+          delete state.deck_list[options.category]
+        }
+      }
     },
 
     actions: {
@@ -251,23 +210,55 @@ function builder (data) {
           })
       },
       selectDeck(state, options) {
-        _combineListScryfallData(state, options.deck.cards)
-        state.commit('selectDeck', {'deck': options.deck})
-        const allQuantities = tools().pluck(options.deck.cards, 'quantity')
-        const addValuesReducer = (acc, cur) => acc + cur;
-        state.commit('setCardCount', {'count': allQuantities.reduce(addValuesReducer)})
-      },
-      addDeckCard(state, options) {
-        debugger
-        api.add_deck_card(options.card, state.state.current_deck._id)
-          .then(function(response) {
-            if (response.data.errors) {
-              console.warn(' ** Error updating alter', response.data.message);
-            }
+        state.commit('decklistLoading', {loading: true})
+        deckTools().combineListScryfallData(options.deck.cards)
+          .then(function(groupedCards) {
+            state.commit('setDecklist', {'deckList': groupedCards})
+            state.commit('selectDeck', {'deck': options.deck})
+            const allQuantities = tools().pluck(options.deck.cards, 'quantity')
+            const addValuesReducer = (acc, cur) => acc + cur;
+            state.commit('setCardCount', {'count': allQuantities.reduce(addValuesReducer)})
           })
           .catch(function(error) {
-            console.error(' ** error updating alter', error)
+            console.error(' ** error adding new card', error)
           })
+          .finally(function() {
+            state.commit('decklistLoading', {loading: false})
+          })
+      },
+      addDeckCard(state, options) {
+        state.commit('decklistLoading', {loading: true})
+        api.add_deck_card(options.card, state.state.current_deck._id)
+          .then(function(response) {
+            options.card._id = response.data.card_id
+            deckTools().combineCardWithScryfallData(options.card)
+              .then(function(card) {
+                state.commit('addDeckCard', {'card': card})
+              })
+              .catch(function(error) {
+                console.error(' ** error adding new card', error)
+              })
+              .finally(function() {
+                state.commit('decklistLoading', {loading: false})
+              })
+          })
+          .catch(function(error) {
+            console.error(' ** error adding new card', error)
+          })
+      },
+      updateDeckCard(state, options) {
+        api.update_deck_card(state.state.current_deck._id, options)
+          .then(function(response) {
+            state.commit('updateDeckCard', options)
+          })
+          .catch(err => console.error(err))
+      },
+      removeDeckCard(state, options) {
+        api.remove_deck_card(state.state.current_deck._id, options)
+          .then(function(response) {
+            state.commit('removeDeckCard', options)
+          })
+          .catch(err => console.error(err))
       }
     }
   })

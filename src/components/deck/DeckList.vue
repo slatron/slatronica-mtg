@@ -1,6 +1,10 @@
 <template>
   <div class="deck-container">
     <AddCard/>
+    <div
+      class="window-shade"
+      v-show="decklist_loading"
+    ></div>
     <h2 class="text-xl m-3 text-blue-600 tracking-wide">
       {{current_deck.name}} |
       <span class="text-sm">{{current_deck.format}}</span> |
@@ -38,6 +42,9 @@ export default {
     AddCard
   },
   computed: {
+    decklist_loading () {
+      return this.$store.state.decklist_loading
+    },
     deck_list () {
       return this.$store.state.deck_list
     },
@@ -70,5 +77,11 @@ export default {
 .deck-container {
   max-width: 1336px;
   margin: 0 auto;
+}
+
+.window-shade {
+  background-image: url('../../assets/images/loading/big-black-bg.gif');
+  background-repeat: no-repeat;
+  background-position: center;
 }
 </style>

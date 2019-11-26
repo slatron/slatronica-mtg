@@ -16,9 +16,13 @@
     <div class="card-hover"
       v-show="visible"
     >
+      <DeckCardControls
+        v-if="user_can_edit"
+        v-bind:card="cardData"
+      />
       <span
         v-on:click="show(false)"
-        class="button-close text-white bg-black md:hidden"
+        class="button-close"
       >
         <icon-base icon-name="close-outline"><CloseOutline /></icon-base>
       </span>
@@ -46,6 +50,7 @@ import IconBase from '@/components/common/IconBase'
 import ViewShow from '@/components/icons/view-show'
 import CloseOutline from '@/components/icons/close-outline'
 import FlipCard from '@/components/common/FlipCard'
+import DeckCardControls from '@/components/deck/DeckCardControls'
 
 export default {
   name: 'ListCard',
@@ -56,24 +61,30 @@ export default {
     IconBase,
     ViewShow,
     CloseOutline,
-    FlipCard
+    FlipCard,
+    DeckCardControls
   },
   data: function() {
     let vm = this;
     api.get_scryfall_card(this.cardData.scryfall_id)
       .then(response => {
         const hasFaces = response.data.card_faces
-        vm.title  = response.data.name
+        vm.title  = this.cardData.name || response.data.name
         vm.imgUrl = hasFaces
                     ? response.data.card_faces[0].image_uris.normal
                     : response.data.image_uris.border_crop
       })
       .catch(error => console.warn('OOPS: ',  error))
     return {
-      title: '',
+      title: 'loading...',
       imgUrl: '',
       visible: false
     };
+  },
+  computed: {
+    user_can_edit () {
+      return this.$store.state.username !== ''
+    }
   },
   methods: {
     show: function(visible) {
@@ -91,13 +102,21 @@ export default {
   .card-hover {
     position: absolute;
     left: 10px;
-    z-index: 100000;
+    z-index: 100;
     width: 300px;
   }
   .button-close {
     position: absolute;
     top: -7px;
     right: -7px;
+    color: #fff;
+    background-color: #000;
+    z-index: 1000;
+  }
+  @media (min-width: 768px) {
+    .button-close {
+      display: none;
+    }
   }
   .flip-container {
     position: relative;

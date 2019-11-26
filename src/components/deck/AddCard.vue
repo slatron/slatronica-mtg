@@ -7,9 +7,24 @@
     <div class="add-cardform z-20">
       <form v-on:submit.prevent="addDeckCard">
         <h2>Add New Card</h2>
-        <fieldset>
-          <label for="scryfall_id">Scryfall ID</label>
-          <input type="text" name="scryfall_id" v-model="scryfall_id">
+        <div class="card-selected" v-show="cardLoading || card_selected">
+          <b>Selected</b>
+          <div class="loading-container-black">
+            <img  v-show="cardLoading" src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
+            {{card_selected}}
+          </div>
+        </div>
+        <fieldset class="autocomplete-fieldset">
+          <label for="search_term">Search Names (min 3 chars)</label>
+          <input type="text" v-model="search_term">
+          <ul class="autocomplete-list" v-show="autocompleteLoading || autocomplete_names.length">
+            <li v-show="autocompleteLoading" class="list-loading">
+              <img src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
+            </li>
+            <li v-for="name in autocomplete_names">
+              <a v-on:click="selectName(name)">{{name}}</a>
+            </li>
+          </ul>
         </fieldset>
         <fieldset>
           <label for="scryfall_id">Name</label>
@@ -34,14 +49,20 @@
 
 <script>
 import api from '@/api/api'
+import { tools } from '@/utils/MStools'
 export default {
   name: 'addCard',
   data: () => {
     return {
+      search_term: '',
       scryfall_id: '',
       name: '',
       has_alter: false,
-      msg: ''
+      msg: '',
+      autocomplete_names: [],
+      autocompleteLoading: false,
+      card_selected: '',
+      cardLoading: false
     }
   },
   computed: {
@@ -49,7 +70,47 @@ export default {
       return this.$store.state.add_click
     }
   },
+  watch: {
+    search_term: function (newTerm, oldTerm) {
+      if (newTerm && newTerm !== oldTerm && newTerm.length > 2) {
+        this.autocomplete_names = []
+        this.debounceSearchCards()
+      }
+    }
+  },
+  created: function() {
+    this.debounceSearchCards = tools().debounce(this.searchCards, 500)
+  },
   methods: {
+    selectName: function(name) {
+      this.card_selected = ''
+      this.scryfall_id = ''
+      this.autocomplete_names = []
+
+      let vm = this
+      vm.cardLoading = true
+      api.get_card_named(name)
+        .then(card => {
+          this.card_selected = card.data.name
+          this.scryfall_id = card.data.id
+        })
+        .catch(err => console.error(err))
+        .finally(() => {
+          vm.cardLoading = false
+        })
+    },
+    searchCards: function() {
+      this.autocompleteLoading = true
+      let vm = this
+      api.search_scryfall_names(this.search_term)
+        .then(cards => {
+          this.autocomplete_names = cards.data.data
+        })
+        .catch(err => console.error(err))
+        .finally(function() {
+          vm.autocompleteLoading = false
+        })
+    },
     closeForm: function () {
       this.$store.commit('triggerAdd')
     },
@@ -57,14 +118,23 @@ export default {
       this.msg = ''
     },
     addDeckCard: function() {
+      if (!this.scryfall_id) return false
       const newCard = {
         scryfall_id: this.scryfall_id,
-        name: this.name,
-        has_alter: this.has_alter
+        name: this.name || '',
+        has_alter: this.has_alter,
+        quantity: 1
       }
       this.$store.dispatch('addDeckCard', {
         'card': newCard
       })
+      this.closeForm()
+      this.search_term        = ''
+      this.scryfall_id        = ''
+      this.name               = ''
+      this.has_alter          = false
+      this.autocomplete_names = []
+      this.card_selected      = ''
     }
   }
 }
@@ -74,6 +144,11 @@ export default {
   h2 {
     font-size: 24px;
     margin-bottom: 0.5em;
+  }
+  .loading-container-black img {
+    background: #000;
+    padding: 5px;
+    display: inline-block;
   }
   .add-card-container {
     position: absolute;
@@ -121,5 +196,38 @@ export default {
   .error-msg {
     color: red;
     cursor: pointer;
+  }
+
+  .autocomplete-fieldset {
+    position: relative;
+  }
+
+  .autocomplete-list {
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+
+    position: absolute;
+    top: 50px;
+    max-height: 100px;
+    overflow-y: auto;
+
+    background: #eee;
+
+    li {
+      border-bottom: 1px solid #000;
+      color: #000;
+      font-size: 11px;
+      padding: 1px 4px;
+      cursor: pointer;
+    }
+
+    li:hover {
+      background: #d5d4d3;
+    }
+    .list-loading {
+      background: #000;
+    }
   }
 </style>
