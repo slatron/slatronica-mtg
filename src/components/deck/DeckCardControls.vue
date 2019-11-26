@@ -65,6 +65,7 @@ export default {
       const options = {
         'card_id': this.card._id,
         'category': this.card.category,
+        'count_change': 1,
         'update_data': {
           'quantity': this.card.quantity + 1
         }
@@ -76,6 +77,7 @@ export default {
         const options = {
           'card_id': this.card._id,
           'category': this.card.category,
+          'count_change': -1,
           'update_data': {
             'quantity': this.card.quantity - 1
           }

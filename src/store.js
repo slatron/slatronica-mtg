@@ -125,13 +125,16 @@ function builder (data) {
       },
       removeDeckCard (state, options) {
         let currentCard = state.deck_list[options.category].find(card => card._id === options.card_id)
+        let currentCardOriginal = state.original_deck_list[options.category].find(card => card._id === options.card_id)
         let originalCard = state.current_deck.cards.find(card => card._id === options.card_id)
         state.deck_list[options.category].splice(state.deck_list[options.category].indexOf(currentCard), 1)
+        state.original_deck_list[options.category].splice(state.original_deck_list[options.category].indexOf(currentCard), 1)
         state.current_deck.cards.splice(state.current_deck.cards.indexOf(originalCard), 1)
 
         // Check for empty category delete
         if (state.deck_list[options.category].length === 0) {
           delete state.deck_list[options.category]
+          delete state.original_deck_list[options.category]
         }
       }
     },
@@ -234,6 +237,7 @@ function builder (data) {
             deckTools().combineCardWithScryfallData(options.card)
               .then(function(card) {
                 state.commit('addDeckCard', {'card': card})
+                state.commit('setCardCount',{'count': state.state.card_count + 1})
               })
               .catch(function(error) {
                 console.error(' ** error adding new card', error)
@@ -250,6 +254,9 @@ function builder (data) {
         api.update_deck_card(state.state.current_deck._id, options)
           .then(function(response) {
             state.commit('updateDeckCard', options)
+            if ('count_change' in options) {
+              state.commit('setCardCount', {'count': (state.state.card_count + options.count_change)})
+            }
           })
           .catch(err => console.error(err))
       },
@@ -257,6 +264,7 @@ function builder (data) {
         api.remove_deck_card(state.state.current_deck._id, options)
           .then(function(response) {
             state.commit('removeDeckCard', options)
+            state.commit('setCardCount', {'count': state.state.card_count - 1})
           })
           .catch(err => console.error(err))
       }
