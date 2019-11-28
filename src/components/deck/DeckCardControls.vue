@@ -12,7 +12,6 @@
         v-bind:height="28"
         @mouseover.native="upHover(true)"
         @mouseleave.native="upHover(false)"
-        icon-name="add-solid"
       >
         <AddSolid />
       </icon-base>
@@ -25,7 +24,6 @@
         v-bind:height="28"
         @mouseover.native="downHover(true)"
         @mouseleave.native="downHover(false)"
-        icon-name="minus-solid"
       >
         <MinusSolid />
       </icon-base>

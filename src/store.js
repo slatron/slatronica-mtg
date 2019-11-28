@@ -136,6 +136,11 @@ function builder (data) {
           delete state.deck_list[options.category]
           delete state.original_deck_list[options.category]
         }
+      },
+      addNewDeck (state, options) {
+        tools().fastPush(state.original_decks, options.new_deck)
+        const newDecklist = state.original_decks
+        state.original_decks = newDecklist
       }
     },
 
@@ -220,13 +225,30 @@ function builder (data) {
             state.commit('selectDeck', {'deck': options.deck})
             const allQuantities = tools().pluck(options.deck.cards, 'quantity')
             const addValuesReducer = (acc, cur) => acc + cur;
-            state.commit('setCardCount', {'count': allQuantities.reduce(addValuesReducer)})
+            const count = allQuantities.length === 0
+              ? 0
+              : allQuantities.reduce(addValuesReducer)
+            state.commit('setCardCount', {'count': count})
           })
           .catch(function(error) {
             console.error(' ** error adding new card', error)
           })
           .finally(function() {
             state.commit('decklistLoading', {loading: false})
+          })
+      },
+      addNewDeck(state, options) {
+        const deck_ids = tools().pluck(state.state.original_decks, 'deck_id')
+        const newDeck = {
+          name: options.new_deck.name,
+          deck_id: tools().max(deck_ids) + 1
+        }
+        api.add_deck(newDeck)
+          .then(function(response) {
+            state.commit('addNewDeck', {'new_deck': response.data.deck})
+          })
+          .catch(function(error) {
+            console.error(' ** error adding new deck', error)
           })
       },
       addDeckCard(state, options) {

@@ -1,6 +1,6 @@
 <template>
   <div class="deck-container">
-    <AddCard/>
+    <DeckFormContainer/>
     <div
       class="window-shade"
       v-show="decklist_loading"
@@ -33,13 +33,13 @@
 
 <script>
 import ListCard from '@/components/deck/ListCard'
-import AddCard from '@/components/deck/AddCard'
+import DeckFormContainer from '@/components/deck/DeckFormContainer'
 
 export default {
   name: 'DeckList',
   components: {
     ListCard,
-    AddCard
+    DeckFormContainer
   },
   computed: {
     decklist_loading () {

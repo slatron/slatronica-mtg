@@ -27,6 +27,12 @@ export const tools = () => {
       return arrays.reduce((a, b) => a.filter(c => b.includes(c)))
     },
 
+    max: (array) => {
+      return array.reduce(function(a, b) {
+        return Math.max(a, b);
+      });
+    },
+
     /**
      *  Safely access data from nested objects with tools().get(fn)
      *  - Replicates _.get

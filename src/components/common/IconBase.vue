@@ -9,7 +9,7 @@
     <title
       :id="iconName"
       lang="en"
-    >{{ iconName }} icon</title>
+    >{{ iconName }}</title>
     <g :fill="iconColor">
       <slot />
     </g>
@@ -21,8 +21,7 @@ export default {
   name: 'IconBase',
   props: {
     iconName: {
-      type: String,
-      default: 'calendar'
+      type: String
     },
     width: {
       type: [Number, String],
