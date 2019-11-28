@@ -55,6 +55,9 @@ export default {
   get_decks: () => {
     return axios.get(`${apiUrl}decks/`)
   },
+  add_deck: (newDeck) => {
+    return axios.post(`${apiUrl}decks/`, newDeck)
+  },
   add_deck_card: (cardData, deckId) => {
     return axios.put(`${apiUrl}decks/${deckId}/addcard/`, cardData)
   },

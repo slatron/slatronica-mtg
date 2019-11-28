@@ -1,50 +1,41 @@
 <template>
-  <div class="add-card-container" v-show="open_form">
-    <div
-      class="window-shade"
-      v-on:click="closeForm()"
-    ></div>
-    <div class="add-cardform z-20">
-      <form v-on:submit.prevent="addDeckCard">
-        <h2>Add New Card</h2>
-        <div class="card-selected" v-show="cardLoading || card_selected">
-          <b>Selected</b>
-          <div class="loading-container-black">
-            <img  v-show="cardLoading" src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
-            {{card_selected}}
-          </div>
-        </div>
-        <fieldset class="autocomplete-fieldset">
-          <label for="search_term">Search Names (min 3 chars)</label>
-          <input type="text" v-model="search_term">
-          <ul class="autocomplete-list" v-show="autocompleteLoading || autocomplete_names.length">
-            <li v-show="autocompleteLoading" class="list-loading">
-              <img src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
-            </li>
-            <li v-for="name in autocomplete_names">
-              <a v-on:click="selectName(name)">{{name}}</a>
-            </li>
-          </ul>
-        </fieldset>
-        <fieldset>
-          <label for="scryfall_id">Name</label>
-          <input type="text" name="name" v-model="name">
-        </fieldset>
-        <fieldset>
-          <label for="has_alter">Has Alter</label>
-          <input type="checkbox" name="has_alter" v-model="has_alter">
-        </fieldset>
-        <fieldset class="text-right">
-          <button type="button" name="button" v-on:click="addDeckCard()">
-            Save
-          </button>
-        </fieldset>
-        <fieldset class="error-msg" v-if="msg.length">
-          <span v-on:click="removeMsg()">{{msg}}</span>
-        </fieldset>
-      </form>
+  <form v-on:submit.prevent="addDeckCard">
+    <div class="card-selected" v-show="cardLoading || card_selected">
+      <b>Selected</b>
+      <div class="loading-container-black">
+        <img  v-show="cardLoading" src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
+        {{card_selected}}
+      </div>
     </div>
-  </div>
+    <fieldset class="autocomplete-fieldset">
+      <label for="search_term">Search Names (min 3 chars)</label>
+      <input type="text" v-model="search_term">
+      <ul class="autocomplete-list" v-show="autocompleteLoading || autocomplete_names.length">
+        <li v-show="autocompleteLoading" class="list-loading">
+          <img src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
+        </li>
+        <li v-for="name in autocomplete_names">
+          <a v-on:click="selectName(name)">{{name}}</a>
+        </li>
+      </ul>
+    </fieldset>
+    <fieldset>
+      <label for="scryfall_id">Name</label>
+      <input type="text" name="name" v-model="name">
+    </fieldset>
+    <fieldset>
+      <label for="has_alter">Has Alter</label>
+      <input type="checkbox" name="has_alter" v-model="has_alter">
+    </fieldset>
+    <fieldset class="text-right">
+      <button type="button" name="button" v-on:click="addDeckCard()">
+        Save
+      </button>
+    </fieldset>
+    <fieldset class="error-msg" v-if="msg.length">
+      <span v-on:click="removeMsg()">{{msg}}</span>
+    </fieldset>
+  </form>
 </template>
 
 <script>
@@ -141,44 +132,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  h2 {
-    font-size: 24px;
-    margin-bottom: 0.5em;
-  }
   .loading-container-black img {
     background: #000;
     padding: 5px;
     display: inline-block;
-  }
-  .add-card-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-  }
-  .add-cardform {
-    padding: 0.5em;
-    background: #efefef;
-    border-radius: 0 1rem 1rem 0;
-    position: fixed;
-    top: 80px;
-    left: 10%;
-    right: 10%;
-    input {
-      width: 100%;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .add-cardform {
-      top: 140px;
-      left: 30%;
-      right: 30%;
-    }
-  }
-  input {
-    float: right;
   }
   fieldset {
     margin-bottom: 0.5em;
@@ -230,4 +187,8 @@ export default {
       background: #000;
     }
   }
+  input {
+    width: 100%;
+  }
+
 </style>
