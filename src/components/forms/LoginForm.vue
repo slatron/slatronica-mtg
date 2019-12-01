@@ -1,5 +1,5 @@
 <template lang="html">
-  <form v-on:submit.prevent="doLogin">
+  <form v-on:submit.prevent>
     <h2>Login</h2>
     <fieldset>
       <label for="">Username:</label>
@@ -19,7 +19,7 @@
 import api from '@/api/api'
 export default {
   name: 'LoginForm',
-  data: () => {
+  data: function() {
     return {
       username: '',
       password: '',
@@ -28,12 +28,16 @@ export default {
   },
   methods: {
     doLogin: function() {
+      console.log(' **** inside doLogin ')
       let vm = this
       api.login(this.username, this.password)
         .then(function(response) {
           if (response.data.token) {
             window.localStorage.setItem('token', response.data.token)
             vm.$store.commit('setUsername', {username: vm.username})
+            console.log(' **** inside login handler &&&&&&& ')
+            console.log(vm.$router)
+            debugger
             vm.$router.go(-1)
           }
           else {
