@@ -14,8 +14,11 @@
         <li v-show="autocompleteLoading" class="list-loading">
           <img src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
         </li>
-        <li v-for="name in autocomplete_names">
-          <a v-on:click="selectName(name)">{{name}}</a>
+        <li
+          v-for="name in autocomplete_names"
+          v-on:click="selectName(name)"
+        >
+          {{name}}
         </li>
       </ul>
     </fieldset>
@@ -91,6 +94,7 @@ export default {
         })
     },
     searchCards: function() {
+      this.removeMsg()
       this.autocompleteLoading = true
       let vm = this
       api.search_scryfall_names(this.search_term)
@@ -119,7 +123,8 @@ export default {
       this.$store.dispatch('addDeckCard', {
         'card': newCard
       })
-      this.closeForm()
+      const newName = this.card_selected;
+      this.msg = `Successfully added ${newName}`
       this.search_term        = ''
       this.scryfall_id        = ''
       this.name               = ''
@@ -170,13 +175,13 @@ export default {
     max-height: 100px;
     overflow-y: auto;
 
-    background: #eee;
+    background: #e9e9e9;
 
     li {
       border-bottom: 1px solid #000;
-      color: #000;
-      font-size: 11px;
-      padding: 1px 4px;
+      color: navy;
+      font-size: 14px;
+      padding: 2px 6px;
       cursor: pointer;
     }
 
