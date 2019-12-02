@@ -54,7 +54,7 @@ export const deckTools = () => {
           const scryeCards = cardData.map(responseData => responseData.data)
           const combinedDataCardlist = (scryeCards.length === cards.length)
             ? scryeCards.map((scryeCard, idx) => {
-                return {...scryeCard, ...cards[idx]}
+                return Object.assign(scryeCard, cards[idx])
               })
             : decks[0].cards
           const groupedCards = {}

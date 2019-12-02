@@ -20,11 +20,12 @@ function builder (data) {
       add_click: false, // toggles when user clicks on add button in header
 
       // Gallery Data
-      gallery_list: [],
+      // gallery_list: [],
 
       // Decklist Data
       original_decks: [],
       current_deck: {},
+      current_deck_id: undefined,
       original_deck_list: [],
       deck_list: [],
       decklist_loading: false,
@@ -49,34 +50,34 @@ function builder (data) {
       },
 
       // Gallery Mutations
-      setGallery (state, options) {
-        const alters = options.alters
-        state.gallery_list = options.alters.sort(tools().sortBy('date', false))
-        state.gallery_list = state.gallery_list.map(deckTools().setAllCardsVisible)
-      },
-      addAlter (state, options) {
-        const alter = options.alter
-        state.gallery_list.push(alter)
-        state.gallery_list.sort(tools().sortBy('date', false))
-      },
-      sortGallery (state, options) {
-        state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction))
-      },
-      applyFilter (state, options) {
-        state.gallery_list = options.filter === 'All'
-          ? state.gallery_list.map(deckTools().setAllCardsVisible)
-          : state.gallery_list.map(card => {
-            card.visible = card.tags.includes(options.filter)
-            return card
-          })
-
-        // Apply Sort
-        state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction))
-      },
-      deleteAlter (state, options) {
-        const alterIdx = state.gallery_list.findIndex(alter => alter._id === options.id)
-        state.gallery_list.splice(alterIdx, 1)
-      },
+      // setGallery (state, options) {
+      //   const alters = options.alters
+      //   state.gallery_list = options.alters.sort(tools().sortBy('date', false))
+      //   state.gallery_list = state.gallery_list.map(deckTools().setAllCardsVisible)
+      // },
+      // addAlter (state, options) {
+      //   const alter = options.alter
+      //   state.gallery_list.push(alter)
+      //   state.gallery_list.sort(tools().sortBy('date', false))
+      // },
+      // sortGallery (state, options) {
+      //   state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction))
+      // },
+      // applyFilter (state, options) {
+      //   state.gallery_list = options.filter === 'All'
+      //     ? state.gallery_list.map(deckTools().setAllCardsVisible)
+      //     : state.gallery_list.map(card => {
+      //       card.visible = card.tags.includes(options.filter)
+      //       return card
+      //     })
+      //
+      //   // Apply Sort
+      //   state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction))
+      // },
+      // deleteAlter (state, options) {
+      //   const alterIdx = state.gallery_list.findIndex(alter => alter._id === options.id)
+      //   state.gallery_list.splice(alterIdx, 1)
+      // },
 
       // Decklist Mutations
       decklistLoading (state, options) {
@@ -108,94 +109,94 @@ function builder (data) {
           'includes': options.includes
         })
       },
-      addDeckCard (state, options) {
-        const category = deckTools().getCardCategoryName(options.card)
-        if (!(category in state.deck_list)) {
-          state.deck_list[category] = []
-        }
-        options.card = deckTools().prepCardForDeckpageDisplay(options.card)
-        options.card.category = category
-        tools().fastPush(state.deck_list[category], options.card)
-        tools().fastPush(state.current_deck.cards, options.card)
-        state.deck_list = {...state.deck_list}
-      },
-      updateDeckCard (state, options) {
-        let currentCard = state.deck_list[options.category].find(card => card._id === options.card_id)
-        let originalCard = state.current_deck.cards.find(card => card._id === options.card_id)
-        currentCard = Object.assign(currentCard, options.update_data)
-        originalCard = Object.assign(originalCard, options.update_data)
-      },
-      removeDeckCard (state, options) {
-        let currentCard = state.deck_list[options.category].find(card => card._id === options.card_id)
-        let currentCardOriginal = state.original_deck_list[options.category].find(card => card._id === options.card_id)
-        let originalCard = state.current_deck.cards.find(card => card._id === options.card_id)
-        state.deck_list[options.category].splice(state.deck_list[options.category].indexOf(currentCard), 1)
-        state.original_deck_list[options.category].splice(state.original_deck_list[options.category].indexOf(currentCard), 1)
-        state.current_deck.cards.splice(state.current_deck.cards.indexOf(originalCard), 1)
-
-        // Check for empty category delete
-        if (state.deck_list[options.category].length === 0) {
-          delete state.deck_list[options.category]
-          delete state.original_deck_list[options.category]
-        }
-      },
-      addNewDeck (state, options) {
-        tools().fastPush(state.original_decks, options.new_deck)
-        const newDecklist = state.original_decks
-        state.original_decks = newDecklist
-      }
+      // addDeckCard (state, options) {
+      //   const category = deckTools().getCardCategoryName(options.card)
+      //   if (!(category in state.deck_list)) {
+      //     state.deck_list[category] = []
+      //   }
+      //   options.card = deckTools().prepCardForDeckpageDisplay(options.card)
+      //   options.card.category = category
+      //   tools().fastPush(state.deck_list[category], options.card)
+      //   tools().fastPush(state.current_deck.cards, options.card)
+      //   state.deck_list = {...state.deck_list}
+      // },
+      // updateDeckCard (state, options) {
+      //   let currentCard = state.deck_list[options.category].find(card => card._id === options.card_id)
+      //   let originalCard = state.current_deck.cards.find(card => card._id === options.card_id)
+      //   currentCard = Object.assign(currentCard, options.update_data)
+      //   originalCard = Object.assign(originalCard, options.update_data)
+      // },
+      // removeDeckCard (state, options) {
+      //   let currentCard = state.deck_list[options.category].find(card => card._id === options.card_id)
+      //   let currentCardOriginal = state.original_deck_list[options.category].find(card => card._id === options.card_id)
+      //   let originalCard = state.current_deck.cards.find(card => card._id === options.card_id)
+      //   state.deck_list[options.category].splice(state.deck_list[options.category].indexOf(currentCard), 1)
+      //   state.original_deck_list[options.category].splice(state.original_deck_list[options.category].indexOf(currentCard), 1)
+      //   state.current_deck.cards.splice(state.current_deck.cards.indexOf(originalCard), 1)
+      //
+      //   // Check for empty category delete
+      //   if (state.deck_list[options.category].length === 0) {
+      //     delete state.deck_list[options.category]
+      //     delete state.original_deck_list[options.category]
+      //   }
+      // },
+      // addNewDeck (state, options) {
+      //   tools().fastPush(state.original_decks, options.new_deck)
+      //   const newDecklist = state.original_decks
+      //   state.original_decks = newDecklist
+      // }
     },
 
     actions: {
       // Gallery Actions
-      initGallery ({commit}) {
-        api.get_cards()
-          .then(response => {
-            let options = {
-              'alters': response.data
-            }
-            commit('setGallery', options)
-          })
-          .catch(error => {
-            console.warn('error getting altered card list: ')
-            console.error(error);
-          })
-      },
-      deleteAlter (state, options) {
-        api.delete_alter(options.id)
-          .then(() => {
-            state.commit('deleteAlter', options)
-          })
-          .catch(err => {
-            console.warn(' ** Err Deleting Alter')
-            console.error(err);
-          })
-      },
-      postAlter (state, options) {
-        api.post_gallery(options.alter)
-          .then(function(response) {
-            if (response.data.errors) {
-              console.warn(' ** Error posting new alter', response.data.message);
-            } else {
-              state.commit('triggerAdd')
-              state.commit('addAlter', {'alter': options.alter})
-            }
-          })
-          .catch(function(error) {
-            console.warn(' ** error posting alter', error)
-          })
-      },
-      putAlter (state, options) {
-        api.update_gallery_card(options.alter)
-          .then(function(response) {
-            if (response.data.errors) {
-              console.warn(' ** Error updating alter', response.data.message);
-            }
-          })
-          .catch(function(error) {
-            console.error(' ** error updating alter', error)
-          })
-      },
+      // initGallery ({commit}) {
+      //   api.get_cards()
+      //     .then(response => {
+      //       let options = {
+      //         'alters': response.data
+      //       }
+      //       commit('setGallery', options)
+      //     })
+      //     .catch(error => {
+      //       console.warn('error getting altered card list: ')
+      //       console.error(error);
+      //     })
+      // },
+      // deleteAlter (state, options) {
+      //   api.delete_alter(options.id)
+      //     .then(() => {
+      //       state.commit('deleteAlter', options)
+      //     })
+      //     .catch(err => {
+      //       console.warn(' ** Err Deleting Alter')
+      //       console.error(err);
+      //     })
+      // },
+      // postAlter (state, options) {
+      //   api.post_gallery(options.alter)
+      //     .then(function(response) {
+      //       if (response.data.errors) {
+      //         console.warn(' ** Error posting new alter', response.data.message);
+      //       } else {
+      //         state.commit('triggerAdd')
+      //         state.commit('addAlter', {'alter': options.alter})
+      //       }
+      //     })
+      //     .catch(function(error) {
+      //       console.warn(' ** error posting alter', error)
+      //     })
+      // },
+      // putAlter (state, options) {
+      //   api.update_gallery_card(options.alter)
+      //     .then(function(response) {
+      //       if (response.data.errors) {
+      //         console.warn(' ** Error updating alter', response.data.message);
+      //       }
+      //     })
+      //     .catch(function(error) {
+      //       console.error(' ** error updating alter', error)
+      //     })
+      // },
 
       // Decklist Actions
       initDecks (state) {
@@ -206,9 +207,6 @@ function builder (data) {
               'decks': decks
             }
             const selectedDeck = decks[0]
-            const selectedDeckOptions = {
-              'deck': selectedDeck
-            }
             state.commit('setDecks', deckOptions)
             this.dispatch('selectDeck', {
               'deck': selectedDeck
@@ -239,59 +237,59 @@ function builder (data) {
             state.commit('decklistLoading', {loading: false})
           })
       },
-      addNewDeck(state, options) {
-        const deck_ids = tools().pluck(state.state.original_decks, 'deck_id')
-        const newDeck = {
-          name: options.new_deck.name,
-          deck_id: tools().max(deck_ids) + 1
-        }
-        api.add_deck(newDeck)
-          .then(function(response) {
-            state.commit('addNewDeck', {'new_deck': response.data.deck})
-          })
-          .catch(function(error) {
-            console.error(' ** error adding new deck', error)
-          })
-      },
-      addDeckCard(state, options) {
-        state.commit('decklistLoading', {loading: true})
-        api.add_deck_card(options.card, state.state.current_deck._id)
-          .then(function(response) {
-            options.card._id = response.data.card_id
-            deckTools().combineCardWithScryfallData(options.card)
-              .then(function(card) {
-                state.commit('addDeckCard', {'card': card})
-                state.commit('setCardCount',{'count': state.state.card_count + 1})
-              })
-              .catch(function(error) {
-                console.error(' ** error adding new card', error)
-              })
-              .finally(function() {
-                state.commit('decklistLoading', {loading: false})
-              })
-          })
-          .catch(function(error) {
-            console.error(' ** error adding new card', error)
-          })
-      },
-      updateDeckCard(state, options) {
-        api.update_deck_card(state.state.current_deck._id, options)
-          .then(function(response) {
-            state.commit('updateDeckCard', options)
-            if ('count_change' in options) {
-              state.commit('setCardCount', {'count': (state.state.card_count + options.count_change)})
-            }
-          })
-          .catch(err => console.error(err))
-      },
-      removeDeckCard(state, options) {
-        api.remove_deck_card(state.state.current_deck._id, options)
-          .then(function(response) {
-            state.commit('removeDeckCard', options)
-            state.commit('setCardCount', {'count': state.state.card_count - 1})
-          })
-          .catch(err => console.error(err))
-      }
+      // addNewDeck(state, options) {
+      //   const deck_ids = tools().pluck(state.state.original_decks, 'deck_id')
+      //   const newDeck = {
+      //     name: options.new_deck.name,
+      //     deck_id: tools().max(deck_ids) + 1
+      //   }
+      //   api.add_deck(newDeck)
+      //     .then(function(response) {
+      //       state.commit('addNewDeck', {'new_deck': response.data.deck})
+      //     })
+      //     .catch(function(error) {
+      //       console.error(' ** error adding new deck', error)
+      //     })
+      // },
+      // addDeckCard(state, options) {
+      //   state.commit('decklistLoading', {loading: true})
+      //   api.add_deck_card(options.card, state.state.current_deck._id)
+      //     .then(function(response) {
+      //       options.card._id = response.data.card_id
+      //       deckTools().combineCardWithScryfallData(options.card)
+      //         .then(function(card) {
+      //           state.commit('addDeckCard', {'card': card})
+      //           state.commit('setCardCount',{'count': state.state.card_count + 1})
+      //         })
+      //         .catch(function(error) {
+      //           console.error(' ** error adding new card', error)
+      //         })
+      //         .finally(function() {
+      //           state.commit('decklistLoading', {loading: false})
+      //         })
+      //     })
+      //     .catch(function(error) {
+      //       console.error(' ** error adding new card', error)
+      //     })
+      // },
+      // updateDeckCard(state, options) {
+      //   api.update_deck_card(state.state.current_deck._id, options)
+      //     .then(function(response) {
+      //       state.commit('updateDeckCard', options)
+      //       if ('count_change' in options) {
+      //         state.commit('setCardCount', {'count': (state.state.card_count + options.count_change)})
+      //       }
+      //     })
+      //     .catch(err => console.error(err))
+      // },
+      // removeDeckCard(state, options) {
+      //   api.remove_deck_card(state.state.current_deck._id, options)
+      //     .then(function(response) {
+      //       state.commit('removeDeckCard', options)
+      //       state.commit('setCardCount', {'count': state.state.card_count - 1})
+      //     })
+      //     .catch(err => console.error(err))
+      // }
     }
   })
 }

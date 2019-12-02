@@ -9,10 +9,12 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'GalleryPage',
+      // name: 'GalleryPage',
+      name: 'DeckPage',
       components: {
         header: () => import('./views/HeaderView.vue'),
-        default: () => import('./views/GalleryPage.vue'),
+        // default: () => import('./views/GalleryPage.vue'),
+        default: () => import('./views/DeckPage.vue'),
         footer: () => import('./views/Footer.vue')
       }
     },
