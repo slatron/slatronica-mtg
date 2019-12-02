@@ -14,9 +14,9 @@ Also to show off my painted magic cards.
 - [EDH Game Reports](https://slatron.github.io/slatronica-mtg/#/all-reports)
 - [Process Page](https://slatron.github.io/slatronica-mtg/#/blueprint-process)
 - [API Authentication](https://slatron.github.io/slatronica-mtg/#/login)
+- [Add Deck Form](https://slatron.github.io/slatronica-mtg/#/decks)
+- [Add Card Form](https://slatron.github.io/slatronica-mtg/#/decks)
 
 ## Features In Progress
 
-- UI forms for API/DB interactions
-- Move .json files to Mongo
 - Life Tracker
