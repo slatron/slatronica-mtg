@@ -20,7 +20,6 @@ function builder (data) {
       add_click: false, // toggles when user clicks on add button in header
 
       // Gallery Data
-      original_gallery_list: [],
       gallery_list: [],
 
       // Decklist Data
@@ -52,8 +51,8 @@ function builder (data) {
       // Gallery Mutations
       setGallery (state, options) {
         const alters = options.alters
-        state.original_gallery_list = alters
         state.gallery_list = options.alters.sort(tools().sortBy('date', false))
+        state.gallery_list = state.gallery_list.map(deckTools().setAllCardsVisible)
       },
       addAlter (state, options) {
         const alter = options.alter
@@ -64,9 +63,12 @@ function builder (data) {
         state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction))
       },
       applyFilter (state, options) {
-        state.gallery_list = options.filter === 'All' ?
-          state.original_gallery_list :
-          state.original_gallery_list.filter(card => card.tags.includes(options.filter))
+        state.gallery_list = options.filter === 'All'
+          ? state.gallery_list.map(deckTools().setAllCardsVisible)
+          : state.gallery_list.map(card => {
+            card.visible = card.tags.includes(options.filter)
+            return card
+          })
 
         // Apply Sort
         state.gallery_list = state.gallery_list.sort(tools().sortBy(options.field, options.direction))

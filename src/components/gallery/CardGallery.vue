@@ -4,6 +4,7 @@
     <div
       class="image-container text-blue-500 tracking-wide"
       v-for="card in gallery_list"
+      v-show="card.visible"
     >
       <FlipCard
         v-bind:key="card.scryfall_id"

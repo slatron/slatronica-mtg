@@ -83,6 +83,11 @@ export const deckTools = () => {
         })
       })
       return filteredDeck
+    },
+
+    setAllCardsVisible: card => {
+      card.visible = true
+      return card
     }
   }
 }
