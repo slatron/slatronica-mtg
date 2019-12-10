@@ -71,7 +71,7 @@ export default {
   },
   created: function () {
     let vm = this
-    vm.cardData.name = vm.cardData.name || vm.title
+    vm.cardData.name = vm.cardData.custom_name || vm.cardData.name || vm.title
     api.get_scryfall_card(this.cardData.scryfall_id)
       .then(response => {
         let localUrl = ''

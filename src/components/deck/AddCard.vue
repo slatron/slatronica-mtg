@@ -23,8 +23,8 @@
       </ul>
     </fieldset>
     <fieldset>
-      <label for="scryfall_id">Name</label>
-      <input type="text" name="name" v-model="name">
+      <label for="name">Custom Name</label>
+      <input type="text" name="name" v-model="custom_name">
     </fieldset>
     <fieldset>
       <label for="has_alter">Has Alter</label>
@@ -50,7 +50,7 @@ export default {
     return {
       search_term: '',
       scryfall_id: '',
-      name: '',
+      custom_name: '',
       has_alter: false,
       msg: '',
       autocomplete_names: [],
@@ -116,7 +116,7 @@ export default {
       if (!this.scryfall_id) return false
       const newCard = {
         scryfall_id: this.scryfall_id,
-        name: this.name || '',
+        custom_name: this.custom_name || '',
         has_alter: this.has_alter,
         quantity: 1
       }
@@ -127,7 +127,7 @@ export default {
       this.msg = `Successfully added ${newName}`
       this.search_term        = ''
       this.scryfall_id        = ''
-      this.name               = ''
+      this.custom_name        = ''
       this.has_alter          = false
       this.autocomplete_names = []
       this.card_selected      = ''

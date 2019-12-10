@@ -19,6 +19,15 @@ export default new Router({
       }
     },
     {
+      path: '/gallery',
+      name: 'GalleryPage',
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/GalleryPage.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
+    },
+    {
       path: '/about',
       name: 'AboutPage',
       props: { default: {page_key: 'about-page'} },
