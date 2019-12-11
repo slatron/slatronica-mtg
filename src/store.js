@@ -23,11 +23,10 @@ function builder (data) {
       gallery_list: [],
 
       // Decklist Data
-      original_decks: [],
-      current_deck: {},
-      current_deck_id: undefined,
-      original_deck_list: [],
-      deck_list: [],
+      deck_lists: [], // replaces original_decks
+      deck_current: {}, // replaces current_deck
+      deck_sorted: {}, // replaces deck_list
+
       decklist_loading: false,
       card_count: 0
     },
@@ -84,66 +83,59 @@ function builder (data) {
         state.decklist_loading = options.loading
       },
       setDecks (state, options) {
-        const decks = options.decks
-        state.original_decks = decks
+        state.deck_lists = options.decks
       },
       selectDeck (state, options) {
-        const deck = options.deck
-        state.current_deck = deck
+        state.deck_current = options.deck
       },
       setDecklist (state, options) {
-        const originalDeckList   = options.deckList
-        state.original_deck_list = originalDeckList
-
-        const deckList   = options.deckList
-        state.deck_list  = deckList
+        state.deck_sorted = options.deck_list
       },
       setCardCount (state, options) {
         state.card_count = options.count
       },
       filterDeckByColor (state, options) {
         state.deck_list = deckTools().filterByColor({
-          'deck': state.original_deck_list,
+          // 'deck': state.original_deck_list,
+          'deck': state.deck_current,
           'colors': tools().pluck(options.color_options, 'short'),
-          'types': Object.keys(state.original_deck_list),
+          // 'types': Object.keys(state.original_deck_list),
+          'types': Object.keys(state.deck_sorted),
           'includes': options.includes
         })
       },
       addDeckCard (state, options) {
         const category = deckTools().getCardCategoryName(options.card)
-        if (!(category in state.deck_list)) {
-          state.deck_list[category] = []
+        if (!(category in state.deck_sorted)) {
+          state.deck_sorted[category] = []
         }
         options.card = deckTools().prepCardForDeckpageDisplay(options.card)
         options.card.category = category
-        tools().fastPush(state.deck_list[category], options.card)
-        tools().fastPush(state.current_deck.cards, options.card)
-        state.deck_list = {...state.deck_list}
+        tools().fastPush(state.deck_sorted[category], options.card)
+        tools().fastPush(state.deck_current.cards, options.card)
+        state.deck_sorted = {...state.deck_sorted}
       },
       updateDeckCard (state, options) {
-        let currentCard = state.deck_list[options.category].find(card => card._id === options.card_id)
-        let originalCard = state.current_deck.cards.find(card => card._id === options.card_id)
-        currentCard = Object.assign(currentCard, options.update_data)
-        originalCard = Object.assign(originalCard, options.update_data)
+        let sortedListCard = state.deck_sorted[options.category].find(card => card._id === options.card_id)
+        let listCard = state.deck_current.cards.find(card => card._id === options.card_id)
+        sortedListCard = Object.assign(sortedListCard, options.update_data)
+        listCard = Object.assign(listCard, options.update_data)
       },
       removeDeckCard (state, options) {
-        let currentCard = state.deck_list[options.category].find(card => card._id === options.card_id)
-        let currentCardOriginal = state.original_deck_list[options.category].find(card => card._id === options.card_id)
-        let originalCard = state.current_deck.cards.find(card => card._id === options.card_id)
-        state.deck_list[options.category].splice(state.deck_list[options.category].indexOf(currentCard), 1)
-        state.original_deck_list[options.category].splice(state.original_deck_list[options.category].indexOf(currentCard), 1)
-        state.current_deck.cards.splice(state.current_deck.cards.indexOf(originalCard), 1)
+        let currentCard = state.deck_sorted[options.category].find(card => card._id === options.card_id)
+        let originalCard = state.deck_current.cards.find(card => card._id === options.card_id)
+        state.deck_sorted[options.category].splice(state.deck_sorted[options.category].indexOf(currentCard), 1)
+        state.deck_current.cards.splice(state.deck_current.cards.indexOf(originalCard), 1)
 
         // Check for empty category delete
-        if (state.deck_list[options.category].length === 0) {
-          delete state.deck_list[options.category]
-          delete state.original_deck_list[options.category]
+        if (state.deck_sorted[options.category].length === 0) {
+          delete state.deck_sorted[options.category]
         }
       },
       addNewDeck (state, options) {
-        tools().fastPush(state.original_decks, options.new_deck)
-        const newDecklist = state.original_decks
-        state.original_decks = newDecklist
+        tools().fastPush(state.deck_lists, options.new_deck)
+        const newDecklist = state.deck_lists
+        state.deck_lists = newDecklist
       }
     },
 
@@ -219,10 +211,13 @@ function builder (data) {
       },
       selectDeck(state, options) {
         state.commit('decklistLoading', {loading: true})
+        state.commit('setDecklist', {'deck_list': {}})
         deckTools().combineListScryfallData(options.deck.cards)
           .then(function(groupedCards) {
-            state.commit('setDecklist', {'deckList': groupedCards})
-            state.commit('selectDeck', {'deck': options.deck})
+            state.commit('setDecklist', {'deck_list': groupedCards})
+            state.commit('selectDeck', {
+              'deck': options.deck
+            })
             const allQuantities = tools().pluck(options.deck.cards, 'quantity')
             const addValuesReducer = (acc, cur) => acc + cur;
             const count = allQuantities.length === 0
@@ -238,10 +233,8 @@ function builder (data) {
           })
       },
       addNewDeck(state, options) {
-        const deck_ids = tools().pluck(state.state.original_decks, 'deck_id')
         const newDeck = {
           name: options.new_deck.name,
-          deck_id: tools().max(deck_ids) + 1
         }
         api.add_deck(newDeck)
           .then(function(response) {
@@ -253,7 +246,7 @@ function builder (data) {
       },
       addDeckCard(state, options) {
         state.commit('decklistLoading', {loading: true})
-        api.add_deck_card(options.card, state.state.current_deck._id)
+        api.add_deck_card(options.card, state.state.deck_current._id)
           .then(function(response) {
             options.card._id = response.data.card_id
             deckTools().combineCardWithScryfallData(options.card)
@@ -273,7 +266,7 @@ function builder (data) {
           })
       },
       updateDeckCard(state, options) {
-        api.update_deck_card(state.state.current_deck._id, options)
+        api.update_deck_card(state.state.deck_current._id, options)
           .then(function(response) {
             state.commit('updateDeckCard', options)
             if ('count_change' in options) {
@@ -283,7 +276,7 @@ function builder (data) {
           .catch(err => console.error(err))
       },
       removeDeckCard(state, options) {
-        api.remove_deck_card(state.state.current_deck._id, options)
+        api.remove_deck_card(state.state.deck_current._id, options)
           .then(function(response) {
             state.commit('removeDeckCard', options)
             state.commit('setCardCount', {'count': state.state.card_count - 1})

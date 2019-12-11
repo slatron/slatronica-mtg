@@ -6,10 +6,10 @@
       </div>
       <div>
         <select
-          v-model="current_deck"
+          v-model="deck_current"
           v-on:change="selectDeck()">
           <option
-            v-for="deck in original_decks"
+            v-for="deck in deck_lists"
             v-bind:value="deck">
             {{deck.name}}
           </option>
@@ -41,9 +41,10 @@ export default {
   name: 'DeckFilters',
   data () {
     return {
-      includes: 'includes',
-      original_decks: this.$store.state.original_decks,
-      current_deck: this.$store.state.current_deck,
+      deck_lists: this.$store.state.deck_lists,
+      deck_current: this.$store.state.deck_current,
+
+      includes: 'includes', // values: ['includes', 'excludes']
       color_options: this.$store.state.app_settings.color_options.map(option => {
         option.selected = true
         return option
@@ -53,7 +54,7 @@ export default {
   methods: {
     selectDeck: function () {
       this.$store.dispatch('selectDeck', {
-        'deck': this.current_deck
+        'deck': this.deck_current
       })
     },
     filterDeckByColor: function (color_options) {

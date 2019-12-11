@@ -6,15 +6,14 @@
       v-show="decklist_loading"
     ></div>
     <h2 class="text-xl m-3 text-blue-600 tracking-wide">
-      {{current_deck.name}} |
-      <span class="text-sm">{{current_deck.format}}</span> |
+      {{deck_current.name}} |
+      <span class="text-sm">{{deck_current.format}}</span> |
       <span class="text-sm">{{ card_count }} Cards</span>
     </h2>
 
     <div class="columns m-1 pl-3 pb-3 overflow-visible flex flex-wrap justify-start flex-initial">
-
       <div
-        v-for="(cards, type) in deck_list"
+        v-for="(cards, type) in deck_sorted"
         class="mb-6 mr-6"
       >
         <h3 class="text-gray-400">
@@ -22,7 +21,7 @@
         </h3>
         <ListCard
           v-for="card in cards"
-          v-bind:key="card.scryfall_id"
+          v-bind:key="card._id"
           v-bind:card-data="card"
         ></ListCard>
       </div>
@@ -45,11 +44,11 @@ export default {
     decklist_loading () {
       return this.$store.state.decklist_loading
     },
-    deck_list () {
-      return this.$store.state.deck_list
+    deck_sorted () {
+      return this.$store.state.deck_sorted
     },
-    current_deck () {
-      return this.$store.state.current_deck
+    deck_current () {
+      return this.$store.state.deck_current
     },
     card_count () {
       return this.$store.state.card_count
