@@ -23,9 +23,9 @@ function builder (data) {
       gallery_list: [],
 
       // Decklist Data
-      deck_lists: [], // replaces original_decks
-      deck_current: {}, // replaces current_deck
-      deck_sorted: {}, // replaces deck_list
+      deck_lists: [],   // All decks from DB
+      deck_current: {}, // Selected deck
+      deck_sorted: {},  // deck_current represented by categories
 
       decklist_loading: false,
       card_count: 0
@@ -95,11 +95,9 @@ function builder (data) {
         state.card_count = options.count
       },
       filterDeckByColor (state, options) {
-        state.deck_list = deckTools().filterByColor({
-          // 'deck': state.original_deck_list,
-          'deck': state.deck_current,
+        state.deck_sorted = deckTools().filterByColor({
+          'deck': state.deck_sorted,
           'colors': tools().pluck(options.color_options, 'short'),
-          // 'types': Object.keys(state.original_deck_list),
           'types': Object.keys(state.deck_sorted),
           'includes': options.includes
         })

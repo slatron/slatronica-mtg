@@ -75,12 +75,21 @@ export const deckTools = () => {
       // Fix for double-faced cards
       let filteredDeck = {}
       options.types.forEach(type => {
-        filteredDeck[type] = options.deck[type].filter(card => {
+
+        filteredDeck[type] = options.deck[type].map(card => {
           const intersection = tools().intersection(card.colors, options.colors)
-          return options.includes === 'includes'
+          card.visible = options.includes === 'includes'
             ? intersection.length > 0
             : intersection.length === 0
+          return card
         })
+
+        // filteredDeck[type] = options.deck[type].filter(card => {
+        //   const intersection = tools().intersection(card.colors, options.colors)
+        //   return options.includes === 'includes'
+        //     ? intersection.length > 0
+        //     : intersection.length === 0
+        // })
       })
       return filteredDeck
     },
