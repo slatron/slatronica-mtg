@@ -3,13 +3,6 @@ import api from '@/api/api'
 
 export const deckTools = () => {
   return {
-    combineCardWithScryfallData: function(card) {
-      return api.get_scryfall_card(card.scryfall_id)
-        .then(function(scryeCard) {
-          return {...scryeCard.data, ...card}
-        })
-    },
-
     getCardCategoryName: function(card) {
       // Fix extra words in type_line (ex... Legendary)
       // Make all creatures category: "Creature"
@@ -32,6 +25,14 @@ export const deckTools = () => {
                   : card.type_line
     },
 
+    countCards: function(deckCards) {
+      const allQuantities = tools().pluck(deckCards, 'quantity')
+      const addValuesReducer = (acc, cur) => acc + cur;
+      return allQuantities.length === 0
+        ? 0
+        : allQuantities.reduce(addValuesReducer)
+    },
+
     prepCardForDeckpageDisplay: function(card) {
       // For cards with 2 faces, merge card data with first face
       if ('card_faces' in card) {
@@ -41,7 +42,19 @@ export const deckTools = () => {
       if (card.colors.length === 0) {
         card.colors = ['C']
       }
+
+      // add display-only visible property for filtering
+      card.visible = true
       return card
+    },
+
+    // Call + Combine Scryfall data
+    // ================================
+    combineCardWithScryfallData: function(card) {
+      return api.get_scryfall_card(card.scryfall_id)
+        .then(function(scryeCard) {
+          return {...scryeCard.data, ...card}
+        })
     },
 
     combineListScryfallData: function(cards) {
@@ -71,6 +84,8 @@ export const deckTools = () => {
         })
     },
 
+    // Filtering Methods
+    // ================================
     filterByColor: function(options) {
       // Fix for double-faced cards
       let filteredDeck = {}
@@ -84,14 +99,23 @@ export const deckTools = () => {
           return card
         })
 
-        // filteredDeck[type] = options.deck[type].filter(card => {
-        //   const intersection = tools().intersection(card.colors, options.colors)
-        //   return options.includes === 'includes'
-        //     ? intersection.length > 0
-        //     : intersection.length === 0
-        // })
       })
       return filteredDeck
+    },
+
+    // Check each column for visible cards
+    // - return array of cols with no visible cards
+    getEmptyColumns: function(deck) {
+      let hiddenCols = []
+      Object.keys(deck).forEach(type => {
+        const visibleCards = tools().pluck(deck[type], 'visible')
+        const hasTruthyCheck = (acc, cur) => acc || cur;
+        const typeHasVisibleCards = visibleCards.length === 0
+          ? false
+          : visibleCards.reduce(hasTruthyCheck)
+        if (!typeHasVisibleCards) hiddenCols.push(type)
+      })
+      return hiddenCols
     },
 
     setAllCardsVisible: card => {

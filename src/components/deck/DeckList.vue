@@ -15,12 +15,14 @@
       <div
         v-for="(cards, type) in deck_sorted"
         class="mb-6 mr-6"
+        v-show="!(empty_cols.includes(type))"
       >
         <h3 class="text-gray-400">
           {{type}} ({{cards | display_count}})
         </h3>
         <ListCard
           v-for="card in cards"
+          v-show="card.visible"
           v-bind:key="card._id"
           v-bind:card-data="card"
         ></ListCard>
@@ -52,6 +54,9 @@ export default {
     },
     card_count () {
       return this.$store.state.card_count
+    },
+    empty_cols () {
+      return this.$store.state.empty_cols
     }
   },
   created: function () {

@@ -28,7 +28,8 @@ function builder (data) {
       deck_sorted: {},  // deck_current represented by categories
 
       decklist_loading: false,
-      card_count: 0
+      card_count: 0,
+      empty_cols: [] // Key Names of Empty Cols
     },
 
     mutations: {
@@ -101,6 +102,7 @@ function builder (data) {
           'types': Object.keys(state.deck_sorted),
           'includes': options.includes
         })
+        state.empty_cols = deckTools().getEmptyColumns(state.deck_sorted)
       },
       addDeckCard (state, options) {
         const category = deckTools().getCardCategoryName(options.card)
@@ -147,9 +149,9 @@ function builder (data) {
             }
             commit('setGallery', options)
           })
-          .catch(error => {
+          .catch(err => {
             console.warn('error getting altered card list: ')
-            console.error(error);
+            console.error(err);
           })
       },
       deleteAlter (state, options) {
@@ -172,9 +174,7 @@ function builder (data) {
               state.commit('addAlter', {'alter': options.alter})
             }
           })
-          .catch(function(error) {
-            console.warn(' ** error posting alter', error)
-          })
+          .catch(err => console.warn(' ** error posting alter', error))
       },
       putAlter (state, options) {
         api.update_gallery_card(options.alter)
@@ -183,9 +183,7 @@ function builder (data) {
               console.warn(' ** Error updating alter', response.data.message);
             }
           })
-          .catch(function(error) {
-            console.error(' ** error updating alter', error)
-          })
+          .catch(error => console.error(' ** error updating alter', error))
       },
 
       // Decklist Actions
@@ -202,9 +200,9 @@ function builder (data) {
               'deck': selectedDeck
             })
           })
-          .catch(error => {
+          .catch(err => {
             console.warn('error getting decks: ')
-            console.error(error);
+            console.error(err);
           })
       },
       selectDeck(state, options) {
@@ -216,16 +214,10 @@ function builder (data) {
             state.commit('selectDeck', {
               'deck': options.deck
             })
-            const allQuantities = tools().pluck(options.deck.cards, 'quantity')
-            const addValuesReducer = (acc, cur) => acc + cur;
-            const count = allQuantities.length === 0
-              ? 0
-              : allQuantities.reduce(addValuesReducer)
+            const count = deckTools().countCards(options.deck.cards)
             state.commit('setCardCount', {'count': count})
           })
-          .catch(function(error) {
-            console.error(' ** error adding new card', error)
-          })
+          .catch(err => console.error(' ** error adding new card', error))
           .finally(function() {
             state.commit('decklistLoading', {loading: false})
           })
@@ -238,9 +230,7 @@ function builder (data) {
           .then(function(response) {
             state.commit('addNewDeck', {'new_deck': response.data.deck})
           })
-          .catch(function(error) {
-            console.error(' ** error adding new deck', error)
-          })
+          .catch((error) => console.error(' ** error adding new deck', error))
       },
       addDeckCard(state, options) {
         state.commit('decklistLoading', {loading: true})
@@ -259,9 +249,7 @@ function builder (data) {
                 state.commit('decklistLoading', {loading: false})
               })
           })
-          .catch(function(error) {
-            console.error(' ** error adding new card', error)
-          })
+          .catch(err => console.error(' ** error adding new card', err))
       },
       updateDeckCard(state, options) {
         api.update_deck_card(state.state.deck_current._id, options)
