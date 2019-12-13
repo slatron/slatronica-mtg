@@ -53,11 +53,29 @@ export const deckTools = () => {
     combineCardWithScryfallData: function(card) {
       return api.get_scryfall_card(card.scryfall_id)
         .then(function(scryeCard) {
-          return {...scryeCard.data, ...card}
+          // return {...scryeCard.data, ...card}
+          return Object.assign(scryeCard.data, card)
         })
     },
 
-    combineListScryfallData: function(cards) {
+    // Refactor these next two together
+    //  - same start, no category sort in Gallery
+    combineGalleryScryfallData: function(cards) {
+      // Get all scryfall data to add to local list
+      const card_ids     = tools().pluck(cards, 'scryfall_id')
+      const cardPromises = card_ids.map(id => api.get_scryfall_card(id))
+      return Promise.all(cardPromises)
+        .then(cardData => {
+          const scryeCards = cardData.map(responseData => responseData.data)
+          return (scryeCards.length === cards.length)
+            ? scryeCards.map((scryeCard, idx) => {
+                return Object.assign(scryeCard, cards[idx])
+              })
+            : scryeCards
+        })
+    },
+
+    combineDeckScryfallData: function(cards) {
       // Get all scryfall data to add to local list
       // Then sort deck into categories
       const card_ids     = tools().pluck(cards, 'scryfall_id')
@@ -69,7 +87,7 @@ export const deckTools = () => {
             ? scryeCards.map((scryeCard, idx) => {
                 return Object.assign(scryeCard, cards[idx])
               })
-            : decks[0].cards
+            : scryeCards
           const groupedCards = {}
           combinedDataCardlist.forEach(card => {
             const category = this.getCardCategoryName(card)

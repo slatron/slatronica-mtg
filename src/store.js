@@ -141,17 +141,22 @@ function builder (data) {
 
     actions: {
       // Gallery Actions
-      initGallery ({commit}) {
+      initGallery (state) {
         api.get_cards()
           .then(response => {
-            let options = {
+            this.dispatch('combineGalleryListWithScryfall', {
               'alters': response.data
-            }
-            commit('setGallery', options)
+            })
           })
           .catch(err => {
             console.warn('error getting altered card list: ')
             console.error(err);
+          })
+      },
+      combineGalleryListWithScryfall (state, options) {
+        deckTools().combineGalleryScryfallData(options.alters)
+          .then(alters => {
+            state.commit('setGallery', {'alters': alters})
           })
       },
       deleteAlter (state, options) {
@@ -208,7 +213,10 @@ function builder (data) {
       selectDeck(state, options) {
         state.commit('decklistLoading', {loading: true})
         state.commit('setDecklist', {'deck_list': {}})
-        deckTools().combineListScryfallData(options.deck.cards)
+        // TODO: skip api calls if data exists
+        //       this should be done with the decktools refactor
+        //       we need to separate the deck grouping logic
+        deckTools().combineDeckScryfallData(options.deck.cards)
           .then(function(groupedCards) {
             state.commit('setDecklist', {'deck_list': groupedCards})
             state.commit('selectDeck', {
@@ -217,7 +225,7 @@ function builder (data) {
             const count = deckTools().countCards(options.deck.cards)
             state.commit('setCardCount', {'count': count})
           })
-          .catch(err => console.error(' ** error adding new card', error))
+          .catch(err => console.error(' ** error selecting deck: ', error))
           .finally(function() {
             state.commit('decklistLoading', {loading: false})
           })
@@ -230,7 +238,7 @@ function builder (data) {
           .then(function(response) {
             state.commit('addNewDeck', {'new_deck': response.data.deck})
           })
-          .catch((error) => console.error(' ** error adding new deck', error))
+          .catch((error) => console.error(' ** error adding new deck: ', error))
       },
       addDeckCard(state, options) {
         state.commit('decklistLoading', {loading: true})
