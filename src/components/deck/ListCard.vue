@@ -65,23 +65,12 @@ export default {
     DeckCardControls
   },
   data: function() {
-    const loadingMsg = 'loading...';
-    let vm = this;
-    api.get_scryfall_card(this.cardData.scryfall_id)
-      .then(response => {
-        const hasFaces = response.data.card_faces
-        // vm.title  = this.cardData.custom_name || response.data.name
-        vm.title = (vm.title === loadingMsg)
-          ? response.data.name
-          : vm.title
-        vm.imgUrl = (hasFaces)
-          ? response.data.card_faces[0].image_uris.normal
-          : response.data.image_uris.border_crop
-      })
-      .catch(error => console.warn('OOPS: ',  error))
+    let imgUrl = (this.cardData.layout === 'transform')
+      ? this.cardData.card_faces[0].image_uris.normal
+      : this.cardData.image_uris.border_crop
     return {
-      title: this.cardData.custom_name || loadingMsg,
-      imgUrl: '',
+      title: this.cardData.custom_name || this.cardData.name,
+      imgUrl: imgUrl,
       visible: false
     };
   },
