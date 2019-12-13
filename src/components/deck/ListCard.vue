@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import api from '@/api/api'
 import IconBase from '@/components/common/IconBase'
 import ViewShow from '@/components/icons/view-show'
 import CloseOutline from '@/components/icons/close-outline'
