@@ -96,6 +96,11 @@ export const deckTools = () => {
             }
             card = this.prepCardForDeckpageDisplay(card)
             card.category = category
+            // add category data to original list card
+            let list_card = cards.find(flatlist_card => {
+              return flatlist_card.scryfall_id === card.scryfall_id
+            })
+            list_card.category = category
             tools().fastPush(groupedCards[category], card)
           })
           return groupedCards

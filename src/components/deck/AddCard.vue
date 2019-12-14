@@ -62,6 +62,9 @@ export default {
   computed: {
     open_form () {
       return this.$store.state.add_click
+    },
+    deck_current () {
+      return this.$store.state.deck_current
     }
   },
   watch: {
@@ -114,23 +117,44 @@ export default {
     },
     addDeckCard: function() {
       if (!this.scryfall_id) return false
-      const newCard = {
-        scryfall_id: this.scryfall_id,
-        custom_name: this.custom_name || '',
-        has_alter: this.has_alter,
-        quantity: 1
+
+      const existingIds = tools().pluck(this.deck_current.cards, 'scryfall_id')
+      if (existingIds.includes(this.scryfall_id)) {
+
+        const targetId = this.scryfall_id
+        const existingCard = this.deck_current.cards.find(card => {
+          return card.scryfall_id === targetId
+        })
+        this.$store.dispatch('updateDeckCard', {
+          'card_id': existingCard._id,
+          'category': existingCard.category,
+          'count_change': 1,
+          'update_data': {
+            'quantity': existingCard.quantity + 1
+          }
+        })
+
+      } else {
+
+        const newCard = {
+          scryfall_id: this.scryfall_id,
+          custom_name: this.custom_name || '',
+          has_alter: this.has_alter,
+          quantity: 1
+        }
+        this.$store.dispatch('addDeckCard', {
+          'card': newCard
+        })
+        const newName = this.card_selected;
+        this.msg = `Successfully added ${newName}`
+        this.search_term        = ''
+        this.scryfall_id        = ''
+        this.custom_name        = ''
+        this.has_alter          = false
+        this.autocomplete_names = []
+        this.card_selected      = ''
+
       }
-      this.$store.dispatch('addDeckCard', {
-        'card': newCard
-      })
-      const newName = this.card_selected;
-      this.msg = `Successfully added ${newName}`
-      this.search_term        = ''
-      this.scryfall_id        = ''
-      this.custom_name        = ''
-      this.has_alter          = false
-      this.autocomplete_names = []
-      this.card_selected      = ''
     }
   }
 }
