@@ -7,9 +7,9 @@
       <li v-show="username">
         <a v-on:click="logout()">Welcome, {{username}} | Logout</a>
       </li>
-      <!-- <li>
+      <li>
         <router-link to="/">Gallery</router-link>
-      </li> -->
+      </li>
       <li>
         <router-link to="/decks">Decks</router-link>
       </li>

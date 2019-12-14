@@ -37,7 +37,7 @@
         <FlipCard
           v-bind:key="cardData.custom_name"
           v-bind:card-data="cardData"
-          v-bind:card-only="true"
+          v-bind:gallery-list="false"
         ></FlipCard>
       </div>
     </div>

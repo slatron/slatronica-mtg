@@ -3,7 +3,7 @@
     <DeckFormContainer/>
     <div
       class="window-shade"
-      v-show="decklist_loading"
+      v-show="page_loading"
     ></div>
     <h2 class="text-xl m-3 text-blue-600 tracking-wide">
       {{deck_current.name}} |
@@ -43,8 +43,8 @@ export default {
     DeckFormContainer
   },
   computed: {
-    decklist_loading () {
-      return this.$store.state.decklist_loading
+    page_loading () {
+      return this.$store.state.page_loading
     },
     deck_sorted () {
       return this.$store.state.deck_sorted

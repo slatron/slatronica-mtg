@@ -18,6 +18,7 @@ function builder (data) {
       // Layout Data
       drawer_open: false,
       add_click: false, // toggles when user clicks on add button in header
+      page_loading: false,
 
       // Gallery Data
       gallery_list: [],
@@ -27,7 +28,6 @@ function builder (data) {
       deck_current: {}, // Selected deck
       deck_sorted: {},  // deck_current represented by categories
 
-      decklist_loading: false,
       card_count: 0,
       empty_cols: [] // Key Names of Empty Cols
     },
@@ -81,7 +81,7 @@ function builder (data) {
 
       // Decklist Mutations
       decklistLoading (state, options) {
-        state.decklist_loading = options.loading
+        state.page_loading = options.loading
       },
       setDecks (state, options) {
         state.deck_lists = options.decks
@@ -142,6 +142,7 @@ function builder (data) {
     actions: {
       // Gallery Actions
       initGallery (state) {
+        state.commit('decklistLoading', {loading: true})
         api.get_cards()
           .then(response => {
             this.dispatch('combineGalleryListWithScryfall', {
@@ -151,6 +152,9 @@ function builder (data) {
           .catch(err => {
             console.warn('error getting altered card list: ')
             console.error(err);
+          })
+          .finally(function() {
+            state.commit('decklistLoading', {loading: false})
           })
       },
       combineGalleryListWithScryfall (state, options) {

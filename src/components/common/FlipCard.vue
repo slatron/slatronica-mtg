@@ -2,20 +2,21 @@
   <div class="card-image-grid">
     <h5
       class="card-heading"
-      v-show="!this.cardOnly"
+      v-show="this.galleryCard"
     >
       <span
-        v-bind:class="{'hand': username}"
+        v-bind:class="{'hand': gallery_auth_user}"
         v-show="!editNameMode"
         v-on:click="editNameToggle()"
       >
         {{cardData.name}}
       </span>
+      <!-- <form v-on:submit.prevent> -->
       <form v-on:submit="handleEditName(cardData._id)" v-show="editNameMode">
         <input v-model="cardData.name">
       </form>
       <button
-        v-if="username"
+        v-if="gallery_auth_user"
         v-on:click="deleteAlter(cardData._id)"
         class="delete-alter"
       >
@@ -39,7 +40,6 @@
 </template>
 
 <script>
-import api from '@/api/api'
 import IconBase from '@/components/common/IconBase'
 import EditIcon from '@/components/icons/edit-pencil'
 import TrashIcon from '@/components/icons/trash'
@@ -48,7 +48,7 @@ export default {
   name: 'FlipCard',
   props: {
     cardData: Object,
-    cardOnly: Boolean
+    galleryCard: Boolean
   },
   data: () => {
     return {
@@ -65,29 +65,24 @@ export default {
     TrashIcon
   },
   computed: {
-    username () {
-      return this.$store.state.username && !this.cardOnly
+    gallery_auth_user () {
+      return this.$store.state.username && this.galleryCard
     }
   },
   created: function () {
-    let vm = this
-    vm.cardData.name = vm.cardData.custom_name || vm.cardData.name || vm.title
-    api.get_scryfall_card(this.cardData.scryfall_id)
-      .then(response => {
-        let localUrl = ''
-        if (response.data.card_faces) {
-          let face = vm.cardData.face || 0 // default to front side
-          vm.title = response.data.card_faces[face].name
-          vm.imgUrl = response.data.card_faces[face].image_uris.normal
-          localUrl = response.data.card_faces[face].illustration_id
-        } else {
-          vm.title = response.data.name
-          vm.imgUrl = response.data.image_uris.normal
-          localUrl = response.data.illustration_id
-        };
-        vm.localImg = require('@/assets/images/' + localUrl + '.jpg')
-      })
-      .catch(error => console.warn('OOPS: ', error))
+    let localUrl = ''
+    // Set view model name and local altered image
+    if (this.cardData.layout === 'transform') {
+      let face = this.cardData.face || 0 // default to front side
+      this.title = this.cardData.card_faces[face].name
+      this.imgUrl = this.cardData.card_faces[face].image_uris.normal
+      localUrl = this.cardData.card_faces[face].illustration_id
+    } else {
+      this.title = this.cardData.name
+      this.imgUrl = this.cardData.image_uris.normal
+      localUrl =this.cardData.illustration_id
+    };
+    this.localImg = require('@/assets/images/' + localUrl + '.jpg')
   },
   methods: {
     flip: function () {
@@ -101,7 +96,7 @@ export default {
       }
     },
     editNameToggle: function(id) {
-      if (this.username) {
+      if (this.gallery_auth_user) {
         this.editNameMode = !this.editNameMode
       }
     },
@@ -109,7 +104,7 @@ export default {
       this.$store.dispatch('putAlter', {
         'alter': {
           'id': id,
-          'name': this.cardData.name
+          'custom_name': this.cardData.name
         }
       })
       this.editNameMode = false

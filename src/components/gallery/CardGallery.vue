@@ -2,6 +2,10 @@
   <div class="grid-container">
     <AddAlter/>
     <div
+      class="window-shade"
+      v-show="page_loading"
+    ></div>
+    <div
       class="image-container text-blue-500 tracking-wide"
       v-for="card in gallery_list"
       v-show="card.visible"
@@ -9,6 +13,7 @@
       <FlipCard
         v-bind:key="card.scryfall_id"
         v-bind:card-data="card"
+        v-bind:gallery-card="true"
       ></FlipCard>
     </div>
   </div>
@@ -17,7 +22,6 @@
 <script>
 import FlipCard from '@/components/common/FlipCard'
 import AddAlter from '@/components/gallery/AddAlter'
-import api from '@/api/api'
 
 export default {
   name: 'CardGallery',
@@ -33,10 +37,16 @@ export default {
   computed: {
     gallery_list () {
       return this.$store.state.gallery_list
+    },
+    page_loading () {
+      return this.$store.state.page_loading
     }
   },
   created: function () {
-    this.$store.dispatch('initGallery');
+    if (!this.gallery_list.length) {
+      debugger;
+      this.$store.dispatch('initGallery');
+    }
   }
 }
 </script>
@@ -55,6 +65,11 @@ export default {
   display: inline-block;
   width: 300px;
   height: 440px;
+}
+.window-shade {
+  background-image: url('../../assets/images/loading/big-black-bg.gif');
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 </style>
