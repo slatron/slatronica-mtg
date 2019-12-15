@@ -67,6 +67,12 @@ export default {
   remove_deck_card: (deckId, options) => {
     return axios.delete(`${apiUrl}decks/${deckId}/card/${options.card_id}`, options)
   },
+  update_deck: (deckId, deckData) => {
+    return axios.put(`${apiUrl}decks/${deckId}`, deckData)
+  },
+  delete_deck: id => {
+    return axios.delete(`${apiUrl}decks/${id}`)
+  },
 
   // external
   // -----------------------------------------------------------

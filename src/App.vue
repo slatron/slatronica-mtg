@@ -48,14 +48,12 @@ export default {
   components: {
     DrawerContents
   },
-  // watch: {
-  //   // Close Drawer and set background color
-  //   '$route' (to, from) {
-  //     this.$store.commit('toggleDrawer', {'force': false})
-  //     const setBlackBg = tools().intersection([to.name], ['DeckPage', 'GalleryPage', 'SingleGalleryCard']).length
-  //     document.body.className = setBlackBg ? 'bg-black' : 'bg-gray-100'
-  //   }
-  // },
+  watch: {
+    // Close Drawer on route changes
+    '$route' (to, from) {
+      this.$store.commit('toggleDrawer', {'force': false})
+    }
+  },
   methods: {
     toggleDrawer: function() {
       this.$store.commit('toggleDrawer')

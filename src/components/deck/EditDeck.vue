@@ -1,51 +1,68 @@
 <template>
-  <form v-on:submit.prevent="addNewDeck">
+  <form v-on:submit.prevent>
     <fieldset>
-      <label for="scryfall_id">Name</label>
-      <input type="text" name="name" v-model="name">
+      <label for="deck_name_field">Deck Name</label>
+      <input type="text" name="deck_name_field" v-model="deck_name">
     </fieldset>
     <fieldset>
-      <label for="scryfall_id">Format</label>
-      <select type="text" name="Format" v-model="format">
-        <option>FUNQUAT</option>
-        <option>BUUKA-DUUM</option>
+      <label for="format_type_field">Deck Format</label>
+      <select v-model="deck_format" id="format_type_field">
+        <option
+          v-for="format_type in ['EDH', 'Modern', 'Cube', 'Cube Draft', 'None']"
+          v-bind:value="format_type">
+           {{format_type}}
+        </option>
       </select>
     </fieldset>
     <fieldset class="text-right">
-      <button type="button" name="button" v-on:click="addNewDeck()">
+      <button type="button" name="button" v-on:click="updateDeck()">
         Save
       </button>
     </fieldset>
-    <fieldset class="error-msg" v-if="msg.length">
-      <span v-on:click="removeMsg()">{{msg}}</span>
+    <fieldset>
+      <button v-on:click="deleteDeck">
+        <icon-base icon-name="trash-icon"><TrashIcon /></icon-base>
+      </button>
     </fieldset>
   </form>
 </template>
 
 <script>
+import IconBase from '@/components/common/IconBase'
+import TrashIcon from '@/components/icons/trash'
+
 export default {
   name: 'editDeck',
-  data: () => {
+  components: {
+    IconBase,
+    TrashIcon
+  },
+  data () {
     return {
-      name: '',
-      format: '',
-      msg: ''
+      msg: '',
+      deck_name: this.$store.state.deck_current.name || 'enter name',
+      deck_format: this.$store.state.deck_current.format || 'EDH'
     }
   },
   methods: {
     closeForm: function () {
       this.$store.commit('triggerAdd')
     },
-    // addNewDeck: function() {
-    //   const newDeck = {
-    //     name: this.name,
-    //   }
-    //   this.$store.dispatch('addNewDeck', {
-    //     'new_deck': newDeck
-    //   })
-    //   this.closeForm()
-    //   this.name = ''
-    // }
+    updateDeck: function() {
+      debugger
+      const updateData = {
+        name: this.deck_name,
+        format: this.deck_format
+      }
+      this.$store.dispatch('updateDeck', updateData)
+      this.closeForm()
+      this.name = ''
+    },
+    deleteDeck: function() {
+      if (window.confirm('This will permanently delete the current deck. Proceed?')) {
+        this.$store.dispatch('deleteDeck')
+      }
+    }
   }
 }
 </script>

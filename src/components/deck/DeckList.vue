@@ -81,10 +81,19 @@ export default {
     },
     open_form () {
       return this.$store.state.open_form
+    },
+    deck_lists () {
+      return this.$store.state.deck_lists
     }
   },
   created: function () {
-    this.$store.dispatch('initDecks')
+    if (this.deck_lists.length) {
+      this.$store.dispatch('selectDeck', {
+        'deck': this.deck_lists[0]
+      })
+    } else {
+      this.$store.dispatch('initDecks')
+    }
   },
   filters: {
     display_count: function (cards) {

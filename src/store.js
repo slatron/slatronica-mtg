@@ -137,7 +137,19 @@ function builder (data) {
         tools().fastPush(state.deck_lists, options.new_deck)
         const newDecklist = state.deck_lists
         state.deck_lists = newDecklist
+      },
+      updateDeck (state, options) {
+        state.deck_current.name = options.name
+          ? options.name
+          : state.deck_current.name
+        state.deck_current.format = options.format
+          ? options.format
+          : state.deck_current.format
+      },
+      deleteDeck (state, deck_id) {
+        state.deck_lists.splice(state.deck_lists.findIndex(deck => deck._id === deck_id), 1)
       }
+
     },
 
     actions: {
@@ -214,7 +226,6 @@ function builder (data) {
           })
       },
       selectDeck(state, options) {
-
         const groupCardlistAndSetDeck = function(cards) {
           const groupedCards = deckTools().groupCards(cards, options.deck.cards)
           state.commit('setDecklist', {'deck_list': groupedCards})
@@ -289,6 +300,29 @@ function builder (data) {
             state.commit('setCardCount', {'count': state.state.card_count - 1})
           })
           .catch(err => console.error(err))
+      },
+      updateDeck (state, options) {
+        api.update_deck(state.state.deck_current._id, options)
+          .then(function(response) {
+            if (response.data.errors) {
+              console.warn(' ** Error updating alter', response.data.message);
+            }
+            state.commit('updateDeck', options)
+          })
+          .catch(error => console.error(' ** error updating alter', error))
+      },
+      deleteDeck (state) {
+        api.delete_deck(state.state.deck_current._id)
+          .then(function() {
+            state.commit('deleteDeck', state.state.deck_current._id)
+            state.dispatch('selectDeck', {
+              'deck': state.state.deck_lists[0]
+            })
+          })
+          .catch(err => {
+            console.warn(' ** Err Deleting Alter')
+            console.error(err);
+          })
       }
     }
   })
