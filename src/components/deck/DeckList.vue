@@ -1,11 +1,20 @@
 <template>
   <div class="deck-container">
-    <DeckFormContainer/>
+    <DeckFormContainer
+      v-if="open_form"
+      v-bind:open-tab="openTab"
+    />
     <div
       class="window-shade"
       v-show="page_loading"
     ></div>
     <h2 class="text-xl m-3 text-blue-600 tracking-wide">
+      <button
+        v-if="auth_user"
+        v-on:click="openEditDeckForm()"
+      >
+        <icon-base icon-name="edit-icon"><EditIcon /></icon-base>
+      </button>
       {{deck_current.name}} |
       <span class="text-sm">{{deck_current.format}}</span> |
       <span class="text-sm">{{ card_count }} Cards</span>
@@ -33,6 +42,8 @@
 </template>
 
 <script>
+import IconBase from '@/components/common/IconBase'
+import EditIcon from '@/components/icons/edit-pencil'
 import ListCard from '@/components/deck/ListCard'
 import DeckFormContainer from '@/components/deck/DeckFormContainer'
 
@@ -40,7 +51,14 @@ export default {
   name: 'DeckList',
   components: {
     ListCard,
-    DeckFormContainer
+    DeckFormContainer,
+    IconBase,
+    EditIcon
+  },
+  data () {
+    return {
+      openTab: 'card'
+    }
   },
   computed: {
     page_loading () {
@@ -57,6 +75,12 @@ export default {
     },
     empty_cols () {
       return this.$store.state.empty_cols
+    },
+    auth_user () {
+      return this.$store.state.username
+    },
+    open_form () {
+      return this.$store.state.open_form
     }
   },
   created: function () {
@@ -70,6 +94,12 @@ export default {
         counted += card.quantity
       })
       return counted
+    }
+  },
+  methods: {
+    openEditDeckForm() {
+      this.openTab = 'edit'
+      this.$store.commit('triggerAdd')
     }
   }
 }

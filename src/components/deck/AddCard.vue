@@ -61,7 +61,7 @@ export default {
   },
   computed: {
     open_form () {
-      return this.$store.state.add_click
+      return this.$store.state.open_form
     },
     deck_current () {
       return this.$store.state.deck_current

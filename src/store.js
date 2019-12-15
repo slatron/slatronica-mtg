@@ -17,7 +17,7 @@ function builder (data) {
 
       // Layout Data
       drawer_open: false,
-      add_click: false, // toggles when user clicks on add button in header
+      open_form: false, // toggles when user clicks on add button in header
       page_loading: false,
 
       // Gallery Data
@@ -46,7 +46,7 @@ function builder (data) {
       },
 
       triggerAdd (state, options = {}) {
-        state.add_click = !state.add_click
+        state.open_form = !state.open_form
       },
 
       // Gallery Mutations
@@ -54,6 +54,7 @@ function builder (data) {
         const alters = options.alters
         state.gallery_list = options.alters.sort(tools().sortBy('date', false))
         state.gallery_list = state.gallery_list.map(deckTools().setAllCardsVisible)
+        this.commit('decklistLoading', {loading: false})
       },
       addAlter (state, options) {
         const alter = options.alter
@@ -152,13 +153,11 @@ function builder (data) {
           .catch(err => {
             console.warn('error getting altered card list: ')
             console.error(err);
-          })
-          .finally(function() {
             state.commit('decklistLoading', {loading: false})
           })
       },
       combineGalleryListWithScryfall (state, options) {
-        deckTools().combineGalleryScryfallData(options.alters)
+        deckTools().combineScryfallData(options.alters)
           .then(alters => {
             state.commit('setGallery', {'alters': alters})
           })
@@ -215,24 +214,34 @@ function builder (data) {
           })
       },
       selectDeck(state, options) {
+
+        const groupCardlistAndSetDeck = function(cards) {
+          const groupedCards = deckTools().groupCards(cards, options.deck.cards)
+          state.commit('setDecklist', {'deck_list': groupedCards})
+          state.commit('selectDeck', {
+            'deck': options.deck
+          })
+          const count = deckTools().countCards(options.deck.cards)
+          state.commit('setCardCount', {'count': count})
+          state.commit('decklistLoading', {loading: false})
+        }
+
         state.commit('decklistLoading', {loading: true})
         state.commit('setDecklist', {'deck_list': {}})
-        // TODO: skip api calls if data exists
-        //       this should be done with the decktools refactor
-        //       we need to separate the deck grouping logic
-        deckTools().combineDeckScryfallData(options.deck.cards)
-          .then(function(groupedCards) {
-            state.commit('setDecklist', {'deck_list': groupedCards})
-            state.commit('selectDeck', {
-              'deck': options.deck
+
+        if (options.deck.cards.length && options.deck.cards[0].object) {
+          groupCardlistAndSetDeck(options.deck.cards)
+        } else {
+          deckTools().combineScryfallData(options.deck.cards)
+            .then(function(combinedDataCardlist) {
+              options.deck.cards = combinedDataCardlist
+              groupCardlistAndSetDeck(combinedDataCardlist)
             })
-            const count = deckTools().countCards(options.deck.cards)
-            state.commit('setCardCount', {'count': count})
-          })
-          .catch(err => console.error(' ** error selecting deck: ', error))
-          .finally(function() {
-            state.commit('decklistLoading', {loading: false})
-          })
+            .catch(err => {
+              console.error(' ** error selecting deck: ', err)
+              state.commit('decklistLoading', {loading: false})
+            })
+        }
       },
       addNewDeck(state, options) {
         const newDeck = {

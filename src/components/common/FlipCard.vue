@@ -9,11 +9,11 @@
         v-show="!editNameMode"
         v-on:click="editNameToggle()"
       >
-        {{cardData.name}}
+        {{title}}
       </span>
       <!-- <form v-on:submit.prevent> -->
       <form v-on:submit="handleEditName(cardData._id)" v-show="editNameMode">
-        <input v-model="cardData.name">
+        <input v-model="title">
       </form>
       <button
         v-if="gallery_auth_user"
@@ -41,7 +41,6 @@
 
 <script>
 import IconBase from '@/components/common/IconBase'
-import EditIcon from '@/components/icons/edit-pencil'
 import TrashIcon from '@/components/icons/trash'
 
 export default {
@@ -61,7 +60,6 @@ export default {
   },
   components: {
     IconBase,
-    EditIcon,
     TrashIcon
   },
   computed: {
@@ -74,11 +72,11 @@ export default {
     // Set view model name and local altered image
     if (this.cardData.layout === 'transform') {
       let face = this.cardData.face || 0 // default to front side
-      this.title = this.cardData.card_faces[face].name
+      this.title = this.cardData.custom_name || this.cardData.card_faces[face].name
       this.imgUrl = this.cardData.card_faces[face].image_uris.normal
       localUrl = this.cardData.card_faces[face].illustration_id
     } else {
-      this.title = this.cardData.name
+      this.title = this.cardData.custom_name || this.cardData.name
       this.imgUrl = this.cardData.image_uris.normal
       localUrl =this.cardData.illustration_id
     };
@@ -104,7 +102,7 @@ export default {
       this.$store.dispatch('putAlter', {
         'alter': {
           'id': id,
-          'custom_name': this.cardData.name
+          'custom_name': this.title
         }
       })
       this.editNameMode = false

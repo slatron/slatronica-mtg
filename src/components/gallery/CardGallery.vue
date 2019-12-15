@@ -44,7 +44,6 @@ export default {
   },
   created: function () {
     if (!this.gallery_list.length) {
-      debugger;
       this.$store.dispatch('initGallery');
     }
   }

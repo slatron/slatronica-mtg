@@ -58,9 +58,7 @@ export const deckTools = () => {
         })
     },
 
-    // Refactor these next two together
-    //  - same start, no category sort in Gallery
-    combineGalleryScryfallData: function(cards) {
+    combineScryfallData: function(cards) {
       // Get all scryfall data to add to local list
       const card_ids     = tools().pluck(cards, 'scryfall_id')
       const cardPromises = card_ids.map(id => api.get_scryfall_card(id))
@@ -75,36 +73,26 @@ export const deckTools = () => {
         })
     },
 
-    combineDeckScryfallData: function(cards) {
-      // Get all scryfall data to add to local list
-      // Then sort deck into categories
-      const card_ids     = tools().pluck(cards, 'scryfall_id')
-      const cardPromises = card_ids.map(id => api.get_scryfall_card(id))
-      return Promise.all(cardPromises)
-        .then(cardData => {
-          const scryeCards = cardData.map(responseData => responseData.data)
-          const combinedDataCardlist = (scryeCards.length === cards.length)
-            ? scryeCards.map((scryeCard, idx) => {
-                return Object.assign(scryeCard, cards[idx])
-              })
-            : scryeCards
-          const groupedCards = {}
-          combinedDataCardlist.forEach(card => {
-            const category = this.getCardCategoryName(card)
-            if (!(category in groupedCards)) {
-              groupedCards[category] = []
-            }
-            card = this.prepCardForDeckpageDisplay(card)
-            card.category = category
-            // add category data to original list card
-            let list_card = cards.find(flatlist_card => {
-              return flatlist_card.scryfall_id === card.scryfall_id
-            })
-            list_card.category = category
-            tools().fastPush(groupedCards[category], card)
-          })
-          return groupedCards
-        })
+    // Return cards as categorized hash
+    // Add category to current_list card
+    // ================================
+    groupCards: function(combinedDataCardlist, current_list) {
+      const groupedCards = {}
+      combinedDataCardlist.forEach(card => {
+        const category = this.getCardCategoryName(card)
+        if (!(category in groupedCards)) {
+          groupedCards[category] = []
+        }
+        card = this.prepCardForDeckpageDisplay(card)
+        card.category = category
+
+        // add category data to current list card
+        let list_card_hash = tools().keyBy(current_list, 'scryfall_id')
+        let list_card = list_card_hash[card.scryfall_id]
+        list_card.category = category
+        tools().fastPush(groupedCards[category], card)
+      })
+      return groupedCards
     },
 
     // Filtering Methods
