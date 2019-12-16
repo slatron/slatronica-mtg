@@ -19,10 +19,10 @@
           <label for="scryfall_id">Date</label>
           <input type="text" name="date" v-model="date">
         </fieldset>
-        <fieldset>
+        <!-- <fieldset>
           <label for="scryfall_id">Tags</label>
           <input type="text" name="tags" v-model="tags">
-        </fieldset>
+        </fieldset> -->
         <fieldset class="text-right">
           <button type="button" name="button" v-on:click="newAlter()">
             Save
@@ -45,7 +45,7 @@ export default {
       scryfall_id: '',
       name: '',
       date: '',
-      tags: [],
+      // tags: [],
       msg: ''
     }
   },
@@ -66,7 +66,7 @@ export default {
         scryfall_id: this.scryfall_id,
         name: this.name,
         date: this.date,
-        tags: this.tags
+        // tags: this.tags
       }
       this.$store.dispatch('postAlter', {
         'alter': newAlter
