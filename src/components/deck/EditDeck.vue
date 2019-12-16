@@ -49,7 +49,6 @@ export default {
       this.$store.commit('toggleForm')
     },
     updateDeck: function() {
-      debugger
       const updateData = {
         name: this.deck_name,
         format: this.deck_format
