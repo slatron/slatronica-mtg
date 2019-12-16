@@ -4,25 +4,29 @@ import api from '@/api/api'
 export const deckTools = () => {
   return {
     getCardCategoryName: function(card) {
+      // If card has custom_category, return that
+      // else
       // Fix extra words in type_line (ex... Legendary)
       // Make all creatures category: "Creature"
       // Make all planeswalkers category: "Planeswalker"
       // Make all lands category: "Land"
       // Make all Dual Instants "Instant" (avoid Instant // Sorcery)
       // Else use type_line as category
-      return (card.type_line.indexOf('Planeswalker') > -1)
-        ? 'Planeswalker'
-        : (card.type_line.indexOf('Creature') > -1)
-          ? 'Creature'
-          : (card.type_line.indexOf('Artifact') > -1)
-            ? 'Artifact'
-            : (card.type_line.indexOf('Enchantment') > -1)
-              ? 'Enchantment'
-              : (card.type_line.indexOf('Land') > -1)
-                ? 'Land'
-                : (card.type_line.indexOf('Instant') > -1)
-                  ? 'Instant'
-                  : card.type_line
+      return ('custom_category' in card === true)
+        ? card.custom_category
+        : (card.type_line.indexOf('Planeswalker') > -1)
+          ? 'Planeswalker'
+          : (card.type_line.indexOf('Creature') > -1)
+            ? 'Creature'
+            : (card.type_line.indexOf('Artifact') > -1)
+              ? 'Artifact'
+              : (card.type_line.indexOf('Enchantment') > -1)
+                ? 'Enchantment'
+                : (card.type_line.indexOf('Land') > -1)
+                  ? 'Land'
+                  : (card.type_line.indexOf('Instant') > -1)
+                    ? 'Instant'
+                    : card.type_line
     },
 
     countCards: function(deckCards) {

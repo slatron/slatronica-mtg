@@ -120,6 +120,27 @@ function builder (data) {
         tools().fastPush(state.deck_current.cards, options.card)
         state.deck_sorted = {...state.deck_sorted}
       },
+      emptyCategoryCheck (state, options) {
+        if (state.deck_sorted[options.category].length === 0) {
+          delete state.deck_sorted[options.category]
+        }
+      },
+      moveCardCategory (state, options) {
+        let card = state.deck_sorted[options.category].splice(state.deck_sorted[options.category].findIndex(card => card._id === options.card_id), 1)[0]
+        card = Object.assign(card, options.update_data)
+        // check for "*** REMOVE ***"
+        // - if so, remove custom_category field
+        if (options.update_data.custom_category === '*** REMOVE ***') {
+          delete card.custom_category;
+        }
+        card.category = deckTools().getCardCategoryName(card)
+        // create potential new category if not there
+        if (card.category in state.deck_sorted === false) state.deck_sorted[card.category] = []
+        tools().fastPush(state.deck_sorted[card.category], card)
+        state.deck_sorted = {...state.deck_sorted}
+        // Check for empty category delete
+        this.commit('emptyCategoryCheck', options)
+      },
       updateDeckCard (state, options) {
         let sortedListCard = state.deck_sorted[options.category].find(card => card._id === options.card_id)
         let listCard = state.deck_current.cards.find(card => card._id === options.card_id)
@@ -132,10 +153,7 @@ function builder (data) {
         state.deck_sorted[options.category].splice(state.deck_sorted[options.category].indexOf(currentCard), 1)
         state.deck_current.cards.splice(state.deck_current.cards.indexOf(originalCard), 1)
 
-        // Check for empty category delete
-        if (state.deck_sorted[options.category].length === 0) {
-          delete state.deck_sorted[options.category]
-        }
+        this.commit('emptyCategoryCheck', options)
       },
       addNewDeck (state, options) {
         tools().fastPush(state.deck_lists, options.new_deck)
@@ -289,8 +307,16 @@ function builder (data) {
           .catch(err => console.error(' ** error adding new card', err))
       },
       updateDeckCard(state, options) {
+        // Ensure there is update_data
+        if ('update_data' in options === false) return false
         api.update_deck_card(state.state.deck_current._id, options)
           .then(function(response) {
+            if (options.category_move) {
+              state.commit('moveCardCategory', options)
+              options.category = (options.update_data.custom_category === '*** REMOVE ***')
+                ? deckTools().getCardCategoryName({type_line: options.type})
+                : options.update_data.custom_category
+            }
             state.commit('updateDeckCard', options)
             if ('count_change' in options) {
               state.commit('setCardCount', {'count': (state.state.card_count + options.count_change)})
