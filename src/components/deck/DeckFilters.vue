@@ -41,8 +41,6 @@ export default {
   data () {
     return {
       deck_lists: this.$store.state.deck_lists,
-      // deck_current: this.$store.state.deck_current,
-
       includes: 'includes', // values: ['includes', 'excludes']
       color_options: this.$store.state.app_settings.color_options.map(option => {
         option.selected = true
@@ -52,12 +50,9 @@ export default {
   },
   computed: {
     deck_current: {
-      // return this.$store.state.deck_current
-      // getter
       get: function () {
         return this.$store.state.deck_current
       },
-      // setter
       set: function (new_deck_current) {
         this.$store.dispatch('selectDeck', {
           'deck': new_deck_current

@@ -20,7 +20,9 @@
       </button>
     </fieldset>
     <fieldset>
-      <button v-on:click="deleteDeck">
+      <button
+        v-on:click="deleteDeck"
+        v-show="can_delete">
         <icon-base icon-name="trash-icon"><TrashIcon /></icon-base>
       </button>
     </fieldset>
@@ -44,6 +46,11 @@ export default {
       deck_format: this.$store.state.deck_current.format || 'EDH'
     }
   },
+  computed: {
+    can_delete: function() {
+      return this.$store.state.deck_lists.length > 1
+    }
+  },
   methods: {
     closeForm: function () {
       this.$store.commit('toggleForm')
@@ -58,6 +65,7 @@ export default {
       this.name = ''
     },
     deleteDeck: function() {
+      if (!this.can_delete) return false
       if (window.confirm('This will permanently delete the current deck. Proceed?')) {
         this.$store.dispatch('deleteDeck')
       }

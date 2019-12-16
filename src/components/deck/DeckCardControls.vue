@@ -28,6 +28,21 @@
         <MinusSolid />
       </icon-base>
     </button>
+    <section class="category-select-bg"></section>
+    <section class="category-select">
+      <label for="custom_category_select">
+        Custom Category?
+      </label>
+      <select
+        v-model="custom_category_selected"
+        id="custom_category_select">
+        <option
+          v-for="category in custom_categories"
+          v-bind:value="category">
+           {{category}}
+        </option>
+      </select>
+    </section>
   </div>
 </template>
 
@@ -46,11 +61,34 @@ export default {
   data() {
     return {
       quantity_color_green: false,
-      quantity_color_red: false
+      quantity_color_red: false,
+      custom_categories: this.$store.state.app_settings.custom_categories
     }
   },
   props: {
     card: Object
+  },
+  computed: {
+    has_custom_category () {
+      return this.card.custom_category
+    },
+    custom_category_selected: {
+      get: function() {
+        return this.card.custom_category_selected
+      },
+      set: function(new_category) {
+        const options = {
+          'card_id': this.card._id,
+          'category': this.card.category,
+          'category_move': true,
+          'type': this.card.type_line,
+          'update_data': {
+            'custom_category': new_category
+          }
+        }
+        this.$store.dispatch('updateDeckCard', options)
+      }
+    }
   },
   methods: {
     upHover: function(on) {
@@ -115,6 +153,30 @@ export default {
     opacity: 0.45;
     border-radius: 0 1rem 1rem 0;
     transition: all 1s ease;
+  }
+  .category-select-bg {
+    position: absolute;
+    top: 205px;
+    left: 15px;
+    width: 268px;
+    height: 35px;
+    border-top: 2px solid #000;
+    border-right: 2px solid #000;
+    border-left: 2px solid #000;
+    border-bottom: 5px solid #000;
+    background: #fff;
+    opacity: 0.75;
+    border-radius: 1rem;
+  }
+  .category-select {
+    position: absolute;
+    top: 213px;
+    left: 25px;
+    width: 288px;
+    height: 35px;
+    font-size: 13px;
+    color: #000;
+    font-weight: bold;
   }
   [class*="-icon"] {
     outline: none;

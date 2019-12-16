@@ -69,5 +69,25 @@
 			"value": "colorless",
 			"short": "C"
 		}
+	],
+	"custom_categories": [
+		"*** REMOVE ***",
+		"Combo Pieces",
+		"Commander",
+		"Counterspells",
+		"Draw / Filter",
+		"Maybeboard",
+		"Mass Removal",
+		"Protection",
+		"Ramp",
+		"Reanimation",
+		"Removal",
+		"Theme Support 1",
+		"Theme Support 2",
+		"Theme Support 3",
+		"Tribe",
+		"Tutors",
+		"Wheels",
+		"Wincon"
 	]
 }
