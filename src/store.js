@@ -152,6 +152,7 @@ function builder (data) {
       },
       deleteDeck (state, deck_id) {
         state.deck_lists.splice(state.deck_lists.findIndex(deck => deck._id === deck_id), 1)
+        this.commit('toggleForm')
       }
 
     },
