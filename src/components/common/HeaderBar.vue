@@ -18,7 +18,7 @@
     </div>
     <div class="block">
       <button
-        v-on:click="triggerAdd()"
+        v-on:click="toggleForm()"
         v-bind:class="{'invisible': !has_add}"
         class="px-3 py-2 border md:border-none rounded text-gray-500 border-gray-500 hover:text-white">
         <icon-base icon-name="document-add"><DocumentAdd /></icon-base>
@@ -71,8 +71,8 @@ export default {
     DocumentAdd
   },
   methods: {
-    triggerAdd: function() {
-      this.$store.commit('triggerAdd')
+    toggleForm: function() {
+      this.$store.commit('toggleForm', {'tab': 'card'})
     },
     toggleFilterMenu: function() {
       this.filters_open = !this.filters_open

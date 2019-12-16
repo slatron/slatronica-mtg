@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     closeAlterForm: function () {
-      this.$store.commit('triggerAdd')
+      this.$store.commit('toggleForm')
     },
     removeMsg: function () {
       this.msg = ''

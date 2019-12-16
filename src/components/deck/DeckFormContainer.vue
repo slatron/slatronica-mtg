@@ -44,17 +44,14 @@ export default {
     AddDeck,
     EditDeck
   },
-  props: {
-    openTab: String
-  },
   data: function() {
     return {
-      active_form: this.openTab
+      active_form: this.$store.state.form_tab
     }
   },
   methods: {
     closeForm: function () {
-      this.$store.commit('triggerAdd')
+      this.$store.commit('toggleForm')
     },
     removeMsg: function () {
       this.msg = ''

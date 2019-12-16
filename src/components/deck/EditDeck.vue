@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     closeForm: function () {
-      this.$store.commit('triggerAdd')
+      this.$store.commit('toggleForm')
     },
     updateDeck: function() {
       debugger

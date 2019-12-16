@@ -17,7 +17,8 @@ function builder (data) {
 
       // Layout Data
       drawer_open: false,
-      open_form: false, // toggles when user clicks on add button in header
+      open_form: false,
+      form_tab: 'card',
       page_loading: false,
 
       // Gallery Data
@@ -45,7 +46,10 @@ function builder (data) {
           : !state.drawer_open
       },
 
-      triggerAdd (state, options = {}) {
+      toggleForm (state, options = {}) {
+        if (options.tab) {
+          state.form_tab = options.tab
+        }
         state.open_form = !state.open_form
       },
 
@@ -190,7 +194,7 @@ function builder (data) {
             if (response.data.errors) {
               console.warn(' ** Error posting new alter', response.data.message);
             } else {
-              state.commit('triggerAdd')
+              state.commit('toggleForm')
               state.commit('addAlter', {'alter': options.alter})
             }
           })

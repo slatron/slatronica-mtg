@@ -1,9 +1,6 @@
 <template>
   <div class="deck-container">
-    <DeckFormContainer
-      v-if="open_form"
-      v-bind:open-tab="openTab"
-    />
+    <DeckFormContainer v-if="open_form" />
     <div
       class="window-shade"
       v-show="page_loading"
@@ -55,11 +52,6 @@ export default {
     IconBase,
     EditIcon
   },
-  data () {
-    return {
-      openTab: 'card'
-    }
-  },
   computed: {
     page_loading () {
       return this.$store.state.page_loading
@@ -107,8 +99,7 @@ export default {
   },
   methods: {
     openEditDeckForm() {
-      this.openTab = 'edit'
-      this.$store.commit('triggerAdd')
+      this.$store.commit('toggleForm', {'tab': 'edit'})
     }
   }
 }
