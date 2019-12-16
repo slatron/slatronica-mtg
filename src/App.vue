@@ -49,11 +49,9 @@ export default {
     DrawerContents
   },
   watch: {
-    // Close Drawer and set background color
+    // Close Drawer on route changes
     '$route' (to, from) {
       this.$store.commit('toggleDrawer', {'force': false})
-      const setBlackBg = tools().intersection([to.name], ['DeckPage', 'GalleryPage', 'SingleGalleryCard']).length
-      document.body.className = setBlackBg ? 'bg-black' : 'bg-gray-100'
     }
   },
   methods: {
@@ -136,7 +134,7 @@ export default {
 }
 
 body {
-  transition: background-color 1.5s ease;
+  // transition: background-color 1.5s ease;
 }
 
 // state classes

@@ -1,28 +1,35 @@
 <template>
   <div class="deck-container">
-    <DeckFormContainer/>
+    <DeckFormContainer v-if="open_form" />
     <div
       class="window-shade"
-      v-show="decklist_loading"
+      v-show="page_loading"
     ></div>
     <h2 class="text-xl m-3 text-blue-600 tracking-wide">
-      {{current_deck.name}} |
-      <span class="text-sm">{{current_deck.format}}</span> |
+      <button
+        v-if="auth_user"
+        v-on:click="openEditDeckForm()"
+      >
+        <icon-base icon-name="edit-icon"><EditIcon /></icon-base>
+      </button>
+      {{deck_current.name}} |
+      <span class="text-sm">{{deck_current.format}}</span> |
       <span class="text-sm">{{ card_count }} Cards</span>
     </h2>
 
     <div class="columns m-1 pl-3 pb-3 overflow-visible flex flex-wrap justify-start flex-initial">
-
       <div
-        v-for="(cards, type) in deck_list"
+        v-for="(cards, type) in deck_sorted"
         class="mb-6 mr-6"
+        v-show="!(empty_cols.includes(type))"
       >
         <h3 class="text-gray-400">
           {{type}} ({{cards | display_count}})
         </h3>
         <ListCard
           v-for="card in cards"
-          v-bind:key="card.scryfall_id"
+          v-show="card.visible"
+          v-bind:key="card._id"
           v-bind:card-data="card"
         ></ListCard>
       </div>
@@ -32,6 +39,8 @@
 </template>
 
 <script>
+import IconBase from '@/components/common/IconBase'
+import EditIcon from '@/components/icons/edit-pencil'
 import ListCard from '@/components/deck/ListCard'
 import DeckFormContainer from '@/components/deck/DeckFormContainer'
 
@@ -39,24 +48,44 @@ export default {
   name: 'DeckList',
   components: {
     ListCard,
-    DeckFormContainer
+    DeckFormContainer,
+    IconBase,
+    EditIcon
   },
   computed: {
-    decklist_loading () {
-      return this.$store.state.decklist_loading
+    page_loading () {
+      return this.$store.state.page_loading
     },
-    deck_list () {
-      return this.$store.state.deck_list
+    deck_sorted () {
+      return this.$store.state.deck_sorted
     },
-    current_deck () {
-      return this.$store.state.current_deck
+    deck_current () {
+      return this.$store.state.deck_current
     },
     card_count () {
       return this.$store.state.card_count
+    },
+    empty_cols () {
+      return this.$store.state.empty_cols
+    },
+    auth_user () {
+      return this.$store.state.username
+    },
+    open_form () {
+      return this.$store.state.open_form
+    },
+    deck_lists () {
+      return this.$store.state.deck_lists
     }
   },
   created: function () {
-    this.$store.dispatch('initDecks')
+    if (this.deck_lists.length) {
+      this.$store.dispatch('selectDeck', {
+        'deck': this.deck_lists[0]
+      })
+    } else {
+      this.$store.dispatch('initDecks')
+    }
   },
   filters: {
     display_count: function (cards) {
@@ -66,6 +95,11 @@ export default {
         counted += card.quantity
       })
       return counted
+    }
+  },
+  methods: {
+    openEditDeckForm() {
+      this.$store.commit('toggleForm', {'tab': 'edit'})
     }
   }
 }

@@ -35,9 +35,9 @@
         v-if="cardData.has_alter"
       >
         <FlipCard
-          v-bind:key="cardData.name"
+          v-bind:key="cardData.custom_name"
           v-bind:card-data="cardData"
-          v-bind:card-only="true"
+          v-bind:gallery-list="false"
         ></FlipCard>
       </div>
     </div>
@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import api from '@/api/api'
 import IconBase from '@/components/common/IconBase'
 import ViewShow from '@/components/icons/view-show'
 import CloseOutline from '@/components/icons/close-outline'
@@ -65,19 +64,12 @@ export default {
     DeckCardControls
   },
   data: function() {
-    let vm = this;
-    api.get_scryfall_card(this.cardData.scryfall_id)
-      .then(response => {
-        const hasFaces = response.data.card_faces
-        vm.title  = this.cardData.name || response.data.name
-        vm.imgUrl = hasFaces
-                    ? response.data.card_faces[0].image_uris.normal
-                    : response.data.image_uris.border_crop
-      })
-      .catch(error => console.warn('OOPS: ',  error))
+    let imgUrl = (this.cardData.layout === 'transform')
+      ? this.cardData.card_faces[0].image_uris.normal
+      : this.cardData.image_uris.border_crop
     return {
-      title: 'loading...',
-      imgUrl: '',
+      title: this.cardData.custom_name || this.cardData.name,
+      imgUrl: imgUrl,
       visible: false
     };
   },

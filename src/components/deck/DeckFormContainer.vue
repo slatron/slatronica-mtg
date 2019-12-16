@@ -1,5 +1,5 @@
 <template>
-  <div class="windowshade-container" v-show="open_form">
+  <div class="windowshade-container">
     <div
       class="window-shade"
       v-on:click="closeForm()"
@@ -18,9 +18,16 @@
         >
           Add New Deck
         </h2>
+        <h2
+          v-bind:class="{'active': active_form === 'edit'}"
+          v-on:click="active_form = 'edit'"
+        >
+          Edit Deck
+        </h2>
       </section>
       <AddCard v-if="active_form === 'card'"/>
       <AddDeck v-if="active_form === 'deck'"/>
+      <EditDeck v-if="active_form === 'edit'" />
     </div>
   </div>
 </template>
@@ -28,26 +35,23 @@
 <script>
 import AddCard from '@/components/deck/AddCard'
 import AddDeck from '@/components/deck/AddDeck'
+import EditDeck from '@/components/deck/EditDeck'
 
 export default {
   name: 'deckFormContainer',
   components: {
     AddCard,
-    AddDeck
+    AddDeck,
+    EditDeck
   },
-  data: () => {
+  data: function() {
     return {
-      active_form: 'card'
-    }
-  },
-  computed: {
-    open_form () {
-      return this.$store.state.add_click
+      active_form: this.$store.state.form_tab
     }
   },
   methods: {
     closeForm: function () {
-      this.$store.commit('triggerAdd')
+      this.$store.commit('toggleForm')
     },
     removeMsg: function () {
       this.msg = ''
@@ -58,7 +62,7 @@ export default {
 
 <style lang="scss" scoped>
   h2 {
-    font-size: 18px;
+    font-size: 14px;
     margin-bottom: 0;
     cursor: pointer;
     &.active {

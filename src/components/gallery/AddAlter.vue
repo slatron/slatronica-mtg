@@ -51,12 +51,12 @@ export default {
   },
   computed: {
     open_form () {
-      return this.$store.state.add_click
+      return this.$store.state.open_form
     }
   },
   methods: {
     closeAlterForm: function () {
-      this.$store.commit('triggerAdd')
+      this.$store.commit('toggleForm')
     },
     removeMsg: function () {
       this.msg = ''
