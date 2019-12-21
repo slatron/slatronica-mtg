@@ -1,5 +1,8 @@
 <template>
-  <div class="card-image-grid">
+  <div
+    class="card-image-grid"
+    v-bind:class="{'card-image-list': !galleryCard}"
+  >
     <h5
       class="card-heading"
       v-show="this.galleryCard"
@@ -139,6 +142,9 @@ button:hover {
   position: relative;
   display: inline-block;
   width: 300px;
+}
+.card-image-list {
+  width: 250px;
 }
 .card-image {
   transform-style: preserve-3d;

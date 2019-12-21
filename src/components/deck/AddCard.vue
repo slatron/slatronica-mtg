@@ -3,7 +3,7 @@
     <div class="card-selected" v-show="cardLoading || card_selected">
       <b>Selected</b>
       <div class="loading-container-black">
-        <img  v-show="cardLoading" src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
+        <img v-show="cardLoading" src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
         {{card_selected}}
       </div>
     </div>
@@ -121,6 +121,7 @@ export default {
       const existingIds = tools().pluck(this.deck_current.cards, 'scryfall_id')
       if (existingIds.includes(this.scryfall_id)) {
 
+        // Add quantity to existin card
         const targetId = this.scryfall_id
         const existingCard = this.deck_current.cards.find(card => {
           return card.scryfall_id === targetId
@@ -132,6 +133,8 @@ export default {
           'update_data': {
             'quantity': existingCard.quantity + 1
           }
+        }).then(() => {
+          this.msg = 'Added Quantity to Exisitng Card'
         })
 
       } else {

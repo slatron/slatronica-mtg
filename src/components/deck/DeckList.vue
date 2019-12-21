@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { tools } from '@/utils/MStools'
 import IconBase from '@/components/common/IconBase'
 import EditIcon from '@/components/icons/edit-pencil'
 import ListCard from '@/components/deck/ListCard'
@@ -95,6 +96,9 @@ export default {
         counted += card.quantity
       })
       return counted
+    },
+    sort_column: function () {
+      return value.charAt(0).toUpperCase() + value.slice(1)
     }
   },
   methods: {

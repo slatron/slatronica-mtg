@@ -1,6 +1,6 @@
 <template>
   <div
-    class="card-container py-1 text-lg"
+    class="card-container py-1"
     v-on:mouseover="show(true)"
     v-on:mouseout="show(false)"
   >
@@ -95,7 +95,7 @@ export default {
     position: absolute;
     left: 10px;
     z-index: 100;
-    width: 300px;
+    width: 250px;
   }
   .button-close {
     position: absolute;

@@ -136,6 +136,11 @@ export const deckTools = () => {
     setAllCardsVisible: card => {
       card.visible = true
       return card
+    },
+
+    getDifference: (currentDeck, targetDeck) => {
+      const targetDeckIds = tools().pluck(targetDeck, 'scryfall_id')
+      return currentDeck.filter(card => !targetDeckIds.includes(card.scryfall_id))
     }
   }
 }

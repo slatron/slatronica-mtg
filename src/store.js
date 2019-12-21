@@ -157,8 +157,8 @@ function builder (data) {
       },
       addNewDeck (state, options) {
         tools().fastPush(state.deck_lists, options.new_deck)
-        const newDecklist = state.deck_lists
-        state.deck_lists = newDecklist
+        state.deck_lists = {...state.deck_lists}
+        this.dispatch('selectDeck', {'deck': options.new_deck})
       },
       updateDeck (state, options) {
         state.deck_current.name = options.name

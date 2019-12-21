@@ -10,13 +10,13 @@
           v-bind:class="{'active': active_form === 'card'}"
           v-on:click="active_form = 'card'"
         >
-          Add New Card
+          Add Card
         </h2>
         <h2
           v-bind:class="{'active': active_form === 'deck'}"
           v-on:click="active_form = 'deck'"
         >
-          Add New Deck
+          Add Deck
         </h2>
         <h2
           v-bind:class="{'active': active_form === 'edit'}"
@@ -24,10 +24,17 @@
         >
           Edit Deck
         </h2>
+        <h2
+          v-bind:class="{'active': active_form === 'compare'}"
+          v-on:click="active_form = 'compare'"
+        >
+          Compare
+        </h2>
       </section>
       <AddCard v-if="active_form === 'card'"/>
       <AddDeck v-if="active_form === 'deck'"/>
       <EditDeck v-if="active_form === 'edit'" />
+      <CompareDeck v-if="active_form === 'compare'" />
     </div>
   </div>
 </template>
@@ -36,13 +43,15 @@
 import AddCard from '@/components/deck/AddCard'
 import AddDeck from '@/components/deck/AddDeck'
 import EditDeck from '@/components/deck/EditDeck'
+import CompareDeck from '@/components/deck/CompareDeck'
 
 export default {
   name: 'deckFormContainer',
   components: {
     AddCard,
     AddDeck,
-    EditDeck
+    EditDeck,
+    CompareDeck
   },
   data: function() {
     return {

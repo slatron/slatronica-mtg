@@ -30,12 +30,7 @@
     </button>
     <section class="category-select-bg"></section>
     <section class="category-select">
-      <label for="custom_category_select">
-        Custom Category?
-      </label>
-      <select
-        v-model="custom_category_selected"
-        id="custom_category_select">
+      <select v-model="custom_category_selected">
         <option
           v-for="category in custom_categories"
           v-bind:value="category">
@@ -69,12 +64,9 @@ export default {
     card: Object
   },
   computed: {
-    has_custom_category () {
-      return this.card.custom_category
-    },
     custom_category_selected: {
       get: function() {
-        return this.card.custom_category_selected
+        return this.card.custom_category
       },
       set: function(new_category) {
         const options = {
@@ -156,9 +148,9 @@ export default {
   }
   .category-select-bg {
     position: absolute;
-    top: 205px;
-    left: 15px;
-    width: 268px;
+    top: 35px;
+    left: 95px;
+    width: 140px;
     height: 35px;
     border-top: 2px solid #000;
     border-right: 2px solid #000;
@@ -170,10 +162,8 @@ export default {
   }
   .category-select {
     position: absolute;
-    top: 213px;
-    left: 25px;
-    width: 288px;
-    height: 35px;
+    top: 41px;
+    left: 105px;
     font-size: 13px;
     color: #000;
     font-weight: bold;
