@@ -26,10 +26,6 @@
       <label for="name">Custom Name</label>
       <input type="text" name="name" v-model="custom_name">
     </fieldset>
-    <fieldset>
-      <label for="has_alter">Has Alter</label>
-      <input type="checkbox" name="has_alter" v-model="has_alter">
-    </fieldset>
     <fieldset class="text-right">
       <button type="button" name="button" v-on:click="addDeckCard()">
         Save
@@ -51,7 +47,6 @@ export default {
       search_term: '',
       scryfall_id: '',
       custom_name: '',
-      has_alter: false,
       msg: '',
       autocomplete_names: [],
       autocompleteLoading: false,
@@ -65,6 +60,9 @@ export default {
     },
     deck_current () {
       return this.$store.state.deck_current
+    },
+    base_alter_list_ids () {
+      return tools().pluck(this.$store.state.base_alter_list, 'scryfall_id')
     }
   },
   watch: {
@@ -121,7 +119,8 @@ export default {
       const existingIds = tools().pluck(this.deck_current.cards, 'scryfall_id')
       if (existingIds.includes(this.scryfall_id)) {
 
-        // Add quantity to existin card
+        // This card does exists in the list
+        // Add quantity to existing card
         const targetId = this.scryfall_id
         const existingCard = this.deck_current.cards.find(card => {
           return card.scryfall_id === targetId
@@ -139,10 +138,11 @@ export default {
 
       } else {
 
+        // This card does not exist in the list
         const newCard = {
           scryfall_id: this.scryfall_id,
           custom_name: this.custom_name || '',
-          has_alter: this.has_alter,
+          has_alter: this.base_alter_list_ids.some(id => this.scryfall_id === id),
           quantity: 1
         }
         this.$store.dispatch('addDeckCard', {
@@ -153,7 +153,6 @@ export default {
         this.search_term        = ''
         this.scryfall_id        = ''
         this.custom_name        = ''
-        this.has_alter          = false
         this.autocomplete_names = []
         this.card_selected      = ''
 

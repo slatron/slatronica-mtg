@@ -29,8 +29,11 @@ function builder (data) {
       deck_current: {}, // Selected deck
       deck_sorted: {},  // deck_current represented by categories
 
+      use_custom_categories: true, // view card custom categories?
+      deck_sort_by: 'cmc', // key to sort deck categories
       card_count: 0,
-      empty_cols: [] // Key Names of Empty Cols
+      empty_cols: [], // Key Names of Empty Cols
+      base_alter_list: []
     },
 
     mutations: {
@@ -94,7 +97,7 @@ function builder (data) {
       selectDeck (state, options) {
         state.deck_current = options.deck
       },
-      setDecklist (state, options) {
+      setDeckSorted (state, options) {
         state.deck_sorted = options.deck_list
       },
       setCardCount (state, options) {
@@ -110,7 +113,7 @@ function builder (data) {
         state.empty_cols = deckTools().getEmptyColumns(state.deck_sorted)
       },
       addDeckCard (state, options) {
-        const category = deckTools().getCardCategoryName(options.card)
+        const category = deckTools().getCardCategoryName(options.card, state.use_custom_categories)
         if (!(category in state.deck_sorted)) {
           state.deck_sorted[category] = []
         }
@@ -133,7 +136,7 @@ function builder (data) {
         if (options.update_data.custom_category === '*** REMOVE ***') {
           delete card.custom_category;
         }
-        card.category = deckTools().getCardCategoryName(card)
+        card.category = deckTools().getCardCategoryName(card, state.use_custom_categories)
         // create potential new category if not there
         if (card.category in state.deck_sorted === false) state.deck_sorted[card.category] = []
         tools().fastPush(state.deck_sorted[card.category], card)
@@ -171,8 +174,22 @@ function builder (data) {
       deleteDeck (state, deck_id) {
         state.deck_lists.splice(state.deck_lists.findIndex(deck => deck._id === deck_id), 1)
         this.commit('toggleForm')
+      },
+      setSortBy (state, deck_sort_by) {
+        state.deck_sort_by = deck_sort_by
+      },
+      setUseCustomCategories (state, use_custom_categories) {
+        state.use_custom_categories = use_custom_categories
+        // re-sort current deck
+        this.commit('decklistLoading', {loading: true})
+        this.commit('setDeckSorted', {'deck_list': {}})
+        const groupedCards = deckTools().groupCards(state.deck_current.cards, state.deck_current.cards, state.use_custom_categories)
+        this.commit('setDeckSorted', {'deck_list': groupedCards})
+        this.commit('decklistLoading', {loading: false})
+      },
+      setBaseAlterList (state, alters) {
+        state.base_alter_list = alters
       }
-
     },
 
     actions: {
@@ -231,6 +248,17 @@ function builder (data) {
 
       // Decklist Actions
       initDecks (state) {
+        // store base list of existing altered cards
+        if (!state.state.base_alter_list.length) {
+          api.get_cards()
+            .then(alters => {
+              state.commit('setBaseAlterList', alters.data)
+            })
+            .catch(err => {
+              console.warn('error getting alters: ')
+              console.error(err);
+            })
+        }
         api.get_decks()
           .then(response => {
             const decks = response.data
@@ -250,8 +278,8 @@ function builder (data) {
       },
       selectDeck(state, options) {
         const groupCardlistAndSetDeck = function(cards) {
-          const groupedCards = deckTools().groupCards(cards, options.deck.cards)
-          state.commit('setDecklist', {'deck_list': groupedCards})
+          const groupedCards = deckTools().groupCards(cards, options.deck.cards, state.state.use_custom_categories)
+          state.commit('setDeckSorted', {'deck_list': groupedCards})
           state.commit('selectDeck', {
             'deck': options.deck
           })
@@ -261,7 +289,7 @@ function builder (data) {
         }
 
         state.commit('decklistLoading', {loading: true})
-        state.commit('setDecklist', {'deck_list': {}})
+        state.commit('setDeckSorted', {'deck_list': {}})
 
         if (options.deck.cards.length && options.deck.cards[0].object) {
           groupCardlistAndSetDeck(options.deck.cards)
@@ -314,7 +342,7 @@ function builder (data) {
             if (options.category_move) {
               state.commit('moveCardCategory', options)
               options.category = (options.update_data.custom_category === '*** REMOVE ***')
-                ? deckTools().getCardCategoryName({type_line: options.type})
+                ? deckTools().getCardCategoryName({type_line: options.type}, state.state.use_custom_categories)
                 : options.update_data.custom_category
             }
             state.commit('updateDeckCard', options)

@@ -5,8 +5,7 @@
         <label>Deck</label>
       </div>
       <div>
-        <select
-          v-model="deck_current">
+        <select v-model="deck_current">
           <option
             v-for="deck in deck_lists"
             v-bind:value="deck">
@@ -18,18 +17,36 @@
     <fieldset>
       <div class="has_color">
         <span class="text-blue-400">Color Filter: </span>
-        <input type="radio" id="has_color" value="includes" v-model="includes" v-on:change="filterDeckByColor(color_options)" >
+        <input type="radio" id="has_color" value="includes" v-model="includes" v-on:change="filterDeckByColor(color_options)">
         <label for="has_color">Includes</label>
-        <input type="radio" id="not_color" value="excludes" v-model="includes" v-on:change="filterDeckByColor(color_options)" >
+        <input type="radio" id="not_color" value="excludes" v-model="includes" v-on:change="filterDeckByColor(color_options)">
         <label for="not_color">Excludes</label>
       </div>
       <div>
-        <span
-          v-for="color in color_options"
-        >
+        <span v-for="color in color_options">
           <input v-on:change="filterDeckByColor(color_options)" :id="`c_${color.short}`" type="checkbox" v-model="color.selected" />
           <label :for="`c_${color.short}`">{{ color.short }}</label>
         </span>
+      </div>
+    </fieldset>
+    <fieldset>
+      <div class="css-grid">
+        <div class="grid-left">
+          <input id="custom_categories" type="checkbox" v-model="use_custom_categories">
+          <label for="custom_categories">
+            Custom Categories
+          </label>
+        </div>
+        <div class="grid-right">
+          <label>Sort:</label>
+          <select v-model="deck_sort_by">
+            <option
+              v-for="option in ['cmc', 'name']"
+              v-bind:value="option">
+              {{option}}
+            </option>
+          </select>
+        </div>
       </div>
     </fieldset>
   </div>
@@ -49,6 +66,14 @@ export default {
     }
   },
   computed: {
+    deck_sort_by: {
+      get: function() {
+        return this.$store.state.deck_sort_by
+      },
+      set: function(new_sort_by) {
+        this.$store.commit('setSortBy', new_sort_by)
+      }
+    },
     deck_current: {
       get: function () {
         return this.$store.state.deck_current
@@ -57,6 +82,14 @@ export default {
         this.$store.dispatch('selectDeck', {
           'deck': new_deck_current
         })
+      }
+    },
+    use_custom_categories: {
+      get: function() {
+        return this.$store.state.use_custom_categories
+      },
+      set: function(use_custom_categories) {
+        this.$store.commit('setUseCustomCategories', use_custom_categories)
       }
     }
   },
@@ -73,6 +106,21 @@ export default {
 </script>
 
 <style scoped>
+.css-grid {
+  display: grid;
+  grid-template: 1fr / 1fr;
+}
+.grid-left {
+  grid-column: 1 / span 1;
+  grid-row: 1 / span 1;
+  padding-right: 10px;
+  font-size: 9px;
+}
+.grid-right {
+  padding-left: 10px;
+  grid-column: 2 / span 1;
+  grid-row: 1 / span 1;
+}
 label {
   @apply mr-2 font-medium text-gray-300;
 }

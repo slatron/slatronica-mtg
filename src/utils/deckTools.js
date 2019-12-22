@@ -3,7 +3,8 @@ import api from '@/api/api'
 
 export const deckTools = () => {
   return {
-    getCardCategoryName: function(card) {
+    getCardCategoryName: function(card, use_custom_categories) {
+      console.log('use_custom_categories: ', use_custom_categories)
       // If card has custom_category, return that
       // else
       // Fix extra words in type_line (ex... Legendary)
@@ -12,7 +13,7 @@ export const deckTools = () => {
       // Make all lands category: "Land"
       // Make all Dual Instants "Instant" (avoid Instant // Sorcery)
       // Else use type_line as category
-      return ('custom_category' in card === true)
+      return ('custom_category' in card === true && use_custom_categories)
         ? card.custom_category
         : (card.type_line.indexOf('Planeswalker') > -1)
           ? 'Planeswalker'
@@ -80,10 +81,10 @@ export const deckTools = () => {
     // Return cards as categorized hash
     // Add category to current_list card
     // ================================
-    groupCards: function(combinedDataCardlist, current_list) {
+    groupCards: function(combinedDataCardlist, current_list, use_custom_categories) {
       const groupedCards = {}
       combinedDataCardlist.forEach(card => {
-        const category = this.getCardCategoryName(card)
+        const category = this.getCardCategoryName(card, use_custom_categories)
         if (!(category in groupedCards)) {
           groupedCards[category] = []
         }

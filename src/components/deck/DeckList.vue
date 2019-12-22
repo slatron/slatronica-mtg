@@ -54,10 +54,21 @@ export default {
     EditIcon
   },
   computed: {
+    deck_sort_by () {
+      return this.$store.state.deck_sort_by
+    },
     page_loading () {
       return this.$store.state.page_loading
     },
+    deck_sort_by () {
+      return this.$store.state.deck_sort_by
+    },
     deck_sorted () {
+      for (var key in this.$store.state.deck_sorted) {
+        if (!this.$store.state.deck_sorted.hasOwnProperty(key)) continue;
+        const category_list = this.$store.state.deck_sorted[key];
+        this.$store.state.deck_sorted[key] = category_list.sort(tools().sortBy(this.deck_sort_by, true))
+      }
       return this.$store.state.deck_sorted
     },
     deck_current () {
@@ -114,7 +125,7 @@ export default {
 // Move this to layout for multiple pages when slider is built
 .deck-container {
   max-width: 1336px;
-  margin: 0 auto;
+  margin: 0 auto 360px;
 }
 
 .window-shade {

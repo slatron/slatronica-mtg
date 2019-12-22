@@ -157,11 +157,11 @@ export default {
     border-left: 2px solid #000;
     border-bottom: 5px solid #000;
     background: #fff;
-    opacity: 0.75;
     border-radius: 1rem;
   }
   .category-select {
     position: absolute;
+    background: #fff;
     top: 41px;
     left: 105px;
     font-size: 13px;
