@@ -8,6 +8,7 @@
       class="card-title"
     >
       {{cardData.quantity || 1}} | {{title}}
+      <!-- {{cardData.mana_cost | cmcDisplay}} -->
       <span
         class="inline-block md:invisible text-gray-600 border-gray-500 hover:text-white hover:border-white">
         <icon-base icon-name="view-show"><ViewShow /></icon-base>
@@ -62,6 +63,12 @@ export default {
     CloseOutline,
     FlipCard,
     DeckCardControls
+  },
+  filters: {
+    cmcDisplay: function(text) {
+      // insert icon transformations here
+      return text
+    }
   },
   data: function() {
     let imgUrl = (this.cardData.layout === 'transform')

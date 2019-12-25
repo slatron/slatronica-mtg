@@ -1,10 +1,24 @@
 <template>
-  <form v-on:submit.prevent="addDeckCard">
+  <form v-on:submit.prevent>
     <div class="card-selected" v-show="cardLoading || card_selected">
       <b>Selected</b>
-      <div class="loading-container-black">
-        <img v-show="cardLoading" src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
+      <div class="card-selected-container">
+        <img class="loading-img" v-show="cardLoading" src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
         {{card_selected}}
+      </div>
+      <div class="select_card_edition" v-if="scryfall_id">
+        <a v-on:click="openSelectEdition" href="#"
+        >+ select edition</a>
+        <div class="edition-container" v-show="view_select_edition">
+          <img class="loading-img" v-show="editionsLoading" src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
+          <div class="select_edition_images" v-show="editions.length">
+            <img
+               v-for="card in editions"
+               v-on:click="selectEdition(card.id)"
+               :src="card.image_uris.small"
+               class="edition-img">
+          </div>
+        </div>
       </div>
     </div>
     <fieldset class="autocomplete-fieldset">
@@ -51,7 +65,11 @@ export default {
       autocomplete_names: [],
       autocompleteLoading: false,
       card_selected: '',
-      cardLoading: false
+      cardLoading: false,
+      view_select_edition: false,
+      prints_search_uri: '',
+      editionsLoading: false,
+      editions: []
     }
   },
   computed: {
@@ -77,6 +95,26 @@ export default {
     this.debounceSearchCards = tools().debounce(this.searchCards, 500)
   },
   methods: {
+    openSelectEdition: function() {
+      if (this.view_select_edition) {
+        this.view_select_edition = false
+        this.editions = []
+      } else {
+        this.editionsLoading = true
+        this.view_select_edition = true
+        api.get_card_editions(this.prints_search_uri)
+          .then(editions => {
+            this.editions = editions.data.data
+          })
+          .catch(err => console.warn(err))
+          .finally(() => this.editionsLoading = false)
+      }
+    },
+    selectEdition: function(id) {
+      this.scryfall_id = id
+      this.view_select_edition = false
+      this.editions = []
+    },
     selectName: function(name) {
       this.card_selected = ''
       this.scryfall_id = ''
@@ -86,8 +124,9 @@ export default {
       vm.cardLoading = true
       api.get_card_named(name)
         .then(card => {
-          this.card_selected = card.data.name
-          this.scryfall_id = card.data.id
+          this.prints_search_uri = card.data.prints_search_uri
+          this.card_selected     = card.data.name
+          this.scryfall_id       = card.data.id
         })
         .catch(err => console.error(err))
         .finally(() => {
@@ -96,6 +135,8 @@ export default {
     },
     searchCards: function() {
       this.removeMsg()
+      this.view_select_edition = false
+      this.editions = []
       this.autocompleteLoading = true
       let vm = this
       api.search_scryfall_names(this.search_term)
@@ -163,11 +204,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .loading-container-black img {
+  .edition-container {
+    text-align: center;
+  }
+  .loading-img {
     background: #000;
     padding: 5px;
-    display: inline-block;
   }
+  .edition-img {
+    display: inline-block;
+    width: 130px;
+    margin: 7px;
+  }
+
   fieldset {
     margin-bottom: 0.5em;
   }
@@ -220,6 +269,10 @@ export default {
   }
   input {
     width: 100%;
+  }
+  .select_edition_images {
+    height: 210px;
+    overflow-y: auto;
   }
 
 </style>
