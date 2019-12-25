@@ -4,6 +4,7 @@ import api from '@/api/api'
 import router from './router'
 import store from './store'
 import '@/assets/css/tailwind.css'
+import '@/assets/css/mana.css'
 
 window.addEventListener('load', () => {
   if (!('serviceWorker' in navigator)) {

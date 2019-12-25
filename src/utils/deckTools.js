@@ -4,7 +4,6 @@ import api from '@/api/api'
 export const deckTools = () => {
   return {
     getCardCategoryName: function(card, use_custom_categories) {
-      console.log('use_custom_categories: ', use_custom_categories)
       // If card has custom_category, return that
       // else
       // Fix extra words in type_line (ex... Legendary)

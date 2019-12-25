@@ -4,15 +4,10 @@
     v-on:mouseover="show(true)"
     v-on:mouseout="show(false)"
   >
-    <div
-      class="card-title"
-    >
-      {{cardData.quantity || 1}} | {{title}}
-      <!-- {{cardData.mana_cost | cmcDisplay}} -->
-      <span
-        class="inline-block md:invisible text-gray-600 border-gray-500 hover:text-white hover:border-white">
-        <icon-base icon-name="view-show"><ViewShow /></icon-base>
-      </span>
+    <div class="card-heading">
+      <span class="card-quantity">{{cardData.quantity || 1}}</span>
+      <span class="card-title">{{title}}</span>
+      <span class="mana-cost" v-html="$options.filters.cmcDisplay(cardData.mana_cost)"></span>
     </div>
     <div class="card-hover"
       v-show="visible"
@@ -66,8 +61,11 @@ export default {
   },
   filters: {
     cmcDisplay: function(text) {
-      // insert icon transformations here
-      return text
+      const symbolList = text.split('{').join('').split('/').join('').split('}')
+      symbolList.pop()
+      const icons = ''
+      const htmlIcons = symbolList.map(symbol => `<i class="ms ms-${symbol.toLowerCase()} ms-cost ms-shadow"></i>`)
+      return htmlIcons.join('')
     }
   },
   data: function() {
@@ -120,5 +118,19 @@ export default {
   .flip-container {
     position: relative;
     top: -15px;
+  }
+  .card-heading {
+    display: flex;
+    align-items: center;
+  }
+  .card-quantity {
+    min-width: 22px;
+  }
+  .card-title {
+    flex-grow: 2;
+    padding-right: 5px;
+  }
+  .mana-cost {
+    font-size: 10px;
   }
 </style>
