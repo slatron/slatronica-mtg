@@ -14,7 +14,6 @@
       >
         {{title}}
       </span>
-      <!-- <form v-on:submit.prevent> -->
       <form
         v-on:submit.prevent
         v-on:submit="handleEditName(cardData._id)"
