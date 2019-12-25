@@ -16,6 +16,9 @@ Also to show off my painted magic cards.
 - [API Authentication](https://slatron.github.io/slatronica-mtg/#/login)
 - [Add Deck Form](https://slatron.github.io/slatronica-mtg/#/decks)
 - [Add Card Form](https://slatron.github.io/slatronica-mtg/#/decks)
+- [Compare Decks](https://slatron.github.io/slatronica-mtg/#/decks)
+- [Sort Decklists](https://slatron.github.io/slatronica-mtg/#/decks)
+- [Display Mana Costs](https://slatron.github.io/slatronica-mtg/#/decks)
 
 ## Features In Progress
 
