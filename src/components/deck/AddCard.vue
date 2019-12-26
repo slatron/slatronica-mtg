@@ -77,10 +77,10 @@ export default {
       return this.$store.state.layout.open_form
     },
     deck_current () {
-      return this.$store.state.deck_current
+      return this.$store.state.deck.deck_current
     },
     base_alter_list_ids () {
-      return tools().pluck(this.$store.state.base_alter_list, 'scryfall_id')
+      return tools().pluck(this.$store.state.deck.base_alter_list, 'scryfall_id')
     }
   },
   watch: {

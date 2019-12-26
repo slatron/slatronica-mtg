@@ -57,8 +57,8 @@ export default {
   },
   computed: {
     other_decks: function() {
-      const deck_current = this.$store.state.deck_current
-      const others = this.$store.state.deck_lists.filter(function(deck) {
+      const deck_current = this.$store.state.deck.deck_current
+      const others = this.$store.state.deck.deck_lists.filter(function(deck) {
         return deck !== deck_current
       })
       return others
@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     compare: function() {
-      const deck_current_cards = this.$store.state.deck_current.cards
+      const deck_current_cards = this.$store.state.deck.deck_current.cards
 
       this.remove_cards  = deckTools().getDifference(deck_current_cards, this.deck_compare_target)
       const addCards     = deckTools().getDifference(this.deck_compare_target, deck_current_cards)

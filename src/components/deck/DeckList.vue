@@ -55,30 +55,30 @@ export default {
   },
   computed: {
     deck_sort_by () {
-      return this.$store.state.deck_sort_by
+      return this.$store.state.deck.deck_sort_by
     },
     page_loading () {
       return this.$store.state.layout.page_loading
     },
     deck_sort_by () {
-      return this.$store.state.deck_sort_by
+      return this.$store.state.deck.deck_sort_by
     },
     deck_sorted () {
-      for (var key in this.$store.state.deck_sorted) {
-        if (!this.$store.state.deck_sorted.hasOwnProperty(key)) continue;
-        const category_list = this.$store.state.deck_sorted[key];
-        this.$store.state.deck_sorted[key] = category_list.sort(tools().sortBy(this.deck_sort_by, true))
+      for (var key in this.$store.state.deck.deck_sorted) {
+        if (!this.$store.state.deck.deck_sorted.hasOwnProperty(key)) continue;
+        const category_list = this.$store.state.deck.deck_sorted[key];
+        this.$store.state.deck.deck_sorted[key] = category_list.sort(tools().sortBy(this.deck_sort_by, true))
       }
-      return this.$store.state.deck_sorted
+      return this.$store.state.deck.deck_sorted
     },
     deck_current () {
-      return this.$store.state.deck_current
+      return this.$store.state.deck.deck_current
     },
     card_count () {
-      return this.$store.state.card_count
+      return this.$store.state.deck.card_count
     },
     empty_cols () {
-      return this.$store.state.empty_cols
+      return this.$store.state.deck.empty_cols
     },
     auth_user () {
       return this.$store.state.auth.username
@@ -87,7 +87,7 @@ export default {
       return this.$store.state.layout.open_form
     },
     deck_lists () {
-      return this.$store.state.deck_lists
+      return this.$store.state.deck.deck_lists
     }
   },
   created: function () {
