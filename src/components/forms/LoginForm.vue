@@ -23,7 +23,7 @@ export default {
     return {
       username: '',
       password: '',
-      logged_in: this.$store.state.username
+      logged_in: this.$store.state.auth.username
     }
   },
   methods: {

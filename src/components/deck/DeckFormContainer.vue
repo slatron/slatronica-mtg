@@ -55,7 +55,7 @@ export default {
   },
   data: function() {
     return {
-      active_form: this.$store.state.form_tab
+      active_form: this.$store.state.layout.form_tab
     }
   },
   methods: {

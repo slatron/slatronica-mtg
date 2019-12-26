@@ -42,13 +42,13 @@ export default {
   data () {
     return {
       msg: '',
-      deck_name: this.$store.state.deck_current.name || 'enter name',
-      deck_format: this.$store.state.deck_current.format || 'EDH'
+      deck_name: this.$store.state.deck.deck_current.name || 'enter name',
+      deck_format: this.$store.state.deck.deck_current.format || 'EDH'
     }
   },
   computed: {
     can_delete: function() {
-      return this.$store.state.deck_lists.length > 1
+      return this.$store.state.deck.deck_lists.length > 1
     }
   },
   methods: {

@@ -13,6 +13,7 @@
       <li>
         <router-link to="/decks">Decks</router-link>
       </li>
+      <!--
       <li v-bind:class="{'active': active_nav === 'reports'}">
         <span v-on:click="toggle('reports')">
           EDH Reports
@@ -26,6 +27,7 @@
           <li><router-link to="/all-reports">All</router-link></li>
         </ul>
       </li>
+       -->
       <li v-bind:class="{'active': active_nav === 'pages'}">
         <span v-on:click="toggle('pages')">
           Pages
@@ -73,7 +75,7 @@ export default {
   },
   computed: {
     username () {
-      return this.$store.state.username
+      return this.$store.state.auth.username
     }
   },
   methods: {

@@ -69,7 +69,7 @@ export default {
   },
   computed: {
     gallery_auth_user () {
-      return this.$store.state.username && this.galleryCard
+      return this.$store.state.auth.username && this.galleryCard
     }
   },
   created: function () {

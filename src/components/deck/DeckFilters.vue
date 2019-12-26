@@ -57,7 +57,7 @@ export default {
   name: 'DeckFilters',
   data () {
     return {
-      deck_lists: this.$store.state.deck_lists,
+      deck_lists: this.$store.state.deck.deck_lists,
       includes: 'includes', // values: ['includes', 'excludes']
       color_options: this.$store.state.app_settings.color_options.map(option => {
         option.selected = true
@@ -68,7 +68,7 @@ export default {
   computed: {
     deck_sort_by: {
       get: function() {
-        return this.$store.state.deck_sort_by
+        return this.$store.state.deck.deck_sort_by
       },
       set: function(new_sort_by) {
         this.$store.commit('setSortBy', new_sort_by)
@@ -76,7 +76,7 @@ export default {
     },
     deck_current: {
       get: function () {
-        return this.$store.state.deck_current
+        return this.$store.state.deck.deck_current
       },
       set: function (new_deck_current) {
         this.$store.dispatch('selectDeck', {
@@ -86,7 +86,7 @@ export default {
     },
     use_custom_categories: {
       get: function() {
-        return this.$store.state.use_custom_categories
+        return this.$store.state.deck.use_custom_categories
       },
       set: function(use_custom_categories) {
         this.$store.commit('setUseCustomCategories', use_custom_categories)
