@@ -3,17 +3,18 @@ import Vuex from 'vuex'
 import api from '@/api/api'
 import { tools } from '@/utils/MStools'
 import { deckTools } from '@/utils/deckTools'
+import authStateModule from '@/state_modules/auth/authState'
 
 Vue.use(Vuex)
 // Export store as function to ensure app settings are passed in before any initializations
 function builder (data) {
   return new Vuex.Store({
+    modules: {
+      auth: authStateModule
+    },
     state: {
       // Sent to store during app initialization
       app_settings: data,
-
-      // Logged-in user
-      username: '',
 
       // Layout Data
       drawer_open: false,
@@ -37,23 +38,20 @@ function builder (data) {
     },
 
     mutations: {
-      // Authentication Mutations
-      setUsername (state, options = {}) {
-        state.username = options.username
-      },
-
       // Layout Mutations
       toggleDrawer (state, options = {}) {
         state.drawer_open = options.hasOwnProperty('force')
           ? options.force
           : !state.drawer_open
       },
-
       toggleForm (state, options = {}) {
         if (options.tab) {
           state.form_tab = options.tab
         }
         state.open_form = !state.open_form
+      },
+      pageLoading (state, options) {
+        state.page_loading = options.loading
       },
 
       // Gallery Mutations
@@ -61,7 +59,7 @@ function builder (data) {
         const alters = options.alters
         state.gallery_list = options.alters.sort(tools().sortBy('date', false))
         state.gallery_list = state.gallery_list.map(deckTools().setAllCardsVisible)
-        this.commit('decklistLoading', {loading: false})
+        this.commit('pageLoading', {loading: false})
       },
       addAlter (state, options) {
         const alter = options.alter
@@ -88,9 +86,6 @@ function builder (data) {
       },
 
       // Decklist Mutations
-      decklistLoading (state, options) {
-        state.page_loading = options.loading
-      },
       setDecks (state, options) {
         state.deck_lists = options.decks
       },
@@ -181,11 +176,11 @@ function builder (data) {
       setUseCustomCategories (state, use_custom_categories) {
         state.use_custom_categories = use_custom_categories
         // re-sort current deck
-        this.commit('decklistLoading', {loading: true})
+        this.commit('pageLoading', {loading: true})
         this.commit('setDeckSorted', {'deck_list': {}})
         const groupedCards = deckTools().groupCards(state.deck_current.cards, state.deck_current.cards, state.use_custom_categories)
         this.commit('setDeckSorted', {'deck_list': groupedCards})
-        this.commit('decklistLoading', {loading: false})
+        this.commit('pageLoading', {loading: false})
       },
       setBaseAlterList (state, alters) {
         state.base_alter_list = alters
@@ -195,7 +190,7 @@ function builder (data) {
     actions: {
       // Gallery Actions
       initGallery (state) {
-        state.commit('decklistLoading', {loading: true})
+        state.commit('pageLoading', {loading: true})
         api.get_cards()
           .then(response => {
             this.dispatch('combineGalleryListWithScryfall', {
@@ -205,7 +200,7 @@ function builder (data) {
           .catch(err => {
             console.warn('error getting altered card list: ')
             console.error(err);
-            state.commit('decklistLoading', {loading: false})
+            state.commit('pageLoading', {loading: false})
           })
       },
       combineGalleryListWithScryfall (state, options) {
@@ -285,10 +280,10 @@ function builder (data) {
           })
           const count = deckTools().countCards(options.deck.cards)
           state.commit('setCardCount', {'count': count})
-          state.commit('decklistLoading', {loading: false})
+          state.commit('pageLoading', {loading: false})
         }
 
-        state.commit('decklistLoading', {loading: true})
+        state.commit('pageLoading', {loading: true})
         state.commit('setDeckSorted', {'deck_list': {}})
 
         if (options.deck.cards.length && options.deck.cards[0].object) {
@@ -301,7 +296,7 @@ function builder (data) {
             })
             .catch(err => {
               console.error(' ** error selecting deck: ', err)
-              state.commit('decklistLoading', {loading: false})
+              state.commit('pageLoading', {loading: false})
             })
         }
       },
@@ -316,7 +311,7 @@ function builder (data) {
           .catch((error) => console.error(' ** error adding new deck: ', error))
       },
       addDeckCard(state, options) {
-        state.commit('decklistLoading', {loading: true})
+        state.commit('pageLoading', {loading: true})
         api.add_deck_card(options.card, state.state.deck_current._id)
           .then(function(response) {
             options.card._id = response.data.card_id
@@ -329,7 +324,7 @@ function builder (data) {
                 console.error(' ** error adding new card', error)
               })
               .finally(function() {
-                state.commit('decklistLoading', {loading: false})
+                state.commit('pageLoading', {loading: false})
               })
           })
           .catch(err => console.error(' ** error adding new card', err))

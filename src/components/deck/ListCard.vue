@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     user_can_edit () {
-      return this.$store.state.username !== ''
+      return this.$store.state.auth.username !== ''
     }
   },
   methods: {

@@ -81,7 +81,7 @@ export default {
       return this.$store.state.empty_cols
     },
     auth_user () {
-      return this.$store.state.username
+      return this.$store.state.auth.username
     },
     open_form () {
       return this.$store.state.open_form
