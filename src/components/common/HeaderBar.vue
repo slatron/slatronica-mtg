@@ -32,7 +32,7 @@
     </div>
     <transition name="slide">
       <div
-        class="filter-menu w-1/2 sm:w-1/4 lg:w-1/5 xl:w-1/6 block absolute right-0 bg-black z-20 text-right rounded-bl-lg border-b border-gray-500  border-l"
+        class="filter-menu w-3/4 sm:w-1/3 lg:w-1/4 xl:w-1/5 block absolute right-0 bg-black z-20 text-right rounded-bl-lg border-b border-gray-500  border-l"
         v-if="filters_open"
       >
         <FilterSwitcher />

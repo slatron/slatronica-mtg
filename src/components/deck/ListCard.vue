@@ -22,6 +22,9 @@
       >
         <icon-base icon-name="close-outline"><CloseOutline /></icon-base>
       </span>
+      <span class="price-tag" v-show="cardData.prices.usd">
+        {{cardData.prices.usd | formatCurrency}}
+      </span>
       <img
         :src="imgUrl"
         v-if="!(cardData.has_alter)"
@@ -66,6 +69,24 @@ export default {
       const icons = ''
       const htmlIcons = symbolList.map(symbol => `<i class="ms ms-${symbol.toLowerCase()} ms-cost ms-shadow"></i>`)
       return htmlIcons.join('')
+    },
+    formatCurrency: function _formatGenericCurrency(text) {
+      // var rounded = _.round(text, 2).toString()
+      if (text) {
+        let precedent   = text.split('.')[0]
+        let significand = text.split('.')[1]
+        precedent = (precedent + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,')
+        text = '$' + ' ' + precedent;
+        if (significand) {
+          significand = significand.length === 1 ? significand + 0 : significand;
+          text += '.' + significand;
+        } else {
+          text += '.' + '00';
+        }
+        return text;
+      } else {
+        return '';
+      }
     }
   },
   data: function() {
@@ -114,6 +135,18 @@ export default {
     .button-close {
       display: none;
     }
+  }
+  .price-tag {
+    position: absolute;
+    top: 330px;
+    left: 0;
+    color: green;
+    background-color: #fff;
+    border-bottom: solid 5px green;
+    border-left: solid 5px green;
+    padding-right: 0.5em;
+    z-index: 1000;
+    border-radius: 0 0.25em 0 0.25em;
   }
   .flip-container {
     position: relative;

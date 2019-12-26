@@ -80,10 +80,11 @@ button {
   @apply outline-none bg-gray-800 text-gray-200 cursor-pointer py-1 border-blue-700 border text-xs;
 }
 select {
-  @apply text-black;
+  color: #000;
 }
 
 fieldset {
-  @apply mb-2 mr-2 block;
+  margin: 1em 0 1em 1em;
+  display: block;
 }
 </style>

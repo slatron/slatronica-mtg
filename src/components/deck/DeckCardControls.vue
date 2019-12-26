@@ -148,7 +148,7 @@ export default {
   }
   .category-select-bg {
     position: absolute;
-    top: 35px;
+    top: 320px;
     left: 95px;
     width: 140px;
     height: 35px;
@@ -162,7 +162,7 @@ export default {
   .category-select {
     position: absolute;
     background: #fff;
-    top: 41px;
+    top: 327px;
     left: 105px;
     font-size: 13px;
     color: #000;

@@ -125,9 +125,10 @@ label {
   @apply mr-2 font-medium text-gray-300;
 }
 select {
-  @apply text-black;
+  color: #000;
 }
 fieldset {
-  @apply mb-2 mr-2 block;
+  margin: 1em 0 1em 1em;
+  display: block;
 }
 </style>

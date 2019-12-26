@@ -20,7 +20,7 @@
     <div class="columns m-1 pl-3 pb-3 overflow-visible flex flex-wrap justify-start flex-initial">
       <div
         v-for="(cards, type) in deck_sorted"
-        class="mb-6 mr-6"
+        class="mb-6 mr-6 column"
         v-show="!(empty_cols.includes(type))"
       >
         <h3 class="text-gray-400">
@@ -132,5 +132,15 @@ export default {
   background-image: url('../../assets/images/loading/big-black-bg.gif');
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.column {
+  min-width: 280px;
+  margin-left: 30px
+}
+@media (min-width: 768px) {
+  .column {
+    margin-left: 0;
+  }
 }
 </style>
