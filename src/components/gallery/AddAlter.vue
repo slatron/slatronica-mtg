@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     open_form () {
-      return this.$store.state.open_form
+      return this.$store.state.layout.open_form
     }
   },
   methods: {

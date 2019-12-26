@@ -36,10 +36,10 @@ export default {
   },
   computed: {
     gallery_list () {
-      return this.$store.state.gallery_list
+      return this.$store.state.gallery.gallery_list
     },
     page_loading () {
-      return this.$store.state.page_loading
+      return this.$store.state.layout.page_loading
     }
   },
   created: function () {

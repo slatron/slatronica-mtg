@@ -37,7 +37,7 @@ export default {
   name: 'AppLayout',
   computed: {
     drawer_open () {
-      return this.$store.state.drawer_open
+      return this.$store.state.layout.drawer_open
     }
   },
   data () {

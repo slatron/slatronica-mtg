@@ -58,7 +58,7 @@ export default {
       return this.$store.state.deck_sort_by
     },
     page_loading () {
-      return this.$store.state.page_loading
+      return this.$store.state.layout.page_loading
     },
     deck_sort_by () {
       return this.$store.state.deck_sort_by
@@ -84,7 +84,7 @@ export default {
       return this.$store.state.auth.username
     },
     open_form () {
-      return this.$store.state.open_form
+      return this.$store.state.layout.open_form
     },
     deck_lists () {
       return this.$store.state.deck_lists
