@@ -4,12 +4,18 @@ module.exports = {
     node: true
   },
   'extends': [
-    'plugin:vue/essential',
-    '@vue/standard'
+    'plugin:vue/recommended'
+    // Uncomment next line to lint harder
+    // ,'@vue/standard'
   ],
   rules: {
     'no-console': 'off',
-    'no-debugger': 'off'
+    'no-debugger': 'off',
+    'vue/camelcase': 'off',
+    'vue/no-v-html': 'off',
+    'no-tabs': 'off',
+    'camelcase': 'off',
+    'no-return-assign': 'off'
   },
   parserOptions: {
     parser: 'babel-eslint'

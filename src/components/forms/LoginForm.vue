@@ -1,17 +1,25 @@
 <template lang="html">
-  <form v-on:submit.prevent>
+  <form @submit.prevent>
     <h2>Login</h2>
     <fieldset>
       <label for="">Username:</label>
-      <input type="text" v-model="username">
+      <input
+        v-model="username"
+        type="text"
+      >
     </fieldset>
     <fieldset>
       <label for="">Password:</label>
-      <input type="password" v-model="password">
+      <input
+        v-model="password"
+        type="password"
+      >
     </fieldset>
     <button
-      v-on:click="doLogin()"
-    >login</button>
+      @click="doLogin()"
+    >
+      login
+    </button>
   </form>
 </template>
 
@@ -19,7 +27,7 @@
 import api from '@/api/api'
 export default {
   name: 'LoginForm',
-  data: function() {
+  data: function () {
     return {
       username: '',
       password: '',
@@ -27,24 +35,23 @@ export default {
     }
   },
   methods: {
-    doLogin: function() {
+    doLogin: function () {
       console.log(' **** inside doLogin ')
       let vm = this
       api.login(this.username, this.password)
-        .then(function(response) {
+        .then(function (response) {
           if (response.data.token) {
             window.localStorage.setItem('token', response.data.token)
-            vm.$store.commit('setUsername', {username: vm.username})
+            vm.$store.commit('setUsername', { username: vm.username })
             vm.$router.go(-1)
-          }
-          else {
+          } else {
             window.localStorage.removeItem('token')
-            vm.$store.commit('setUsername', {username: ''})
+            vm.$store.commit('setUsername', { username: '' })
             alert('Error logging in')
           }
-          return response.data;
+          return response.data
         })
-        .catch(function(e) {
+        .catch(function (e) {
           console.error(e)
           alert('Error logging in')
         })

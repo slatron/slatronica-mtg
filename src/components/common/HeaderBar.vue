@@ -2,38 +2,47 @@
   <nav class="flex items-center fixed w-full p-1 justify-between flex-wrap bg-black border-b border-gray-500">
     <div>
       <button
-        class="px-2 py-1 hamburger hamburger--collapse" type="button"
-        v-bind:class="{'is-active': drawer_open}"
-        v-on:click="toggleDrawer"
+        class="px-2 py-1 hamburger hamburger--collapse"
+        type="button"
+        :class="{'is-active': drawer_open}"
+        @click="toggleDrawer"
       >
         <span class="hamburger-box">
-          <span class="hamburger-inner"></span>
+          <span class="hamburger-inner" />
         </span>
       </button>
     </div>
     <div>
       <h1 class="text-blue-600 tracking-wider text-lg md:text-2xl text-center">
-        <router-link :to="{name: 'GalleryPage'}">Slatronica Alters</router-link>
+        <router-link :to="{name: 'GalleryPage'}">
+          Slatronica Alters
+        </router-link>
       </h1>
     </div>
     <div class="block">
       <button
-        v-on:click="toggleForm()"
-        v-bind:class="{'invisible': !has_add}"
-        class="px-3 py-2 border md:border-none rounded text-gray-500 border-gray-500 hover:text-white">
-        <icon-base icon-name="document-add"><DocumentAdd /></icon-base>
+        :class="{'invisible': !has_add}"
+        class="px-3 py-2 border md:border-none rounded text-gray-500 border-gray-500 hover:text-white"
+        @click="toggleForm()"
+      >
+        <icon-base icon-name="document-add">
+          <DocumentAdd />
+        </icon-base>
       </button>
       <button
-        v-on:click="toggleFilterMenu"
-        v-bind:class="{'active': filters_open, 'invisible': !has_filter}"
-        class="ml-2 px-3 py-2 border md:border-none rounded text-gray-500 border-gray-500 hover:text-white">
-        <icon-base icon-name="menu-filter"><MenuFilter /></icon-base>
+        :class="{'active': filters_open, 'invisible': !has_filter}"
+        class="ml-2 px-3 py-2 border md:border-none rounded text-gray-500 border-gray-500 hover:text-white"
+        @click="toggleFilterMenu"
+      >
+        <icon-base icon-name="menu-filter">
+          <MenuFilter />
+        </icon-base>
       </button>
     </div>
     <transition name="slide">
       <div
-        class="filter-menu w-3/4 sm:w-1/3 lg:w-1/4 xl:w-1/5 block absolute right-0 bg-black z-20 text-right rounded-bl-lg border-b border-gray-500  border-l"
         v-if="filters_open"
+        class="filter-menu w-3/4 sm:w-1/3 lg:w-1/4 xl:w-1/5 block absolute right-0 bg-black z-20 text-right rounded-bl-lg border-b border-gray-500  border-l"
       >
         <FilterSwitcher />
       </div>
@@ -43,13 +52,18 @@
 
 <script>
 import FilterSwitcher from '@/components/common/FilterSwitcher'
-import api from '@/api/api'
 import IconBase from '@/components/common/IconBase'
 import MenuFilter from '@/components/icons/menu-filter'
 import DocumentAdd from '@/components/icons/document-add'
 
 export default {
   name: 'HeaderBar',
+  components: {
+    FilterSwitcher,
+    IconBase,
+    MenuFilter,
+    DocumentAdd
+  },
   data () {
     return {
       'filters_open': false,
@@ -64,27 +78,21 @@ export default {
       return (['GalleryPage', 'DeckPage'].indexOf(this.$route.name) > -1) && (this.$store.state.auth.username !== '')
     }
   },
-  components: {
-    FilterSwitcher,
-    IconBase,
-    MenuFilter,
-    DocumentAdd
-  },
-  methods: {
-    toggleForm: function() {
-      this.$store.commit('toggleForm', {'tab': 'card'})
-    },
-    toggleFilterMenu: function() {
-      this.filters_open = !this.filters_open
-    },
-    toggleDrawer: function() {
-      this.$store.commit('toggleDrawer')
-    }
-  },
   watch: {
     '$route' (to, from) {
-      this.filters_open = false;
+      this.filters_open = false
       this.has_filter = ['GalleryPage', 'DeckPage'].indexOf(this.$route.name) !== -1
+    }
+  },
+  methods: {
+    toggleForm: function () {
+      this.$store.commit('toggleForm', { 'tab': 'card' })
+    },
+    toggleFilterMenu: function () {
+      this.filters_open = !this.filters_open
+    },
+    toggleDrawer: function () {
+      this.$store.commit('toggleDrawer')
     }
   }
 }

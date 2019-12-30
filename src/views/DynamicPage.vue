@@ -1,7 +1,7 @@
 <template>
   <div>
     <PageContent
-      v-bind:page_key="page_key"
+      :page-key="pageKey"
     />
   </div>
 </template>
@@ -11,9 +11,9 @@ import PageContent from '@/components/pages/PageContent'
 
 export default {
   name: 'DynamicPage',
-  props: {page_key: {type: String}},
   components: {
     PageContent
-  }
+  },
+  props: { pageKey: { type: String, default: 'about-page' } }
 }
 </script>

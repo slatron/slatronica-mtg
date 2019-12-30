@@ -2,14 +2,17 @@
   <div class="deck-card-controls">
     <section
       class="quantity-controls-bg"
-      v-bind:class="{'hover-green': quantity_color_green, 'hover-red': quantity_color_red}"
-    ></section>
+      :class="{'hover-green': quantity_color_green, 'hover-red': quantity_color_red}"
+    />
     <button
-      v-on:click="addQuantity()"
-      class="add-icon" type="button" name="button">
+      class="add-icon"
+      type="button"
+      name="button"
+      @click="addQuantity()"
+    >
       <icon-base
-        v-bind:width="28"
-        v-bind:height="28"
+        :width="28"
+        :height="28"
         @mouseover.native="upHover(true)"
         @mouseleave.native="upHover(false)"
       >
@@ -17,24 +20,29 @@
       </icon-base>
     </button>
     <button
-      v-on:click="subtractQuantity()"
-      class="remove-icon" type="button" name="button">
+      class="remove-icon"
+      type="button"
+      name="button"
+      @click="subtractQuantity()"
+    >
       <icon-base
-        v-bind:width="28"
-        v-bind:height="28"
+        :width="28"
+        :height="28"
         @mouseover.native="downHover(true)"
         @mouseleave.native="downHover(false)"
       >
         <MinusSolid />
       </icon-base>
     </button>
-    <section class="category-select-bg"></section>
+    <section class="category-select-bg" />
     <section class="category-select">
       <select v-model="custom_category_selected">
         <option
-          v-for="category in custom_categories"
-          v-bind:value="category">
-           {{category}}
+          v-for="(category, idx) in custom_categories"
+          :key="idx"
+          :value="category"
+        >
+          {{ category }}
         </option>
       </select>
     </section>
@@ -42,33 +50,32 @@
 </template>
 
 <script>
-import api from '@/api/api'
 import AddSolid from '@/components/icons/add-solid'
 import MinusSolid from '@/components/icons/minus-solid'
 import IconBase from '@/components/common/IconBase'
 export default {
-  name: 'deckCardControls',
+  name: 'DeckCardControls',
   components: {
     AddSolid,
     MinusSolid,
     IconBase
   },
-  data() {
+  props: {
+    card: { 'type': Object, default: {} }
+  },
+  data () {
     return {
       quantity_color_green: false,
       quantity_color_red: false,
       custom_categories: this.$store.state.app_settings.custom_categories
     }
   },
-  props: {
-    card: Object
-  },
   computed: {
     custom_category_selected: {
-      get: function() {
+      get: function () {
         return this.card.custom_category
       },
-      set: function(new_category) {
+      set: function (new_category) {
         const options = {
           'card_id': this.card._id,
           'category': this.card.category,
@@ -83,13 +90,13 @@ export default {
     }
   },
   methods: {
-    upHover: function(on) {
+    upHover: function (on) {
       this.quantity_color_green = on
     },
-    downHover: function(on) {
+    downHover: function (on) {
       this.quantity_color_red = on
     },
-    addQuantity: function() {
+    addQuantity: function () {
       const options = {
         'card_id': this.card._id,
         'category': this.card.category,
@@ -100,7 +107,7 @@ export default {
       }
       this.$store.dispatch('updateDeckCard', options)
     },
-    subtractQuantity: function() {
+    subtractQuantity: function () {
       if (this.card.quantity > 1) {
         const options = {
           'card_id': this.card._id,

@@ -7,11 +7,14 @@
       <div>
         <select
           v-model="filter_selected"
-          v-on:change="applyFilter()">
+          @change="applyFilter()"
+        >
           <option
             v-for="option in tag_options"
-            v-bind:value="option.value">
-            {{option.name}}
+            :key="option.value"
+            :value="option.value"
+          >
+            {{ option.name }}
           </option>
         </select>
       </div>
@@ -19,15 +22,19 @@
     <fieldset>
       <label class="block">Sort By</label>
       <button
-        v-on:click="toggleSortField()"
         type="button"
         class="w-12"
-      >{{sort_field}}</button>
+        @click="toggleSortField()"
+      >
+        {{ sort_field }}
+      </button>
       <button
-        v-on:click="toggleSortDirection()"
         type="button"
         class="w-20"
-      >{{sort_direction}}</button>
+        @click="toggleSortDirection()"
+      >
+        {{ sort_direction }}
+      </button>
     </fieldset>
   </div>
 </template>
@@ -51,15 +58,15 @@ export default {
         'direction': this.sort_direction === 'Ascending'
       })
     },
-    toggleSortField: function() {
-      this.sort_field = this.sort_field === 'Date' ?
-        'Name' : 'Date';
-      this.sortBy(this.sort_field, this.sort_direction);
+    toggleSortField: function () {
+      this.sort_field = this.sort_field === 'Date'
+        ? 'Name' : 'Date'
+      this.sortBy(this.sort_field, this.sort_direction)
     },
-    toggleSortDirection: function() {
-      this.sort_direction = this.sort_direction === 'Descending' ?
-        'Ascending' : 'Descending';
-      this.sortBy(this.sort_field, this.sort_direction);
+    toggleSortDirection: function () {
+      this.sort_direction = this.sort_direction === 'Descending'
+        ? 'Ascending' : 'Descending'
+      this.sortBy(this.sort_field, this.sort_direction)
     },
     sortBy: function (field, direction) {
       let options = {

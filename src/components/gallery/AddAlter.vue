@@ -1,35 +1,57 @@
 <template>
-  <div class="add-alter-container" v-show="open_form">
+  <div
+    v-show="open_form"
+    class="add-alter-container"
+  >
     <div
       class="window-shade"
-      v-on:click="closeAlterForm()"
-    ></div>
+      @click="closeAlterForm()"
+    />
     <div class="add-alterform z-20">
-      <form v-on:submit.prevent="newAlter">
+      <form @submit.prevent="newAlter">
         <h2>Add New Alter</h2>
         <fieldset>
           <label for="scryfall_id">Scryfall ID</label>
-          <input type="text" name="scryfall_id" v-model="scryfall_id">
+          <input
+            v-model="scryfall_id"
+            type="text"
+            name="scryfall_id"
+          >
         </fieldset>
         <fieldset>
           <label for="scryfall_id">Name</label>
-          <input type="text" name="name" v-model="name">
+          <input
+            v-model="name"
+            type="text"
+            name="name"
+          >
         </fieldset>
         <fieldset>
           <label for="scryfall_id">Date</label>
-          <input type="text" name="date" v-model="date">
+          <input
+            v-model="date"
+            type="text"
+            name="date"
+          >
         </fieldset>
         <!-- <fieldset>
           <label for="scryfall_id">Tags</label>
           <input type="text" name="tags" v-model="tags">
         </fieldset> -->
         <fieldset class="text-right">
-          <button type="button" name="button" v-on:click="newAlter()">
+          <button
+            type="button"
+            name="button"
+            @click="newAlter()"
+          >
             Save
           </button>
         </fieldset>
-        <fieldset class="error-msg" v-if="msg.length">
-          <span v-on:click="removeMsg()">{{msg}}</span>
+        <fieldset
+          v-if="msg.length"
+          class="error-msg"
+        >
+          <span @click="removeMsg()">{{ msg }}</span>
         </fieldset>
       </form>
     </div>
@@ -37,9 +59,8 @@
 </template>
 
 <script>
-import api from '@/api/api'
 export default {
-  name: 'addAlter',
+  name: 'AddAlter',
   data: () => {
     return {
       scryfall_id: '',
@@ -61,11 +82,11 @@ export default {
     removeMsg: function () {
       this.msg = ''
     },
-    newAlter: function() {
+    newAlter: function () {
       const newAlter = {
         scryfall_id: this.scryfall_id,
         name: this.name,
-        date: this.date,
+        date: this.date
         // tags: this.tags
       }
       this.$store.dispatch('postAlter', {

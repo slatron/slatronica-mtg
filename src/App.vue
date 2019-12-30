@@ -1,78 +1,81 @@
 <template>
-  <div class="text-blue-400 layout-wrap relative" v-bind:class="{'drawer-open': drawer_open}">
-
-    <nav id="drawer" class="z-50 bg-gray-200">
+  <div
+    class="text-blue-400 layout-wrap relative"
+    :class="{'drawer-open': drawer_open}"
+  >
+    <nav
+      id="drawer"
+      class="z-50 bg-gray-200"
+    >
       <DrawerContents />
     </nav>
 
     <div
-      class="window-shade z-40 md:hidden"
       v-if="drawer_open"
-      v-on:click="toggleDrawer()"
-    ></div>
+      class="window-shade z-40 md:hidden"
+      @click="toggleDrawer()"
+    />
 
     <header class="bg-black fixed w-full top-0 z-50">
-      <router-view name="header"/>
+      <router-view name="header" />
     </header>
 
     <main
       class="default-content pt-10 md:pt-16 z-0"
     >
-      <router-view/>
+      <router-view />
     </main>
 
     <footer class="text-xs text-blue-700 md:text-sm bg-black fixed bottom-0 right-0 h-4 px-2 pb-6 z-10">
-      <router-view name="footer"/>
+      <router-view name="footer" />
     </footer>
   </div>
 </template>
 
-
 <script>
 import DrawerContents from '@/components/common/DrawerContents'
-import { tools } from '@/utils/MStools'
 import api from '@/api/api'
 
 export default {
   name: 'AppLayout',
-  computed: {
-    drawer_open () {
-      return this.$store.state.layout.drawer_open
-    }
+  components: {
+    DrawerContents
   },
   data () {
     return {
       white_bg: false
     }
   },
-  components: {
-    DrawerContents
+  computed: {
+    drawer_open () {
+      return this.$store.state.layout.drawer_open
+    }
   },
   watch: {
     // Close Drawer on route changes
     '$route' (to, from) {
-      this.$store.commit('toggleDrawer', {'force': false})
+      this.$store.commit('toggleDrawer', { 'force': false })
     }
   },
-  methods: {
-    toggleDrawer: function() {
-      this.$store.commit('toggleDrawer')
-    }
-  },
-  created: function() {
+  created: function () {
     let vm = this
     const token = window.localStorage.getItem('token')
     if (token) {
       api.verify(token)
-        .then(function(response) {
+        .then(function (response) {
           if (response.data.verification.username) {
-            vm.$store.commit('setUsername', {username: response.data.verification.username})
+            vm.$store.commit('setUsername', { username: response.data.verification.username })
           }
         })
         .catch(error => {
-          console.log('Your session has expired. Please login again.')
+          console.warn('Your session has expired. Please login again.', error)
           window.localStorage.removeItem('token')
         })
+    }
+  },
+  methods: {
+    toggleDrawer: function () {
+      this.$store.commit('toggleDrawer')
     }
   }
 }
@@ -97,7 +100,6 @@ export default {
   position: fixed;
   background: #000;
 }
-
 
 #drawer,
 .window-shade {

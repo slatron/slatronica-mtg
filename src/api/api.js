@@ -10,15 +10,13 @@ let apiUrl = window.location.host === 'localhost:8080'
 
 // Add a request interceptor
 axios.interceptors.request.use(function (config) {
-    if (config.url.indexOf('api.scryfall.com') > -1)
-      return config
-    var token = window.localStorage.getItem('token')
-    if (token && (config.method !== 'get'))
-      config.headers['x-access-token'] = token
-    return config;
-  }, function (error) {
-    return Promise.reject(error)
-  });
+  if (config.url.indexOf('api.scryfall.com') > -1) { return config }
+  var token = window.localStorage.getItem('token')
+  if (token && (config.method !== 'get')) { config.headers['x-access-token'] = token }
+  return config
+}, function (error) {
+  return Promise.reject(error)
+})
 
 export default {
   // /authenticate

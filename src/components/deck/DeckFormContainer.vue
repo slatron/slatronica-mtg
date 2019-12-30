@@ -2,37 +2,37 @@
   <div class="windowshade-container">
     <div
       class="window-shade"
-      v-on:click="closeForm()"
-    ></div>
+      @click="closeForm()"
+    />
     <div class="deck-form-container z-20">
       <section class="tabs">
         <h2
-          v-bind:class="{'active': active_form === 'card'}"
-          v-on:click="active_form = 'card'"
+          :class="{'active': active_form === 'card'}"
+          @click="active_form = 'card'"
         >
           Add Card
         </h2>
         <h2
-          v-bind:class="{'active': active_form === 'deck'}"
-          v-on:click="active_form = 'deck'"
+          :class="{'active': active_form === 'deck'}"
+          @click="active_form = 'deck'"
         >
           Add Deck
         </h2>
         <h2
-          v-bind:class="{'active': active_form === 'edit'}"
-          v-on:click="active_form = 'edit'"
+          :class="{'active': active_form === 'edit'}"
+          @click="active_form = 'edit'"
         >
           Edit Deck
         </h2>
         <h2
-          v-bind:class="{'active': active_form === 'compare'}"
-          v-on:click="active_form = 'compare'"
+          :class="{'active': active_form === 'compare'}"
+          @click="active_form = 'compare'"
         >
           Compare
         </h2>
       </section>
-      <AddCard v-if="active_form === 'card'"/>
-      <AddDeck v-if="active_form === 'deck'"/>
+      <AddCard v-if="active_form === 'card'" />
+      <AddDeck v-if="active_form === 'deck'" />
       <EditDeck v-if="active_form === 'edit'" />
       <CompareDeck v-if="active_form === 'compare'" />
     </div>
@@ -46,14 +46,14 @@ import EditDeck from '@/components/deck/EditDeck'
 import CompareDeck from '@/components/deck/CompareDeck'
 
 export default {
-  name: 'deckFormContainer',
+  name: 'DeckFormContainer',
   components: {
     AddCard,
     AddDeck,
     EditDeck,
     CompareDeck
   },
-  data: function() {
+  data: function () {
     return {
       active_form: this.$store.state.layout.form_tab
     }
@@ -64,7 +64,7 @@ export default {
     },
     removeMsg: function () {
       this.msg = ''
-    },
+    }
   }
 }
 </script>

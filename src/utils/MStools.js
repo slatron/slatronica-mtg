@@ -1,5 +1,3 @@
-import api from '@/api/api'
-
 export const tools = () => {
   return {
     sortBy: function _sortBy (field, reverse, primer) {
@@ -28,9 +26,9 @@ export const tools = () => {
     },
 
     max: (array) => {
-      return array.reduce(function(a, b) {
-        return Math.max(a, b);
-      });
+      return array.reduce(function (a, b) {
+        return Math.max(a, b)
+      })
     },
 
     /**
@@ -47,22 +45,22 @@ export const tools = () => {
      *  - tools().get(() => obj.foo.yes.no, 'boo') // returns 'boo'
      **/
     get: (fn, defaultVal) => {
-           try {
-             return fn();
-           } catch (e) {
-             return defaultVal;
-           }
-         },
+      try {
+        return fn()
+      } catch (e) {
+        return defaultVal
+      }
+    },
 
-    debounce: function debounce(func, wait, immediate) {
+    debounce: function debounce (func, wait, immediate) {
       let timeout
-      return function executedFunction() {
+      return function executedFunction () {
         let context = this
-        let args    = arguments
-        let later   = function() {
-          timeout   = null
+        let args = arguments
+        let later = function () {
+          timeout = null
           if (!immediate) func.apply(context, args)
-        };
+        }
         let callNow = immediate && !timeout
         clearTimeout(timeout)
         timeout = setTimeout(later, wait)

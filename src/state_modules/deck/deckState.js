@@ -4,9 +4,9 @@ import { deckTools } from '@/utils/deckTools'
 
 export default {
   state: {
-    deck_lists: [],   // All decks from DB
+    deck_lists: [], // All decks from DB
     deck_current: {}, // Selected deck
-    deck_sorted: {},  // deck_current represented by categories
+    deck_sorted: {}, // deck_current represented by categories
 
     use_custom_categories: true, // view card custom categories?
     deck_sort_by: 'cmc', // key to sort deck categories
@@ -46,7 +46,7 @@ export default {
       options.card.category = category
       tools().fastPush(state.deck_sorted[category], options.card)
       tools().fastPush(state.deck_current.cards, options.card)
-      state.deck_sorted = {...state.deck_sorted}
+      state.deck_sorted = { ...state.deck_sorted }
     },
     emptyCategoryCheck (state, options) {
       if (state.deck_sorted[options.category].length === 0) {
@@ -59,13 +59,13 @@ export default {
       // check for "*** REMOVE ***"
       // - if so, remove custom_category field
       if (options.update_data.custom_category === '*** REMOVE ***') {
-        delete card.custom_category;
+        delete card.custom_category
       }
       card.category = deckTools().getCardCategoryName(card, state.use_custom_categories)
       // create potential new category if not there
       if (card.category in state.deck_sorted === false) state.deck_sorted[card.category] = []
       tools().fastPush(state.deck_sorted[card.category], card)
-      state.deck_sorted = {...state.deck_sorted}
+      state.deck_sorted = { ...state.deck_sorted }
       // Check for empty category delete
       this.commit('emptyCategoryCheck', options)
     },
@@ -85,8 +85,8 @@ export default {
     },
     addNewDeck (state, options) {
       tools().fastPush(state.deck_lists, options.new_deck)
-      state.deck_lists = {...state.deck_lists}
-      this.dispatch('selectDeck', {'deck': options.new_deck})
+      state.deck_lists = { ...state.deck_lists }
+      this.dispatch('selectDeck', { 'deck': options.new_deck })
     },
     updateDeck (state, options) {
       state.deck_current.name = options.name
@@ -106,11 +106,11 @@ export default {
     setUseCustomCategories (state, use_custom_categories) {
       state.use_custom_categories = use_custom_categories
       // re-sort current deck
-      this.commit('pageLoading', {loading: true})
-      this.commit('setDeckSorted', {'deck_list': {}})
+      this.commit('pageLoading', { loading: true })
+      this.commit('setDeckSorted', { 'deck_list': {} })
       const groupedCards = deckTools().groupCards(state.deck_current.cards, state.deck_current.cards, state.use_custom_categories)
-      this.commit('setDeckSorted', {'deck_list': groupedCards})
-      this.commit('pageLoading', {loading: false})
+      this.commit('setDeckSorted', { 'deck_list': groupedCards })
+      this.commit('pageLoading', { loading: false })
     },
     setBaseAlterList (state, alters) {
       state.base_alter_list = alters
@@ -127,7 +127,7 @@ export default {
           })
           .catch(err => {
             console.warn('error getting alters for base_alter_list: ')
-            console.error(err);
+            console.error(err)
           })
       }
       api.get_decks()
@@ -144,98 +144,98 @@ export default {
         })
         .catch(err => {
           console.warn('error getting decks: ')
-          console.error(err);
+          console.error(err)
         })
     },
-    selectDeck(state, options) {
-      const groupCardlistAndSetDeck = function(cards) {
+    selectDeck (state, options) {
+      const groupCardlistAndSetDeck = function (cards) {
         const groupedCards = deckTools().groupCards(cards, options.deck.cards, state.state.use_custom_categories)
-        state.commit('setDeckSorted', {'deck_list': groupedCards})
+        state.commit('setDeckSorted', { 'deck_list': groupedCards })
         state.commit('selectDeck', {
           'deck': options.deck
         })
         const count = deckTools().countCards(options.deck.cards)
-        state.commit('setCardCount', {'count': count})
-        state.commit('pageLoading', {loading: false})
+        state.commit('setCardCount', { 'count': count })
+        state.commit('pageLoading', { loading: false })
       }
 
-      state.commit('pageLoading', {loading: true})
-      state.commit('setDeckSorted', {'deck_list': {}})
+      state.commit('pageLoading', { loading: true })
+      state.commit('setDeckSorted', { 'deck_list': {} })
 
       if (options.deck.cards.length && options.deck.cards[0].object) {
         groupCardlistAndSetDeck(options.deck.cards)
       } else {
         deckTools().combineScryfallData(options.deck.cards)
-          .then(function(combinedDataCardlist) {
+          .then(function (combinedDataCardlist) {
             options.deck.cards = combinedDataCardlist
             groupCardlistAndSetDeck(combinedDataCardlist)
           })
           .catch(err => {
             console.error(' ** error selecting deck: ', err)
-            state.commit('pageLoading', {loading: false})
+            state.commit('pageLoading', { loading: false })
           })
       }
     },
-    addNewDeck(state, options) {
+    addNewDeck (state, options) {
       const newDeck = {
-        name: options.new_deck.name,
+        name: options.new_deck.name
       }
       api.add_deck(newDeck)
-        .then(function(response) {
-          state.commit('addNewDeck', {'new_deck': response.data.deck})
+        .then(function (response) {
+          state.commit('addNewDeck', { 'new_deck': response.data.deck })
         })
         .catch((error) => console.error(' ** error adding new deck: ', error))
     },
-    addDeckCard(state, options) {
-      state.commit('pageLoading', {loading: true})
+    addDeckCard (state, options) {
+      state.commit('pageLoading', { loading: true })
       api.add_deck_card(options.card, state.state.deck_current._id)
-        .then(function(response) {
+        .then(function (response) {
           options.card._id = response.data.card_id
           deckTools().combineCardWithScryfallData(options.card)
-            .then(function(card) {
-              state.commit('addDeckCard', {'card': card})
-              state.commit('setCardCount',{'count': state.state.card_count + 1})
+            .then(function (card) {
+              state.commit('addDeckCard', { 'card': card })
+              state.commit('setCardCount', { 'count': state.state.card_count + 1 })
             })
-            .catch(function(error) {
+            .catch(function (error) {
               console.error(' ** error adding new card', error)
             })
-            .finally(function() {
-              state.commit('pageLoading', {loading: false})
+            .finally(function () {
+              state.commit('pageLoading', { loading: false })
             })
         })
         .catch(err => console.error(' ** error adding new card', err))
     },
-    updateDeckCard(state, options) {
+    updateDeckCard (state, options) {
       // Ensure there is update_data
       if ('update_data' in options === false) return false
       api.update_deck_card(state.state.deck_current._id, options)
-        .then(function(response) {
+        .then(function (response) {
           if (options.category_move) {
             state.commit('moveCardCategory', options)
             options.category = (options.update_data.custom_category === '*** REMOVE ***')
-              ? deckTools().getCardCategoryName({type_line: options.type}, state.state.use_custom_categories)
+              ? deckTools().getCardCategoryName({ type_line: options.type }, state.state.use_custom_categories)
               : options.update_data.custom_category
           }
           state.commit('updateDeckCard', options)
           if ('count_change' in options) {
-            state.commit('setCardCount', {'count': (state.state.card_count + options.count_change)})
+            state.commit('setCardCount', { 'count': (state.state.card_count + options.count_change) })
           }
         })
         .catch(err => console.error(err))
     },
-    removeDeckCard(state, options) {
+    removeDeckCard (state, options) {
       api.remove_deck_card(state.state.deck_current._id, options)
-        .then(function(response) {
+        .then(function (response) {
           state.commit('removeDeckCard', options)
-          state.commit('setCardCount', {'count': state.state.card_count - 1})
+          state.commit('setCardCount', { 'count': state.state.card_count - 1 })
         })
         .catch(err => console.error(err))
     },
     updateDeck (state, options) {
       api.update_deck(state.state.deck_current._id, options)
-        .then(function(response) {
+        .then(function (response) {
           if (response.data.errors) {
-            console.warn(' ** Error updating deck', response.data.message);
+            console.warn(' ** Error updating deck', response.data.message)
           }
           state.commit('updateDeck', options)
         })
@@ -243,7 +243,7 @@ export default {
     },
     deleteDeck (state) {
       api.delete_deck(state.state.deck_current._id)
-        .then(function() {
+        .then(function () {
           state.commit('deleteDeck', state.state.deck_current._id)
           state.dispatch('selectDeck', {
             'deck': state.state.deck_lists[0]
@@ -251,7 +251,7 @@ export default {
         })
         .catch(err => {
           console.warn(' ** Err Deleting deck')
-          console.error(err);
+          console.error(err)
         })
     }
   }

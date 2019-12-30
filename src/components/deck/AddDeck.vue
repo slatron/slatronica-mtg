@@ -1,23 +1,34 @@
 <template>
-  <form v-on:submit.prevent="addNewDeck">
+  <form @submit.prevent="addNewDeck">
     <fieldset>
       <label for="scryfall_id">Name</label>
-      <input type="text" name="name" v-model="name">
+      <input
+        v-model="name"
+        type="text"
+        name="name"
+      >
     </fieldset>
     <fieldset class="text-right">
-      <button type="button" name="button" v-on:click="addNewDeck()">
+      <button
+        type="button"
+        name="button"
+        @click="addNewDeck()"
+      >
         Save
       </button>
     </fieldset>
-    <fieldset class="error-msg" v-if="msg.length">
-      <span v-on:click="removeMsg()">{{msg}}</span>
+    <fieldset
+      v-if="msg.length"
+      class="error-msg"
+    >
+      <span @click="removeMsg()">{{ msg }}</span>
     </fieldset>
   </form>
 </template>
 
 <script>
 export default {
-  name: 'addNewDeck',
+  name: 'AddNewDeck',
   data: () => {
     return {
       name: '',
@@ -28,9 +39,9 @@ export default {
     closeForm: function () {
       this.$store.commit('toggleForm')
     },
-    addNewDeck: function() {
+    addNewDeck: function () {
       const newDeck = {
-        name: this.name,
+        name: this.name
       }
       this.$store.dispatch('addNewDeck', {
         'new_deck': newDeck

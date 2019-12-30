@@ -1,44 +1,58 @@
 <template>
   <div
     class="card-image-grid"
-    v-bind:class="{'card-image-list': !galleryCard}"
+    :class="{'card-image-list': !galleryCard}"
   >
     <h5
+      v-show="galleryCard"
       class="card-heading"
-      v-show="this.galleryCard"
     >
       <span
-        v-bind:class="{'hand': gallery_auth_user}"
         v-show="!editNameMode"
-        v-on:click="editNameToggle()"
+        :class="{'hand': gallery_auth_user}"
+        @click="editNameToggle()"
       >
-        {{title}}
+        {{ title }}
       </span>
       <form
-        v-on:submit.prevent
-        v-on:submit="handleEditName(cardData._id)"
-        v-show="editNameMode">
+        v-show="editNameMode"
+        @submit.prevent
+        @submit="handleEditName(cardData._id)"
+      >
         <input v-model="title">
       </form>
       <button
         v-if="gallery_auth_user"
-        v-on:click="deleteAlter(cardData._id)"
         class="delete-alter"
+        @click="deleteAlter(cardData._id)"
       >
-        <icon-base icon-name="trash-icon"><TrashIcon /></icon-base>
+        <icon-base icon-name="trash-icon">
+          <TrashIcon />
+        </icon-base>
       </button>
     </h5>
     <div
       class="card-image"
-      v-on:click="flip()"
-      v-bind:class="{ 'flipped': flipped }"
+      :class="{ 'flipped': flipped }"
+      @click="flip()"
     >
       <div class="card-altered">
-        <img v-if="localImg"  class="card" :src="localImg">
-        <img v-if="!localImg" class="card" :src="imgUrl">
+        <img
+          v-if="localImg"
+          class="card"
+          :src="localImg"
+        >
+        <img
+          v-if="!localImg"
+          class="card"
+          :src="imgUrl"
+        >
       </div>
       <div class="card-original">
-        <img class="card" :src="imgUrl">
+        <img
+          class="card"
+          :src="imgUrl"
+        >
       </div>
     </div>
   </div>
@@ -50,9 +64,13 @@ import TrashIcon from '@/components/icons/trash'
 
 export default {
   name: 'FlipCard',
+  components: {
+    IconBase,
+    TrashIcon
+  },
   props: {
-    cardData: Object,
-    galleryCard: Boolean
+    cardData: { 'type': Object, default: {} },
+    galleryCard: { 'type': Boolean, default: false }
   },
   data: () => {
     return {
@@ -62,10 +80,6 @@ export default {
       localImg: '',
       editNameMode: false
     }
-  },
-  components: {
-    IconBase,
-    TrashIcon
   },
   computed: {
     gallery_auth_user () {
@@ -83,7 +97,7 @@ export default {
     } else {
       this.title = this.cardData.custom_name || this.cardData.name
       this.imgUrl = this.cardData.image_uris.normal
-      localUrl =this.cardData.illustration_id
+      localUrl = this.cardData.illustration_id
     };
     this.localImg = require('@/assets/images/' + localUrl + '.jpg')
   },
@@ -91,19 +105,19 @@ export default {
     flip: function () {
       this.flipped = !this.flipped
     },
-    deleteAlter: function(id) {
+    deleteAlter: function (id) {
       if (window.confirm('Confirm Delete')) {
         this.$store.dispatch('deleteAlter', {
           'id': id
         })
       }
     },
-    editNameToggle: function(id) {
+    editNameToggle: function (id) {
       if (this.gallery_auth_user) {
         this.editNameMode = !this.editNameMode
       }
     },
-    handleEditName: function(id) {
+    handleEditName: function (id) {
       this.$store.dispatch('putAlter', {
         'alter': {
           'id': id,

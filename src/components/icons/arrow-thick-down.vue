@@ -1,1 +1,6 @@
-<template><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M7 10V2h6v8h5l-8 8-8-8h5z"/></svg></template>
+<template>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+  ><path d="M7 10V2h6v8h5l-8 8-8-8h5z" /></svg>
+</template>

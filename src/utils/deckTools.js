@@ -3,7 +3,7 @@ import api from '@/api/api'
 
 export const deckTools = () => {
   return {
-    getCardCategoryName: function(card, use_custom_categories) {
+    getCardCategoryName: function (card, use_custom_categories) {
       // If card has custom_category, return that
       // else
       // Fix extra words in type_line (ex... Legendary)
@@ -29,18 +29,18 @@ export const deckTools = () => {
                     : card.type_line
     },
 
-    countCards: function(deckCards) {
+    countCards: function (deckCards) {
       const allQuantities = tools().pluck(deckCards, 'quantity')
-      const addValuesReducer = (acc, cur) => acc + cur;
+      const addValuesReducer = (acc, cur) => acc + cur
       return allQuantities.length === 0
         ? 0
         : allQuantities.reduce(addValuesReducer)
     },
 
-    prepCardForDeckpageDisplay: function(card) {
+    prepCardForDeckpageDisplay: function (card) {
       // For cards with 2 faces, merge card data with first face
       if ('card_faces' in card) {
-        card = {...card, ...card.card_faces[0]}
+        card = { ...card, ...card.card_faces[0] }
       }
       // Add "C" to colorless cards for filtering data
       if (card.colors.length === 0) {
@@ -54,25 +54,25 @@ export const deckTools = () => {
 
     // Call + Combine Scryfall data
     // ================================
-    combineCardWithScryfallData: function(card) {
+    combineCardWithScryfallData: function (card) {
       return api.get_scryfall_card(card.scryfall_id)
-        .then(function(scryeCard) {
+        .then(function (scryeCard) {
           // return {...scryeCard.data, ...card}
           return Object.assign(scryeCard.data, card)
         })
     },
 
-    combineScryfallData: function(cards) {
+    combineScryfallData: function (cards) {
       // Get all scryfall data to add to local list
-      const card_ids     = tools().pluck(cards, 'scryfall_id')
+      const card_ids = tools().pluck(cards, 'scryfall_id')
       const cardPromises = card_ids.map(id => api.get_scryfall_card(id))
       return Promise.all(cardPromises)
         .then(cardData => {
           const scryeCards = cardData.map(responseData => responseData.data)
           return (scryeCards.length === cards.length)
             ? scryeCards.map((scryeCard, idx) => {
-                return Object.assign(scryeCard, cards[idx])
-              })
+              return Object.assign(scryeCard, cards[idx])
+            })
             : scryeCards
         })
     },
@@ -80,7 +80,7 @@ export const deckTools = () => {
     // Return cards as categorized hash
     // Add category to current_list card
     // ================================
-    groupCards: function(combinedDataCardlist, current_list, use_custom_categories) {
+    groupCards: function (combinedDataCardlist, current_list, use_custom_categories) {
       const groupedCards = {}
       combinedDataCardlist.forEach(card => {
         const category = this.getCardCategoryName(card, use_custom_categories)
@@ -101,11 +101,10 @@ export const deckTools = () => {
 
     // Filtering Methods
     // ================================
-    filterByColor: function(options) {
+    filterByColor: function (options) {
       // Fix for double-faced cards
       let filteredDeck = {}
       options.types.forEach(type => {
-
         filteredDeck[type] = options.deck[type].map(card => {
           const intersection = tools().intersection(card.colors, options.colors)
           card.visible = options.includes === 'includes'
@@ -113,18 +112,17 @@ export const deckTools = () => {
             : intersection.length === 0
           return card
         })
-
       })
       return filteredDeck
     },
 
     // Check each column for visible cards
     // - return array of cols with no visible cards
-    getEmptyColumns: function(deck) {
+    getEmptyColumns: function (deck) {
       let hiddenCols = []
       Object.keys(deck).forEach(type => {
         const visibleCards = tools().pluck(deck[type], 'visible')
-        const hasTruthyCheck = (acc, cur) => acc || cur;
+        const hasTruthyCheck = (acc, cur) => acc || cur
         const typeHasVisibleCards = visibleCards.length === 0
           ? false
           : visibleCards.reduce(hasTruthyCheck)

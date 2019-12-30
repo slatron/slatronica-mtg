@@ -1,20 +1,21 @@
 <template>
   <div class="grid-container">
-    <AddAlter/>
+    <AddAlter />
     <div
-      class="window-shade"
       v-show="page_loading"
-    ></div>
+      class="window-shade"
+    />
     <div
-      class="image-container text-blue-500 tracking-wide"
       v-for="card in gallery_list"
       v-show="card.visible"
+      :key="card._id"
+      class="image-container text-blue-500 tracking-wide"
     >
       <FlipCard
-        v-bind:key="card.scryfall_id"
-        v-bind:card-data="card"
-        v-bind:gallery-card="true"
-      ></FlipCard>
+        :key="card.scryfall_id"
+        :card-data="card"
+        :gallery-card="true"
+      />
     </div>
   </div>
 </template>
@@ -25,14 +26,14 @@ import AddAlter from '@/components/gallery/AddAlter'
 
 export default {
   name: 'CardGallery',
+  components: {
+    FlipCard,
+    AddAlter
+  },
   data () {
     return {
       'params': this.$route.params
     }
-  },
-  components: {
-    FlipCard,
-    AddAlter
   },
   computed: {
     gallery_list () {
@@ -44,7 +45,7 @@ export default {
   },
   created: function () {
     if (!this.gallery_list.length) {
-      this.$store.dispatch('initGallery');
+      this.$store.dispatch('initGallery')
     }
   }
 }

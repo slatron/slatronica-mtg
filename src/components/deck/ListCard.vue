@@ -1,43 +1,50 @@
 <template>
   <div
     class="card-container py-1"
-    v-on:mouseover="show(true)"
-    v-on:mouseout="show(false)"
+    @mouseover="show(true)"
+    @mouseout="show(false)"
   >
     <div class="card-heading">
-      <span class="card-quantity">{{cardData.quantity || 1}}</span>
-      <span class="card-title">{{title}}</span>
-      <span class="mana-cost" v-html="$options.filters.cmcDisplay(cardData.mana_cost)"></span>
+      <span class="card-quantity">{{ cardData.quantity || 1 }}</span>
+      <span class="card-title">{{ title }}</span>
+      <span
+        class="mana-cost"
+        v-html="$options.filters.cmcDisplay(cardData.mana_cost)"
+      />
     </div>
-    <div class="card-hover"
+    <div
       v-show="visible"
+      class="card-hover"
     >
       <DeckCardControls
         v-if="user_can_edit"
-        v-bind:card="cardData"
+        :card="cardData"
       />
       <span
-        v-on:click="show(false)"
         class="button-close"
+        @click="show(false)"
       >
         <icon-base icon-name="close-outline"><CloseOutline /></icon-base>
       </span>
-      <span class="price-tag" v-show="cardData.prices.usd">
-        {{cardData.prices.usd | formatCurrency}}
+      <span
+        v-show="cardData.prices.usd"
+        class="price-tag"
+      >
+        {{ cardData.prices.usd | formatCurrency }}
       </span>
       <img
-        :src="imgUrl"
         v-if="!(cardData.has_alter)"
+        :src="imgUrl"
       >
       <div
-        class="flip-container"
         v-if="cardData.has_alter"
+        class="flip-container"
       >
         <FlipCard
-          v-bind:key="cardData.custom_name"
-          v-bind:card-data="cardData"
-          v-bind:gallery-list="false"
-        ></FlipCard>
+          :key="cardData.custom_name"
+          :card-data="cardData"
+          :gallery-list="false"
+        />
       </div>
     </div>
   </div>
@@ -45,51 +52,48 @@
 
 <script>
 import IconBase from '@/components/common/IconBase'
-import ViewShow from '@/components/icons/view-show'
 import CloseOutline from '@/components/icons/close-outline'
 import FlipCard from '@/components/common/FlipCard'
 import DeckCardControls from '@/components/deck/DeckCardControls'
 
 export default {
   name: 'ListCard',
-  props: {
-    cardData: Object
-  },
   components: {
     IconBase,
-    ViewShow,
     CloseOutline,
     FlipCard,
     DeckCardControls
   },
   filters: {
-    cmcDisplay: function(text) {
+    cmcDisplay: function (text) {
       const symbolList = text.split('{').join('').split('/').join('').split('}')
       symbolList.pop()
-      const icons = ''
       const htmlIcons = symbolList.map(symbol => `<i class="ms ms-${symbol.toLowerCase()} ms-cost ms-shadow"></i>`)
       return htmlIcons.join('')
     },
-    formatCurrency: function _formatGenericCurrency(text) {
+    formatCurrency: function _formatGenericCurrency (text) {
       // var rounded = _.round(text, 2).toString()
       if (text) {
-        let precedent   = text.split('.')[0]
+        let precedent = text.split('.')[0]
         let significand = text.split('.')[1]
         precedent = (precedent + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,')
-        text = '$' + ' ' + precedent;
+        text = '$' + ' ' + precedent
         if (significand) {
-          significand = significand.length === 1 ? significand + 0 : significand;
-          text += '.' + significand;
+          significand = significand.length === 1 ? significand + 0 : significand
+          text += '.' + significand
         } else {
-          text += '.' + '00';
+          text += '.' + '00'
         }
-        return text;
+        return text
       } else {
-        return '';
+        return ''
       }
     }
   },
-  data: function() {
+  props: {
+    cardData: { 'type': Object, 'default': {} }
+  },
+  data: function () {
     let imgUrl = (this.cardData.layout === 'transform')
       ? this.cardData.card_faces[0].image_uris.normal
       : this.cardData.image_uris.border_crop
@@ -97,7 +101,7 @@ export default {
       title: this.cardData.custom_name || this.cardData.name,
       imgUrl: imgUrl,
       visible: false
-    };
+    }
   },
   computed: {
     user_can_edit () {
@@ -105,7 +109,7 @@ export default {
     }
   },
   methods: {
-    show: function(visible) {
+    show: function (visible) {
       this.visible = visible
     }
   }
