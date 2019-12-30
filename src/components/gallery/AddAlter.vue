@@ -59,7 +59,6 @@
 </template>
 
 <script>
-import api from '@/api/api'
 export default {
   name: 'AddAlter',
   data: () => {

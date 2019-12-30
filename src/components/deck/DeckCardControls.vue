@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import api from '@/api/api'
 import AddSolid from '@/components/icons/add-solid'
 import MinusSolid from '@/components/icons/minus-solid'
 import IconBase from '@/components/common/IconBase'
@@ -62,7 +61,7 @@ export default {
     IconBase
   },
   props: {
-    card: Object
+    card: { 'type': Object, default: {} }
   },
   data () {
     return {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <PageContent
-      v-bind:page_key="page_key"
+      :page-key="pageKey"
     />
   </div>
 </template>
@@ -14,6 +14,6 @@ export default {
   components: {
     PageContent
   },
-  props: { page_key: { type: String } }
+  props: { pageKey: { type: String, default: 'about-page' } }
 }
 </script>

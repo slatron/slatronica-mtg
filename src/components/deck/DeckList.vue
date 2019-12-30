@@ -63,9 +63,6 @@ export default {
         counted += card.quantity
       })
       return counted
-    },
-    sort_column: function () {
-      return value.charAt(0).toUpperCase() + value.slice(1)
     }
   },
   computed: {

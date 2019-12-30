@@ -9,7 +9,6 @@ export default {
 
   mutations: {
     setGallery (state, options) {
-      const alters = options.alters
       state.gallery_list = options.alters.sort(tools().sortBy('date', false))
       state.gallery_list = state.gallery_list.map(deckTools().setAllCardsVisible)
       this.commit('pageLoading', { loading: false })
@@ -80,7 +79,7 @@ export default {
             state.commit('addAlter', { 'alter': options.alter })
           }
         })
-        .catch(err => console.warn(' ** error posting alter', error))
+        .catch(err => console.warn(' ** error posting alter', err))
     },
     putAlter (state, options) {
       api.update_gallery_card(options.alter)

@@ -87,14 +87,17 @@ const fetchReports = vm => {
         vm.reports = response.data.game_reports.sort(tools().sortBy('date', false))
         setReport(vm)
       })
-      .catch(error => vm.$router.push({ 'path': '/404' }))
+      .catch(err => {
+        console.warn(err)
+        vm.$router.push({ 'path': '/404' })
+      })
   }
 }
 
 export default {
   name: 'PostContent',
   components: { ArrowLeft, ArrowRight, IconBase },
-  props: ['id'],
+  props: { 'id': { 'type': String, 'default': '2' } },
   data () {
     return {
       'report': {

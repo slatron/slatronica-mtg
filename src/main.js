@@ -18,7 +18,7 @@ window.addEventListener('load', () => {
   // Uncommnmet to enable Service Worker API cacheing
   navigator.serviceWorker.register(`${baseUrl}cache.js`).then(
     () => console.log('Successfully registered cache worker'),
-    err => console.warn('Service worker registration failed')
+    err => console.warn('Service worker registration failed', err)
   )
 })
 

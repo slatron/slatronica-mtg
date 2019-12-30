@@ -68,7 +68,6 @@ export default {
     cmcDisplay: function (text) {
       const symbolList = text.split('{').join('').split('/').join('').split('}')
       symbolList.pop()
-      const icons = ''
       const htmlIcons = symbolList.map(symbol => `<i class="ms ms-${symbol.toLowerCase()} ms-cost ms-shadow"></i>`)
       return htmlIcons.join('')
     },
@@ -92,7 +91,7 @@ export default {
     }
   },
   props: {
-    cardData: Object
+    cardData: { 'type': Object, 'default': {} }
   },
   data: function () {
     let imgUrl = (this.cardData.layout === 'transform')

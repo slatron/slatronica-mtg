@@ -34,7 +34,6 @@
 
 <script>
 import DrawerContents from '@/components/common/DrawerContents'
-import { tools } from '@/utils/MStools'
 import api from '@/api/api'
 
 export default {
@@ -69,7 +68,7 @@ export default {
           }
         })
         .catch(error => {
-          console.log('Your session has expired. Please login again.')
+          console.warn('Your session has expired. Please login again.', error)
           window.localStorage.removeItem('token')
         })
     }

@@ -10,19 +10,19 @@
 <script>
 import api from '@/api/api'
 
-const getPage = function(pageContent) {
+const getPage = function (pageContent) {
   api.get_pages()
     .then(response => {
       const pages = response.data.pages
       pageContent.page_data = pages.find(page => {
-        return pageContent.page_key === page.page_key
+        return pageContent.pageKey === page.page_key
       })
     })
 }
 
 export default {
   name: 'PageContent',
-  props: ['page_key'],
+  props: { 'pageKey': { type: String, default: 'about-page' } },
   data () {
     return {
       'page_data': {}

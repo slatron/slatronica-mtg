@@ -16,8 +16,8 @@
       >
         <span>{{ report.date | format-datestring }}</span> |
         <span
-          v-for="(tag, idx) in report.tags"
-          :key="idx"
+          v-for="(tag, index) in report.tags"
+          :key="index"
         >
           "{{ tag }}"
           <span v-if="idx + 1 < report.tags.length">, </span>
@@ -37,7 +37,7 @@ const fetchReports = vm => {
       .then(response => {
         vm.reports = response.data.game_reports.sort(tools().sortBy('date', false))
       })
-      .catch(error => console.warn('Error fetching reports'))
+      .catch(err => console.warn('Error fetching reports', err))
   }
 }
 

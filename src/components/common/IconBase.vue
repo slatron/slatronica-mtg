@@ -22,7 +22,8 @@ export default {
   name: 'IconBase',
   props: {
     iconName: {
-      type: String
+      type: String,
+      default: ''
     },
     width: {
       type: [Number, String],

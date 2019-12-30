@@ -119,7 +119,7 @@ export default {
         this.reports = response.data.game_reports.sort(tools().sortBy('date', false))
         this.reports = this.reports.slice(0, 5)
       })
-      .catch(err => console.log(err => console.log(`Error in DrawerContents get posts: ${err}`)))
+      .catch(err => console.log(`Error in DrawerContents get posts: ${err}`))
   },
   methods: {
     toggle: function (section) {

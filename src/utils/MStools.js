@@ -1,5 +1,3 @@
-import api from '@/api/api'
-
 export const tools = () => {
   return {
     sortBy: function _sortBy (field, reverse, primer) {

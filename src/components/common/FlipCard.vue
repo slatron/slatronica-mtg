@@ -4,7 +4,7 @@
     :class="{'card-image-list': !galleryCard}"
   >
     <h5
-      v-show="this.galleryCard"
+      v-show="galleryCard"
       class="card-heading"
     >
       <span
@@ -69,8 +69,8 @@ export default {
     TrashIcon
   },
   props: {
-    cardData: Object,
-    galleryCard: Boolean
+    cardData: { 'type': Object, default: {} },
+    galleryCard: { 'type': Boolean, default: false }
   },
   data: () => {
     return {

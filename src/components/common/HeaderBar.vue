@@ -52,7 +52,6 @@
 
 <script>
 import FilterSwitcher from '@/components/common/FilterSwitcher'
-import api from '@/api/api'
 import IconBase from '@/components/common/IconBase'
 import MenuFilter from '@/components/icons/menu-filter'
 import DocumentAdd from '@/components/icons/document-add'
