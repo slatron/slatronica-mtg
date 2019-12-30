@@ -1,29 +1,45 @@
 <template>
-  <form v-on:submit.prevent>
+  <form @submit.prevent>
     <fieldset>
       <label for="deck_name_field">Deck Name</label>
-      <input type="text" name="deck_name_field" v-model="deck_name">
+      <input
+        v-model="deck_name"
+        type="text"
+        name="deck_name_field"
+      >
     </fieldset>
     <fieldset>
       <label for="format_type_field">Deck Format</label>
-      <select v-model="deck_format" id="format_type_field">
+      <select
+        id="format_type_field"
+        v-model="deck_format"
+      >
         <option
-          v-for="format_type in ['EDH', 'Modern', 'Cube', 'Cube Draft', 'None']"
-          v-bind:value="format_type">
-           {{format_type}}
+          v-for="(format_type, idx) in ['EDH', 'Modern', 'Cube', 'Cube Draft', 'None']"
+          :key="idx"
+          :value="format_type"
+        >
+          {{ format_type }}
         </option>
       </select>
     </fieldset>
     <fieldset class="text-right">
-      <button type="button" name="button" v-on:click="updateDeck()">
+      <button
+        type="button"
+        name="button"
+        @click="updateDeck()"
+      >
         Save
       </button>
     </fieldset>
     <fieldset>
       <button
-        v-on:click="deleteDeck"
-        v-show="can_delete">
-        <icon-base icon-name="trash-icon"><TrashIcon /></icon-base>
+        v-show="can_delete"
+        @click="deleteDeck"
+      >
+        <icon-base icon-name="trash-icon">
+          <TrashIcon />
+        </icon-base>
       </button>
     </fieldset>
   </form>
@@ -34,7 +50,7 @@ import IconBase from '@/components/common/IconBase'
 import TrashIcon from '@/components/icons/trash'
 
 export default {
-  name: 'editDeck',
+  name: 'EditDeck',
   components: {
     IconBase,
     TrashIcon
@@ -47,7 +63,7 @@ export default {
     }
   },
   computed: {
-    can_delete: function() {
+    can_delete: function () {
       return this.$store.state.deck.deck_lists.length > 1
     }
   },
@@ -55,7 +71,7 @@ export default {
     closeForm: function () {
       this.$store.commit('toggleForm')
     },
-    updateDeck: function() {
+    updateDeck: function () {
       const updateData = {
         name: this.deck_name,
         format: this.deck_format
@@ -64,7 +80,7 @@ export default {
       this.closeForm()
       this.name = ''
     },
-    deleteDeck: function() {
+    deleteDeck: function () {
       if (!this.can_delete) return false
       if (window.confirm('This will permanently delete the current deck. Proceed?')) {
         this.$store.dispatch('deleteDeck')

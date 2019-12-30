@@ -8,8 +8,10 @@
         <select v-model="deck_current">
           <option
             v-for="deck in deck_lists"
-            v-bind:value="deck">
-            {{deck.name}}
+            :key="deck._id"
+            :value="deck"
+          >
+            {{ deck.name }}
           </option>
         </select>
       </div>
@@ -17,14 +19,34 @@
     <fieldset>
       <div class="has_color">
         <span class="text-blue-400">Color Filter: </span>
-        <input type="radio" id="has_color" value="includes" v-model="includes" v-on:change="filterDeckByColor(color_options)">
+        <input
+          id="has_color"
+          v-model="includes"
+          type="radio"
+          value="includes"
+          @change="filterDeckByColor(color_options)"
+        >
         <label for="has_color">Includes</label>
-        <input type="radio" id="not_color" value="excludes" v-model="includes" v-on:change="filterDeckByColor(color_options)">
+        <input
+          id="not_color"
+          v-model="includes"
+          type="radio"
+          value="excludes"
+          @change="filterDeckByColor(color_options)"
+        >
         <label for="not_color">Excludes</label>
       </div>
       <div>
-        <span v-for="color in color_options">
-          <input v-on:change="filterDeckByColor(color_options)" :id="`c_${color.short}`" type="checkbox" v-model="color.selected" />
+        <span
+          v-for="color in color_options"
+          :key="color.value"
+        >
+          <input
+            :id="`c_${color.short}`"
+            v-model="color.selected"
+            type="checkbox"
+            @change="filterDeckByColor(color_options)"
+          >
           <label :for="`c_${color.short}`">{{ color.short }}</label>
         </span>
       </div>
@@ -32,7 +54,11 @@
     <fieldset>
       <div class="css-grid">
         <div class="grid-left">
-          <input id="custom_categories" type="checkbox" v-model="use_custom_categories">
+          <input
+            id="custom_categories"
+            v-model="use_custom_categories"
+            type="checkbox"
+          >
           <label for="custom_categories">
             Custom Categories
           </label>
@@ -41,9 +67,11 @@
           <label>Sort:</label>
           <select v-model="deck_sort_by">
             <option
-              v-for="option in ['cmc', 'name']"
-              v-bind:value="option">
-              {{option}}
+              v-for="(option, idx) in ['cmc', 'name']"
+              :key="idx"
+              :value="option"
+            >
+              {{ option }}
             </option>
           </select>
         </div>
@@ -67,10 +95,10 @@ export default {
   },
   computed: {
     deck_sort_by: {
-      get: function() {
+      get: function () {
         return this.$store.state.deck.deck_sort_by
       },
-      set: function(new_sort_by) {
+      set: function (new_sort_by) {
         this.$store.commit('setSortBy', new_sort_by)
       }
     },
@@ -85,10 +113,10 @@ export default {
       }
     },
     use_custom_categories: {
-      get: function() {
+      get: function () {
         return this.$store.state.deck.use_custom_categories
       },
-      set: function(use_custom_categories) {
+      set: function (use_custom_categories) {
         this.$store.commit('setUseCustomCategories', use_custom_categories)
       }
     }
@@ -100,7 +128,7 @@ export default {
         'color_options': color_options.filter(color => color.selected),
         'includes': this.includes
       })
-    },
+    }
   }
 }
 </script>

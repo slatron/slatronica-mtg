@@ -2,43 +2,86 @@
   <div class="text-blue-700 drawer-menu">
     <ul>
       <li v-show="!username">
-        <router-link to="/login">Login</router-link>
+        <router-link to="/login">
+          Login
+        </router-link>
       </li>
       <li v-show="username">
-        <a v-on:click="logout()">Welcome, {{username}} | Logout</a>
+        <a @click="logout()">Welcome, {{ username }} | Logout</a>
       </li>
       <li>
-        <router-link to="/">Gallery</router-link>
+        <router-link to="/">
+          Gallery
+        </router-link>
       </li>
       <li>
-        <router-link to="/decks">Decks</router-link>
+        <router-link to="/decks">
+          Decks
+        </router-link>
       </li>
-      <!--
-      <li v-bind:class="{'active': active_nav === 'reports'}">
-        <span v-on:click="toggle('reports')">
+
+      <li :class="{'active': active_nav === 'reports'}">
+        <span @click="toggle('reports')">
           EDH Reports
-          <icon-base v-show="active_nav === 'reports'" icon-name="minus-outline"><MinusOutline /></icon-base>
-          <icon-base v-show="active_nav !== 'reports'" icon-name="add-outline"><AddOutline /></icon-base>
+          <icon-base
+            v-show="active_nav === 'reports'"
+            icon-name="minus-outline"
+          ><MinusOutline /></icon-base>
+          <icon-base
+            v-show="active_nav !== 'reports'"
+            icon-name="add-outline"
+          ><AddOutline /></icon-base>
         </span>
         <ul>
-          <li v-for="report in reports">
-            <router-link :to="`/post/${report.id}`">{{report.date | format-datestring}}</router-link>
+          <li
+            v-for="report in reports"
+            :key="report.id"
+          >
+            <router-link :to="`/post/${report.id}`">
+              {{ report.date | format-datestring }}
+            </router-link>
           </li>
-          <li><router-link to="/all-reports">All</router-link></li>
+          <li>
+            <router-link to="/all-reports">
+              All
+            </router-link>
+          </li>
         </ul>
       </li>
-       -->
-      <li v-bind:class="{'active': active_nav === 'pages'}">
-        <span v-on:click="toggle('pages')">
+
+      <li :class="{'active': active_nav === 'pages'}">
+        <span @click="toggle('pages')">
           Pages
-          <icon-base v-show="active_nav === 'pages'" icon-name="minus-outline"><MinusOutline /></icon-base>
-          <icon-base v-show="active_nav !== 'pages'" icon-name="add-outline"><AddOutline /></icon-base>
+          <icon-base
+            v-show="active_nav === 'pages'"
+            icon-name="minus-outline"
+          ><MinusOutline /></icon-base>
+          <icon-base
+            v-show="active_nav !== 'pages'"
+            icon-name="add-outline"
+          ><AddOutline /></icon-base>
         </span>
         <ul>
-          <li><router-link to="/about">About</router-link></li>
-          <li><router-link to="/house-rules">EDH House Rules</router-link></li>
-          <li><router-link to="/edh-mulligan">EDH House Mulligan</router-link></li>
-          <li><router-link to="/blueprint-process">Blueprint Process</router-link></li>
+          <li>
+            <router-link to="/about">
+              About
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/house-rules">
+              EDH House Rules
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/edh-mulligan">
+              EDH House Mulligan
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/blueprint-process">
+              Blueprint Process
+            </router-link>
+          </li>
         </ul>
       </li>
     </ul>
@@ -59,14 +102,6 @@ export default {
     MinusOutline,
     AddOutline
   },
-  created () {
-    api.get_posts()
-      .then(response => {
-        this.reports = response.data.game_reports.sort(tools().sortBy('date', false))
-        this.reports = this.reports.slice(0, 5)
-      })
-      .catch(err => console.log(err => console.log(`Error in DrawerContents get posts: ${err}`)))
-  },
   data () {
     return {
       reports: [],
@@ -78,17 +113,25 @@ export default {
       return this.$store.state.auth.username
     }
   },
+  created () {
+    api.get_posts()
+      .then(response => {
+        this.reports = response.data.game_reports.sort(tools().sortBy('date', false))
+        this.reports = this.reports.slice(0, 5)
+      })
+      .catch(err => console.log(err => console.log(`Error in DrawerContents get posts: ${err}`)))
+  },
   methods: {
     toggle: function (section) {
       this.active_nav = section === this.active_nav
         ? ''
         : section
     },
-    logout: function() {
+    logout: function () {
       window.localStorage.removeItem('token')
-      this.$store.commit('setUsername', {username: ''})
+      this.$store.commit('setUsername', { username: '' })
     },
-    testPost: function() {
+    testPost: function () {
       api.post_gallery()
         .then(response => {
           console.log('post response: ', response)

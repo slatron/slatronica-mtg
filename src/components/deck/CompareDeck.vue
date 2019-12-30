@@ -3,18 +3,24 @@
     <fieldset>
       <label for="deck_compare_target">Compare to</label>
       <select
+        id="deck_compare_target"
         v-model="deck_compare_target"
-        v-on:change="compare"
-        id="deck_compare_target">
+        @change="compare"
+      >
         <option
           v-for="deck in other_decks"
-          v-bind:value="deck.cards">
-           {{deck.name}}
+          :key="deck._id"
+          :value="deck.cards"
+        >
+          {{ deck.name }}
         </option>
       </select>
     </fieldset>
-    <fieldset class="error-msg" v-if="msg.length">
-      <span v-on:click="removeMsg()">{{msg}}</span>
+    <fieldset
+      v-if="msg.length"
+      class="error-msg"
+    >
+      <span @click="removeMsg()">{{ msg }}</span>
     </fieldset>
     <div
       v-show="show_compare_cards"
@@ -24,17 +30,17 @@
         Remove
         <ListCard
           v-for="card in remove_cards"
-          v-bind:key="card._id"
-          v-bind:card-data="card"
-        ></ListCard>
+          :key="card._id"
+          :card-data="card"
+        />
       </div>
       <div style="grid-column: 2 / span 1;grid-row: 1 / span 1;">
         Add
         <ListCard
           v-for="card in add_cards"
-          v-bind:key="card._id"
-          v-bind:card-data="card"
-        ></ListCard>
+          :key="card._id"
+          :card-data="card"
+        />
       </div>
     </div>
   </form>
@@ -45,7 +51,7 @@ import { deckTools } from '@/utils/deckTools'
 import ListCard from '@/components/deck/ListCard'
 
 export default {
-  name: 'compareDecks',
+  name: 'CompareDecks',
   components: { ListCard },
   data: () => {
     return {
@@ -56,9 +62,9 @@ export default {
     }
   },
   computed: {
-    other_decks: function() {
+    other_decks: function () {
       const deck_current = this.$store.state.deck.deck_current
-      const others = this.$store.state.deck.deck_lists.filter(function(deck) {
+      const others = this.$store.state.deck.deck_lists.filter(function (deck) {
         return deck !== deck_current
       })
       return others
@@ -68,11 +74,11 @@ export default {
     }
   },
   methods: {
-    compare: function() {
+    compare: function () {
       const deck_current_cards = this.$store.state.deck.deck_current.cards
 
-      this.remove_cards  = deckTools().getDifference(deck_current_cards, this.deck_compare_target)
-      const addCards     = deckTools().getDifference(this.deck_compare_target, deck_current_cards)
+      this.remove_cards = deckTools().getDifference(deck_current_cards, this.deck_compare_target)
+      const addCards = deckTools().getDifference(this.deck_compare_target, deck_current_cards)
 
       // call decktools if this.deck_compare_target is missing scryfall object data
       if (!addCards[0].hasOwnProperty('object')) {

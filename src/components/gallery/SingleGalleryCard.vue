@@ -1,12 +1,14 @@
 <template>
   <div class="card-container">
     <div>
-      <router-link to="/">View All Cards</router-link>
+      <router-link to="/">
+        View All Cards
+      </router-link>
     </div>
     <FlipCard
       v-if="card.scryfall_id"
-      v-bind:card-data="card"
-    ></FlipCard>
+      :card-data="card"
+    />
   </div>
 </template>
 
@@ -16,22 +18,22 @@ import api from '@/api/api'
 
 export default {
   name: 'SingleGalleryCard',
+  components: {
+    FlipCard
+  },
   data () {
     return {
       'card': {}
     }
   },
-  components: {
-    FlipCard
-  },
   created: function () {
-    let cardID = this.$route.params.cardID;
+    let cardID = this.$route.params.cardID
     api.get_cards()
       .then((cards) => {
-        let alters = cards.data;
-        this.card = alters.find(card => card.scryfall_id === cardID);
+        let alters = cards.data
+        this.card = alters.find(card => card.scryfall_id === cardID)
       })
-      .catch(error => console.warn(error));
+      .catch(error => console.warn(error))
   }
 }
 </script>

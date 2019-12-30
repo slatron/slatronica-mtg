@@ -1,52 +1,102 @@
 <template>
-  <form v-on:submit.prevent>
-    <div class="card-selected" v-show="cardLoading || card_selected">
+  <form @submit.prevent>
+    <div
+      v-show="cardLoading || card_selected"
+      class="card-selected"
+    >
       <b>Selected</b>
       <div class="card-selected-container">
-        <img class="loading-img" v-show="cardLoading" src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
-        {{card_selected}}
+        <img
+          v-show="cardLoading"
+          class="loading-img"
+          src="../../assets/images/loading/horiz-black-bg.gif"
+          alt="loading"
+        >
+        {{ card_selected }}
       </div>
-      <div class="select_card_edition" v-if="scryfall_id">
-        <a v-on:click="openSelectEdition" href="#"
+      <div
+        v-if="scryfall_id"
+        class="select_card_edition"
+      >
+        <a
+          href="#"
+          @click="openSelectEdition"
         >+ select edition</a>
-        <div class="edition-container" v-show="view_select_edition">
-          <img class="loading-img" v-show="editionsLoading" src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
-          <div class="select_edition_images" v-show="editions.length">
+        <div
+          v-show="view_select_edition"
+          class="edition-container"
+        >
+          <img
+            v-show="editionsLoading"
+            class="loading-img"
+            src="../../assets/images/loading/horiz-black-bg.gif"
+            alt="loading"
+          >
+          <div
+            v-show="editions.length"
+            class="select_edition_images"
+          >
             <img
-               v-for="card in editions"
-               v-on:click="selectEdition(card.id)"
-               :src="card.image_uris.small"
-               class="edition-img">
+              v-for="card in editions"
+              :key="card.id"
+              :src="card.image_uris.small"
+              class="edition-img"
+              @click="selectEdition(card.id)"
+            >
           </div>
         </div>
       </div>
     </div>
     <fieldset class="autocomplete-fieldset">
       <label for="search_term">Search Names (min 3 chars)</label>
-      <input type="text" v-model="search_term">
-      <ul class="autocomplete-list" v-show="autocompleteLoading || autocomplete_names.length">
-        <li v-show="autocompleteLoading" class="list-loading">
-          <img src="../../assets/images/loading/horiz-black-bg.gif" alt="loading">
+      <input
+        v-model="search_term"
+        type="text"
+      >
+      <ul
+        v-show="autocompleteLoading || autocomplete_names.length"
+        class="autocomplete-list"
+      >
+        <li
+          v-show="autocompleteLoading"
+          class="list-loading"
+        >
+          <img
+            src="../../assets/images/loading/horiz-black-bg.gif"
+            alt="loading"
+          >
         </li>
         <li
-          v-for="name in autocomplete_names"
-          v-on:click="selectName(name)"
+          v-for="(name, idx) in autocomplete_names"
+          :key="idx"
+          @click="selectName(name)"
         >
-          {{name}}
+          {{ name }}
         </li>
       </ul>
     </fieldset>
     <fieldset>
       <label for="name">Custom Name</label>
-      <input type="text" name="name" v-model="custom_name">
+      <input
+        v-model="custom_name"
+        type="text"
+        name="name"
+      >
     </fieldset>
     <fieldset class="text-right">
-      <button type="button" name="button" v-on:click="addDeckCard()">
+      <button
+        type="button"
+        name="button"
+        @click="addDeckCard()"
+      >
         Save
       </button>
     </fieldset>
-    <fieldset class="error-msg" v-if="msg.length">
-      <span v-on:click="removeMsg()">{{msg}}</span>
+    <fieldset
+      v-if="msg.length"
+      class="error-msg"
+    >
+      <span @click="removeMsg()">{{ msg }}</span>
     </fieldset>
   </form>
 </template>
@@ -55,7 +105,7 @@
 import api from '@/api/api'
 import { tools } from '@/utils/MStools'
 export default {
-  name: 'addCard',
+  name: 'AddCard',
   data: () => {
     return {
       search_term: '',
@@ -91,11 +141,11 @@ export default {
       }
     }
   },
-  created: function() {
+  created: function () {
     this.debounceSearchCards = tools().debounce(this.searchCards, 500)
   },
   methods: {
-    openSelectEdition: function() {
+    openSelectEdition: function () {
       if (this.view_select_edition) {
         this.view_select_edition = false
         this.editions = []
@@ -110,12 +160,12 @@ export default {
           .finally(() => this.editionsLoading = false)
       }
     },
-    selectEdition: function(id) {
+    selectEdition: function (id) {
       this.scryfall_id = id
       this.view_select_edition = false
       this.editions = []
     },
-    selectName: function(name) {
+    selectName: function (name) {
       this.card_selected = ''
       this.scryfall_id = ''
       this.autocomplete_names = []
@@ -125,15 +175,15 @@ export default {
       api.get_card_named(name)
         .then(card => {
           this.prints_search_uri = card.data.prints_search_uri
-          this.card_selected     = card.data.name
-          this.scryfall_id       = card.data.id
+          this.card_selected = card.data.name
+          this.scryfall_id = card.data.id
         })
         .catch(err => console.error(err))
         .finally(() => {
           vm.cardLoading = false
         })
     },
-    searchCards: function() {
+    searchCards: function () {
       this.removeMsg()
       this.view_select_edition = false
       this.editions = []
@@ -144,7 +194,7 @@ export default {
           this.autocomplete_names = cards.data.data
         })
         .catch(err => console.error(err))
-        .finally(function() {
+        .finally(function () {
           vm.autocompleteLoading = false
         })
     },
@@ -154,12 +204,11 @@ export default {
     removeMsg: function () {
       this.msg = ''
     },
-    addDeckCard: function() {
+    addDeckCard: function () {
       if (!this.scryfall_id) return false
 
       const existingIds = tools().pluck(this.deck_current.cards, 'scryfall_id')
       if (existingIds.includes(this.scryfall_id)) {
-
         // This card does exists in the list
         // Add quantity to existing card
         const targetId = this.scryfall_id
@@ -176,9 +225,7 @@ export default {
         }).then(() => {
           this.msg = 'Added Quantity to Exisitng Card'
         })
-
       } else {
-
         // This card does not exist in the list
         const newCard = {
           scryfall_id: this.scryfall_id,
@@ -189,14 +236,13 @@ export default {
         this.$store.dispatch('addDeckCard', {
           'card': newCard
         })
-        const newName = this.card_selected;
+        const newName = this.card_selected
         this.msg = `Successfully added ${newName}`
-        this.search_term        = ''
-        this.scryfall_id        = ''
-        this.custom_name        = ''
+        this.search_term = ''
+        this.scryfall_id = ''
+        this.custom_name = ''
         this.autocomplete_names = []
-        this.card_selected      = ''
-
+        this.card_selected = ''
       }
     }
   }

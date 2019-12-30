@@ -18,7 +18,7 @@ function builder (data) {
       deck: deckStateModule
     },
     state: {
-      app_settings: data,
+      app_settings: data
     }
   })
 }

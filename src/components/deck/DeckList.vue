@@ -2,39 +2,41 @@
   <div class="deck-container">
     <DeckFormContainer v-if="open_form" />
     <div
-      class="window-shade"
       v-show="page_loading"
-    ></div>
+      class="window-shade"
+    />
     <h2 class="text-xl m-3 text-blue-600 tracking-wide">
       <button
         v-if="auth_user"
-        v-on:click="openEditDeckForm()"
+        @click="openEditDeckForm()"
       >
-        <icon-base icon-name="edit-icon"><EditIcon /></icon-base>
+        <icon-base icon-name="edit-icon">
+          <EditIcon />
+        </icon-base>
       </button>
-      {{deck_current.name}} |
-      <span class="text-sm">{{deck_current.format}}</span> |
+      {{ deck_current.name }} |
+      <span class="text-sm">{{ deck_current.format }}</span> |
       <span class="text-sm">{{ card_count }} Cards</span>
     </h2>
 
     <div class="columns m-1 pl-3 pb-3 overflow-visible flex flex-wrap justify-start flex-initial">
       <div
         v-for="(cards, type) in deck_sorted"
-        class="mb-6 mr-6 column"
         v-show="!(empty_cols.includes(type))"
+        :key="type"
+        class="mb-6 mr-6 column"
       >
         <h3 class="text-gray-400">
-          {{type}} ({{cards | display_count}})
+          {{ type }} ({{ cards | display_count }})
         </h3>
         <ListCard
           v-for="card in cards"
           v-show="card.visible"
-          v-bind:key="card._id"
-          v-bind:card-data="card"
-        ></ListCard>
+          :key="card._id"
+          :card-data="card"
+        />
       </div>
     </div>
-
   </div>
 </template>
 
@@ -53,10 +55,20 @@ export default {
     IconBase,
     EditIcon
   },
-  computed: {
-    deck_sort_by () {
-      return this.$store.state.deck.deck_sort_by
+  filters: {
+    display_count: function (cards) {
+      // TODO: Would look nicer as reduce function
+      let counted = 0
+      cards.forEach(card => {
+        counted += card.quantity
+      })
+      return counted
     },
+    sort_column: function () {
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  },
+  computed: {
     page_loading () {
       return this.$store.state.layout.page_loading
     },
@@ -64,12 +76,13 @@ export default {
       return this.$store.state.deck.deck_sort_by
     },
     deck_sorted () {
-      for (var key in this.$store.state.deck.deck_sorted) {
-        if (!this.$store.state.deck.deck_sorted.hasOwnProperty(key)) continue;
-        const category_list = this.$store.state.deck.deck_sorted[key];
-        this.$store.state.deck.deck_sorted[key] = category_list.sort(tools().sortBy(this.deck_sort_by, true))
+      const original_deck_sorted = this.$store.state.deck.deck_sorted
+      for (var key in original_deck_sorted) {
+        if (!original_deck_sorted.hasOwnProperty(key)) continue
+        const category_list = original_deck_sorted[key]
+        original_deck_sorted[key] = category_list.sort(tools().sortBy(this.deck_sort_by, true))
       }
-      return this.$store.state.deck.deck_sorted
+      return original_deck_sorted
     },
     deck_current () {
       return this.$store.state.deck.deck_current
@@ -99,22 +112,9 @@ export default {
       this.$store.dispatch('initDecks')
     }
   },
-  filters: {
-    display_count: function (cards) {
-      // TODO: Would look nicer as reduce function
-      let counted = 0
-      cards.forEach(card => {
-        counted += card.quantity
-      })
-      return counted
-    },
-    sort_column: function () {
-      return value.charAt(0).toUpperCase() + value.slice(1)
-    }
-  },
   methods: {
-    openEditDeckForm() {
-      this.$store.commit('toggleForm', {'tab': 'edit'})
+    openEditDeckForm () {
+      this.$store.commit('toggleForm', { 'tab': 'edit' })
     }
   }
 }

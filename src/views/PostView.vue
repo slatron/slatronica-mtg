@@ -1,7 +1,7 @@
 <template>
   <div>
     <PostContent
-      v-bind:id="id"
+      :id="id"
     />
   </div>
 </template>
@@ -11,9 +11,14 @@ import PostContent from '@/components/posts/PostContent'
 
 export default {
   name: 'PostView',
-  props: {id: {type: String}},
   components: {
     PostContent
+  },
+  props: {
+    id: {
+      type: String,
+      default: '9999'
+    }
   }
 }
 </script>

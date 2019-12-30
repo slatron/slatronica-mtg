@@ -11,9 +11,9 @@ import PageContent from '@/components/pages/PageContent'
 
 export default {
   name: 'DynamicPage',
-  props: {page_key: {type: String}},
   components: {
     PageContent
-  }
+  },
+  props: { page_key: { type: String } }
 }
 </script>

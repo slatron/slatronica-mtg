@@ -1,35 +1,44 @@
 <template>
   <div class="post-content m-8 sm:mx-16 md:mx-24 lg:mx-36 xl:mx-48">
-    <h2 class="text-blue-600 text-lg sm:text-2xl tracking-wider">{{ report.title }}</h2>
+    <h2 class="text-blue-600 text-lg sm:text-2xl tracking-wider">
+      {{ report.title }}
+    </h2>
     <h3 class="text-xs pb-4">
-      <span>{{report.date | format-datestring}}</span> |
-      <span v-for="(tag, idx) in report.tags">
-        "{{tag}}"
+      <span>{{ report.date | format-datestring }}</span> |
+      <span
+        v-for="(tag, idx) in report.tags"
+        :key="idx"
+      >
+        "{{ tag }}"
         <span v-if="idx + 1 < report.tags.length">, </span>
       </span>
     </h3>
     <dl>
       <dt>Players</dt>
-      <dd>{{report.players}}</dd>
+      <dd>{{ report.players }}</dd>
       <dt>Games Played</dt>
-      <dd>{{report.decks.length}}</dd>
+      <dd>{{ report.decks.length }}</dd>
       <dt>Decks</dt>
       <dd>
         <ul>
-          <li v-for="(game, idx) in report.decks">
-            Game {{idx + 1}}: {{game.join(' vs. ')}}
+          <li
+            v-for="(game, idx) in report.decks"
+            :key="idx"
+          >
+            Game {{ idx + 1 }}: {{ game.join(' vs. ') }}
           </li>
         </ul>
       </dd>
     </dl>
-    <section v-html="report.content"></section>
+    <section v-html="report.content" />
     <div class="pagination flex m-5">
       <div class="text-left flex-grow">
         <span
-          v-on:click="goPrev" class="cursor-pointer"
           v-show="!last_post"
+          class="cursor-pointer"
           flex
           flex-col
+          @click="goPrev"
         >
           <icon-base icon-name="arrow-thick-left"><ArrowLeft /></icon-base>
           <span>prev</span>
@@ -37,10 +46,11 @@
       </div>
       <div class="text-right">
         <span
-          v-on:click="goNext" class="cursor-pointer"
           v-show="!first_post"
+          class="cursor-pointer"
           flex
           flex-col
+          @click="goNext"
         >
           <icon-base icon-name="arrow-thick-right"><ArrowRight /></icon-base>
           <span>next</span>
@@ -62,7 +72,7 @@ const setReport = vm => {
     return vm.id === report.id
   })
   if (!report) {
-    vm.$router.push({'path': '/404'})
+    vm.$router.push({ 'path': '/404' })
   } else {
     vm.report = report
   }
@@ -77,14 +87,14 @@ const fetchReports = vm => {
         vm.reports = response.data.game_reports.sort(tools().sortBy('date', false))
         setReport(vm)
       })
-      .catch(error => vm.$router.push({'path': '/404'}))
+      .catch(error => vm.$router.push({ 'path': '/404' }))
   }
 }
 
 export default {
-  name: 'postContent',
+  name: 'PostContent',
+  components: { ArrowLeft, ArrowRight, IconBase },
   props: ['id'],
-  components: {ArrowLeft, ArrowRight, IconBase},
   data () {
     return {
       'report': {
@@ -93,33 +103,33 @@ export default {
       'reports': []
     }
   },
-  created: function () {
-    fetchReports(this);
+  computed: {
+    first_post: function () {
+      return this.reports.indexOf(this.report) === 0
+    },
+    last_post: function () {
+      return this.reports.indexOf(this.report) === this.reports.length - 1
+    }
   },
   watch: {
     '$route' (to, from) {
       if (to.name === 'BlogPost') {
-        fetchReports(this);
+        fetchReports(this)
       }
     }
   },
-  computed: {
-    first_post: function() {
-      return this.reports.indexOf(this.report) === 0
-    },
-    last_post: function() {
-      return this.reports.indexOf(this.report) === this.reports.length - 1
-    }
+  created: function () {
+    fetchReports(this)
   },
   methods: {
-    goNext: function() {
+    goNext: function () {
       const currentPosition = this.reports.indexOf(this.report)
       if (currentPosition > 0) {
         const targetPostId = this.reports[currentPosition - 1].id
         this.$router.push(`/post/${targetPostId}`)
       }
     },
-    goPrev: function() {
+    goPrev: function () {
       const currentPosition = this.reports.indexOf(this.report)
       if (currentPosition < this.reports.length - 1) {
         const targetPostId = this.reports[currentPosition + 1].id

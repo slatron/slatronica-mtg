@@ -1,8 +1,8 @@
 <template lang="html">
   <!-- Select Filter Based On Router -->
   <div>
-    <GalleryFilters v-if="page_name === 'GalleryPage'"/>
-    <DeckFilters v-if="page_name === 'DeckPage'"/>
+    <GalleryFilters v-if="page_name === 'GalleryPage'" />
+    <DeckFilters v-if="page_name === 'DeckPage'" />
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
     GalleryFilters,
     DeckFilters
   },
-  data() {
+  data () {
     return {
       page_name: this.$route.name
     }

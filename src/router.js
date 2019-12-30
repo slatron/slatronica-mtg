@@ -19,7 +19,7 @@ export default new Router({
     {
       path: '/about',
       name: 'AboutPage',
-      props: { default: {page_key: 'about-page'} },
+      props: { default: { page_key: 'about-page' } },
       components: {
         header: () => import('./views/HeaderView.vue'),
         default: () => import('./views/DynamicPage.vue'),
@@ -29,7 +29,7 @@ export default new Router({
     {
       path: '/login',
       name: 'LoginPage',
-      props: { default: {page_key: 'login-page'} },
+      props: { default: { page_key: 'login-page' } },
       components: {
         header: () => import('./views/HeaderView.vue'),
         default: () => import('./views/LoginPage.vue'),
@@ -39,7 +39,7 @@ export default new Router({
     {
       path: '/edh-mulligan',
       name: 'HouseMulligan',
-      props: { default: {page_key: 'edh-house-mulligan'} },
+      props: { default: { page_key: 'edh-house-mulligan' } },
       components: {
         header: () => import('./views/HeaderView.vue'),
         default: () => import('./views/DynamicPage.vue'),
@@ -58,7 +58,7 @@ export default new Router({
     {
       path: '/house-rules',
       name: 'HouseRules',
-      props: { default: {page_key: 'edh-house-rules'} },
+      props: { default: { page_key: 'edh-house-rules' } },
       components: {
         header: () => import('./views/HeaderView.vue'),
         default: () => import('./views/DynamicPage.vue'),

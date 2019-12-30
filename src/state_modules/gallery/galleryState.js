@@ -12,7 +12,7 @@ export default {
       const alters = options.alters
       state.gallery_list = options.alters.sort(tools().sortBy('date', false))
       state.gallery_list = state.gallery_list.map(deckTools().setAllCardsVisible)
-      this.commit('pageLoading', {loading: false})
+      this.commit('pageLoading', { loading: false })
     },
     addAlter (state, options) {
       const alter = options.alter
@@ -41,7 +41,7 @@ export default {
 
   actions: {
     initGallery (state) {
-      state.commit('pageLoading', {loading: true})
+      state.commit('pageLoading', { loading: true })
       api.get_cards()
         .then(response => {
           this.dispatch('combineGalleryListWithScryfall', {
@@ -50,14 +50,14 @@ export default {
         })
         .catch(err => {
           console.warn('error getting altered card list: ')
-          console.error(err);
-          state.commit('pageLoading', {loading: false})
+          console.error(err)
+          state.commit('pageLoading', { loading: false })
         })
     },
     combineGalleryListWithScryfall (state, options) {
       deckTools().combineScryfallData(options.alters)
         .then(alters => {
-          state.commit('setGallery', {'alters': alters})
+          state.commit('setGallery', { 'alters': alters })
         })
     },
     deleteAlter (state, options) {
@@ -67,26 +67,26 @@ export default {
         })
         .catch(err => {
           console.warn(' ** Err Deleting Alter')
-          console.error(err);
+          console.error(err)
         })
     },
     postAlter (state, options) {
       api.post_gallery(options.alter)
-        .then(function(response) {
+        .then(function (response) {
           if (response.data.errors) {
-            console.warn(' ** Error posting new alter', response.data.message);
+            console.warn(' ** Error posting new alter', response.data.message)
           } else {
             state.commit('toggleForm')
-            state.commit('addAlter', {'alter': options.alter})
+            state.commit('addAlter', { 'alter': options.alter })
           }
         })
         .catch(err => console.warn(' ** error posting alter', error))
     },
     putAlter (state, options) {
       api.update_gallery_card(options.alter)
-        .then(function(response) {
+        .then(function (response) {
           if (response.data.errors) {
-            console.warn(' ** Error updating alter', response.data.message);
+            console.warn(' ** Error updating alter', response.data.message)
           }
         })
         .catch(error => console.error(' ** error updating alter', error))
