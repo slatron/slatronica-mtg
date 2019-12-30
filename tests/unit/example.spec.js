@@ -1,16 +1,10 @@
 import { expect } from 'chai'
 import { shallowMount } from '@vue/test-utils'
-import GalleryCard from '@/components/GalleryCard.vue'
+import HeaderBar from '@/components/common/HeaderBar'
 
-describe('GalleryCard.vue', () => {
-  it('Calls API with id passed on cardData', () => {
-    let cardData = { id: '3c02b8ee-84cb-44cb-ba14-9e725a9d03ee' }
-    const wrapper = shallowMount(GalleryCard, {
-      propsData: { cardData }
-    })
-    wrapper.vm.$nextTick(() => {
-      expect(wrapper.vm.title).to.equal('Ponder')
-      done()
-    })
+describe('Header Bar Mounts', () => {
+  it('Mounts Header Bar', () => {
+    const wrapper = shallowMount(HeaderBar)
+    expect(wrapper.isVueInstance()).toBeTruthy()
   })
 })
