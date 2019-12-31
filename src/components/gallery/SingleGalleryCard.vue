@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { deckTools } from '@/utils/deckTools'
 import FlipCard from '@/components/common/FlipCard'
 import api from '@/api/api'
 
@@ -29,9 +30,10 @@ export default {
   created: function () {
     let cardID = this.$route.params.cardID
     api.get_cards()
-      .then((cards) => {
+      .then(async (cards) => {
         let alters = cards.data
-        this.card = alters.find(card => card.scryfall_id === cardID)
+        const pageCard = alters.find(card => card.scryfall_id === cardID)
+        this.card = await deckTools().combineCardWithScryfallData(pageCard)
       })
       .catch(error => console.warn(error))
   }
