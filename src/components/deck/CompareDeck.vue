@@ -34,7 +34,7 @@
           :card-data="card"
         />
       </div>
-      <div  class="col-compare-add">
+      <div class="col-compare-add">
         Add
         <ListCard
           v-for="card in add_cards"
