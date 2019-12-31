@@ -14,8 +14,6 @@ export const tools = () => {
       return array.map(o => o[key])
     },
 
-    keyBy: (array, key) => (array || []).reduce((r, x) => ({ ...r, [key ? x[key] : x]: x }), {}),
-
     fastPush: (array, item) => {
       array[array.length] = item
       return array

@@ -90,10 +90,10 @@ export const deckTools = () => {
         card = this.prepCardForDeckpageDisplay(card)
         card.category = category
 
+
         // add category data to current list card
-        let list_card_hash = tools().keyBy(current_list, 'scryfall_id')
-        let list_card = list_card_hash[card.scryfall_id]
-        list_card.category = category
+        let find_card = current_list.find(current_list_card => current_list_card.scryfall_id === card.scryfall_id)
+        find_card.category = category
         tools().fastPush(groupedCards[category], card)
       })
       return groupedCards
