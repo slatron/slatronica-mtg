@@ -123,7 +123,7 @@ export default {
   }
   .card-hover {
     position: absolute;
-    left: 10px;
+    left: 15px;
     z-index: 100;
     width: 250px;
   }

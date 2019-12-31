@@ -24,9 +24,9 @@
     </fieldset>
     <div
       v-show="show_compare_cards"
-      style="display: grid; grid-template: 1fr / 1fr;"
+      class="compare-cards-area"
     >
-      <div style="grid-column: 1 / span 1;grid-row: 1 / span 1;">
+      <div class="col-compare-remove">
         Remove
         <ListCard
           v-for="card in remove_cards"
@@ -34,7 +34,7 @@
           :card-data="card"
         />
       </div>
-      <div style="grid-column: 2 / span 1;grid-row: 1 / span 1;">
+      <div  class="col-compare-add">
         Add
         <ListCard
           v-for="card in add_cards"
@@ -122,6 +122,21 @@ export default {
   .error-msg {
     color: red;
     cursor: pointer;
+  }
+  .compare-cards-area {
+    display: grid;
+    grid-template: 1fr / 1fr;
+    overflow-y: scroll;
+    max-height: 250px;
+  }
+  [class^="col-compare"]{
+    grid-row: 1 / span 1;
+  }
+  .col-compare-remove {
+    grid-column: 1 / span 1;
+  }
+  .col-compare-add {
+    grid-column: 2 / span 1;
   }
 
 </style>
