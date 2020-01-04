@@ -67,7 +67,7 @@ export default {
   data () {
     return {
       'filters_open': false,
-      'has_filter': ['GalleryPage', 'DeckPage'].indexOf(this.$route.name) !== -1
+      'has_filter': ['GalleryPage', 'DeckPage', 'LifeTracker'].indexOf(this.$route.name) !== -1
     }
   },
   computed: {
@@ -81,7 +81,7 @@ export default {
   watch: {
     '$route' (to, from) {
       this.filters_open = false
-      this.has_filter = ['GalleryPage', 'DeckPage'].indexOf(this.$route.name) !== -1
+      this.has_filter = ['GalleryPage', 'DeckPage', 'LifeTracker'].indexOf(this.$route.name) !== -1
     }
   },
   methods: {
