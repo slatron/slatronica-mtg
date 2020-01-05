@@ -1,15 +1,13 @@
 <template>
   <div class="full-height-layout">
-    <div class="align-row align-header">
-
-    </div>
+    <div class="align-row align-header" />
     <div
       class="align-row align-content life-tracker-wrapper"
     >
       <section
         v-for="section in life_sections"
         :key="section.id"
-        v-bind:class="{'low-players': player_count < 3}"
+        :class="{'low-players': player_count < 3}"
       >
         <LifeSection
           :key="section.id"
@@ -17,9 +15,7 @@
         />
       </section>
     </div>
-    <div class="align-row align-footer">
-
-    </div>
+    <div class="align-row align-footer" />
   </div>
 </template>
 

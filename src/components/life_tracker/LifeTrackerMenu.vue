@@ -33,7 +33,9 @@
       </select>
     </fieldset>
     <fieldset>
-      <button @click="resetLife()">Reset</button>
+      <button @click="resetLife()">
+        Reset
+      </button>
     </fieldset>
   </div>
 </template>
