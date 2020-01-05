@@ -21,12 +21,12 @@
     </header>
 
     <main
-      class="default-content pt-10 md:pt-16 z-0"
+      class="default-content z-0"
     >
       <router-view />
     </main>
 
-    <footer class="text-xs text-blue-700 md:text-sm bg-black fixed bottom-0 right-0 h-4 px-2 pb-6 z-10">
+    <footer class="text-xs text-blue-700 md:text-sm bg-black fixed bottom-0 right-0 h-4 z-10">
       <router-view name="footer" />
     </footer>
   </div>
@@ -135,12 +135,57 @@ export default {
   }
 }
 
-body {
-  // transition: background-color 1.5s ease;
+.layout-wrap {
+  height: 100%;
 }
+
+html, body {
+  // transition: background-color 1.5s ease;
+  height: 100%;
+  margin: 0;
+}
+
+main {
+  height: 100%;
+  padding-top: 45px;
+}
+
+@media (min-width: 768px) {
+  main {
+    padding-top: 55px;
+  }
+}
+
 
 // state classes
 .hand {
   cursor: pointer;
 }
+
+// Shared layout classes
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.full-height-layout {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+.full-height-layout .align-row.align-header {
+  flex: 0 1 auto;
+}
+
+.full-height-layout .align-row.align-content {
+  flex: 1 1 auto;
+  // flex-grow: 1;
+  // flex-shrink: 1;
+  // flex-basis: auto;
+}
+
+.full-height-layout .align-row.align-footer {
+  flex: 0 1 auto;
+}
+
 </style>

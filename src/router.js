@@ -98,8 +98,7 @@ export default new Router({
       name: 'LifeTracker',
       components: {
         header: () => import('./views/HeaderView.vue'),
-        default: () => import('./views/LifeTrackerView.vue'),
-        footer: () => import('./views/Footer.vue')
+        default: () => import('./views/LifeTrackerView.vue')
       }
     },
     {

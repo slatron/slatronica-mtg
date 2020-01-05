@@ -1,16 +1,14 @@
 <template lang="html">
   <div class="life-tracker-menu">
     <fieldset>
-      <div class="block">
-        <label>Player Count</label>
-      </div>
       <div>
+        <label>Player Count</label>
         <select
           v-model="player_count"
           @change="setPlayerCount()"
         >
           <option
-            v-for="(count, idx) in [2,3,4,5,6]"
+            v-for="(count, idx) in [1,2,3,4,5,6]"
             :key="idx"
             :value="count"
           >
@@ -34,8 +32,8 @@
         </option>
       </select>
     </fieldset>
-    <fieldset @click="resetLife()">
-      Reset Life Totals
+    <fieldset>
+      <button @click="resetLife()">Reset</button>
     </fieldset>
   </div>
 </template>
@@ -68,4 +66,11 @@ export default {
 </script>
 
 <style lang="css" scoped>
+fieldset{
+  margin: 1em 0.5em;
+}
+select {
+  width: 4em;
+  margin-left: 0.5em;
+}
 </style>

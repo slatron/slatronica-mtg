@@ -1,16 +1,25 @@
 <template>
-  <div
-    class="life-tracker-wrapper"
-  >
-    <section
-      v-for="section in life_sections"
-      :key="section.id"
+  <div class="full-height-layout">
+    <div class="align-row align-header">
+
+    </div>
+    <div
+      class="align-row align-content life-tracker-wrapper"
     >
-      <LifeSection
+      <section
+        v-for="section in life_sections"
         :key="section.id"
-        :section-data="section"
-      />
-    </section>
+        v-bind:class="{'low-players': player_count < 3}"
+      >
+        <LifeSection
+          :key="section.id"
+          :section-data="section"
+        />
+      </section>
+    </div>
+    <div class="align-row align-footer">
+
+    </div>
   </div>
 </template>
 
@@ -53,6 +62,12 @@ export default {
   watch: {
     trigger_reset: function() {
       init(this)
+    },
+    player_count: function() {
+      init(this)
+    },
+    starting_life: function() {
+      init(this)
     }
   },
   created: function() {
@@ -61,19 +76,41 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .life-tracker-wrapper {
-  margin-top: 10px;
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-auto-columns: 1fr;
+  grid-auto-rows: 1fr;
 }
 
 section {
-  width: 45%;
+  color: #000;
   border: 1px solid #fff;
-  min-height: 100px;
-  margin-bottom: 15px;
+  &.low-players {
+    grid-column: 1 / span 2;
+  }
+  &:nth-child(1) {
+    background-color: aqua;
+  }
+  &:nth-child(2) {
+    background-color: pink;
+  }
+  &:nth-child(3) {
+    background-color: yellow;
+  }
+  &:nth-child(4) {
+    background-color: goldenrod;
+  }
+  &:nth-child(5) {
+    background-color: plum;
+  }
+  &:nth-child(6) {
+    background-color: thistle;
+  }
 }
+
 </style>
