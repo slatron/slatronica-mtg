@@ -19,8 +19,7 @@
           Decks
         </router-link>
       </li>
-
-      <li :class="{'active': active_nav === 'reports'}">
+      <!-- <li :class="{'active': active_nav === 'reports'}">
         <span @click="toggle('reports')">
           EDH Reports
           <icon-base
@@ -47,7 +46,7 @@
             </router-link>
           </li>
         </ul>
-      </li>
+      </li> -->
 
       <li :class="{'active': active_nav === 'pages'}">
         <span @click="toggle('pages')">
@@ -65,6 +64,11 @@
           <li>
             <router-link to="/about">
               About
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/life-tracker">
+              Life Tracker
             </router-link>
           </li>
           <li>

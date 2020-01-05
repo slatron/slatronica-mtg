@@ -94,6 +94,14 @@ export default new Router({
       }
     },
     {
+      path: '/life-tracker',
+      name: 'LifeTracker',
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/LifeTrackerView.vue')
+      }
+    },
+    {
       path: '/card/gallery/:cardID',
       name: 'SingleGalleryCard',
       components: {

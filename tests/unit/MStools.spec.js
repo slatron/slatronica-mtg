@@ -7,10 +7,3 @@ describe('MStools', () => {
     expect(maxVal).toBe(5)
   })
 })
-
-
-// max: (array) => {
-//   return array.reduce(function (a, b) {
-//     return Math.max(a, b)
-//   })
-// },
