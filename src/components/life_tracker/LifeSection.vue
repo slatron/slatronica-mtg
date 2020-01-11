@@ -3,16 +3,27 @@
     :class="{'flip': sectionData.flip}"
     class="full-height-layout life-section"
   >
-    <div class="align-row align-header">
-      {{ sectionData.name }}
+    <div class="double-col-row header-row">
+      <section>
+        {{ sectionData.name }}
+      </section>
+      <section>
+        <button @click="changeCounter(false)">
+          -1
+        </button>
+        {{ sectionData.counters }}
+        <button @click="changeCounter(true)">
+          +1
+        </button>
+      </section>
     </div>
     <div
-      class="align-row align-content centered"
+      class="align-content centered"
       @click="changeLife(1, true)"
     >
       {{ sectionData.life }}
     </div>
-    <div class="align-row double-col-row">
+    <div class="double-col-row">
       <section>
         <button @click="changeLife(1, true)">
           -1
@@ -44,6 +55,11 @@ export default {
       this.sectionData.life = down
         ? this.sectionData.life - increment
         : this.sectionData.life + increment
+    },
+    changeCounter: function(up) {
+      this.sectionData.counters = up
+        ? this.sectionData.counters + 1
+        : this.sectionData.counters - 1
     }
   }
 }
@@ -52,11 +68,14 @@ export default {
 <style lang="scss" scoped>
 .align-content {
   cursor: pointer;
-  font-size: 72px;
+  font-size: 124px;
+}
+.header-row button {
+  font-size: 12px;
 }
 @media (min-width: 768px) {
   .align-content {
-    font-size: 128px;
+    font-size: 158px;
   }
 }
 .life-section {
@@ -66,7 +85,7 @@ button {
   font-size: 18px;
   background-color: #fff;
   margin: 0.25em;
-  padding: 0.25em;
+  padding: 0.5em;
   border-radius: 0.25em;
   outline: none;
 }
@@ -74,7 +93,7 @@ button {
   button {
     font-size: 36px;
     background-color: #fff;
-    padding: 0.5em;
+    padding: 0.75em;
     border-radius: 0.25em;
     outline: none;
   }
