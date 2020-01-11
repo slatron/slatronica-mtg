@@ -29,7 +29,8 @@ const init = vm => {
       id: i,
       name: `Player ${i + 1}`,
       life: vm.starting_life,
-      counters: 0
+      counters: 0,
+      flip: vm.multiplayer_mode && (i < (vm.player_count / 2))
     }
   })
 }
@@ -53,6 +54,9 @@ export default {
     },
     trigger_reset () {
       return this.$store.state.lifetracker.trigger_reset
+    },
+    multiplayer_mode () {
+      return this.$store.state.lifetracker.multiplayer_mode
     }
   },
   watch: {
@@ -63,6 +67,9 @@ export default {
       init(this)
     },
     starting_life: function() {
+      init(this)
+    },
+    multiplayer_mode () {
       init(this)
     }
   },

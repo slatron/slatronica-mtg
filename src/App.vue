@@ -188,4 +188,16 @@ main {
   flex: 0 1 auto;
 }
 
+.double-col-row {
+  display: flex;
+  section {
+    flex-grow: 1;
+    &:nth-child(2) {
+      text-align: right;
+    }
+  }
+}
+.flip {
+  transform: rotate(180deg);
+}
 </style>

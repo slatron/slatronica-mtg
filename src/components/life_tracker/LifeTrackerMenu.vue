@@ -32,11 +32,22 @@
         </option>
       </select>
     </fieldset>
-    <fieldset>
-      <button @click="resetLife()">
-        Reset
-      </button>
-    </fieldset>
+    <div class="double-col-row">
+      <section>
+        <button @click="resetLife()">
+          Reset
+        </button>
+      </section>
+      <section>
+        <label for="multiplayer_cb">Multiplayer</label>
+        <input
+          id="multiplayer_cb"
+          v-model="multiplayer_mode"
+          type="checkbox"
+          @change="setMultiplayerMode()"
+        >
+      </section>
+    </div>
   </div>
 </template>
 
@@ -46,7 +57,8 @@ export default {
   data () {
     return {
       player_count: this.$store.state.lifetracker.player_count,
-      starting_life: this.$store.state.lifetracker.starting_life
+      starting_life: this.$store.state.lifetracker.starting_life,
+      multiplayer_mode: this.$store.state.lifetracker.multiplayer_mode
     }
   },
   methods: {
@@ -60,6 +72,11 @@ export default {
         'starting_life': this.starting_life
       })
     },
+    setMultiplayerMode: function() {
+      this.$store.commit('setMultiplayerMode', {
+        'multiplayer_mode': this.multiplayer_mode
+      })
+    },
     resetLife: function() {
       this.$store.commit('triggerResetLife')
     }
@@ -67,9 +84,13 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
-fieldset{
+<style lang="scss" scoped>
+fieldset,
+div.double-col-row {
   margin: 1em 0.5em;
+}
+input {
+  margin-left: 1em;
 }
 select {
   width: 4em;

@@ -1,5 +1,8 @@
 <template>
-  <div class="full-height-layout life-section">
+  <div
+    :class="{'flip': sectionData.flip}"
+    class="full-height-layout life-section"
+  >
     <div class="align-row align-header">
       {{ sectionData.name }}
     </div>
@@ -9,7 +12,7 @@
     >
       {{ sectionData.life }}
     </div>
-    <div class="align-row align-footer">
+    <div class="align-row double-col-row">
       <section>
         <button @click="changeLife(1, true)">
           -1
@@ -51,23 +54,13 @@ export default {
   cursor: pointer;
   font-size: 72px;
 }
-
 @media (min-width: 768px) {
   .align-content {
     font-size: 128px;
   }
 }
-
-.align-footer {
-  display: flex;
-
-  section {
-    flex-grow: 1;
-
-    &:nth-child(2) {
-      text-align: right;
-    }
-  }
+.life-section {
+  transition: transform 0.3s;
 }
 button {
   font-size: 18px;
@@ -86,4 +79,5 @@ button {
     outline: none;
   }
 }
+
 </style>
