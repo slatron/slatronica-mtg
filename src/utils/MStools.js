@@ -14,6 +14,14 @@ export const tools = () => {
       return array.map(o => o[key])
     },
 
+    pluckDeep: function (array, key, keyDeep) {
+      return array.map(o => {
+        return o.hasOwnProperty(key)
+          ? o[key][keyDeep]
+          : undefined
+      })
+    },
+
     fastPush: (array, item) => {
       array[array.length] = item
       return array
@@ -64,7 +72,27 @@ export const tools = () => {
         timeout = setTimeout(later, wait)
         if (callNow) func.apply(context, args)
       }
-    }
+    },
 
+    formatCurrency: (text) => {
+      if (text) {
+        text = text.toString()
+        let precedent = text.split('.')[0]
+        let significand = text.split('.')[1]
+        precedent = (precedent + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,')
+        text = '$' + ' ' + precedent
+        if (significand) {
+          significand = significand.slice(0, 2)
+          significand = significand.length === 1 ? significand + 0 : significand
+          text += '.' + significand
+        } else {
+          text += '.' + '00'
+        }
+        return text
+      } else {
+        return ''
+      }
+
+    }
   }
 }

@@ -16,7 +16,8 @@
       </button>
       {{ deck_current.name }} |
       <span class="text-sm">{{ deck_current.format }}</span> |
-      <span class="text-sm">{{ card_count }} Cards</span>
+      <span class="text-sm">{{ card_count }} Cards</span> |
+      <span class="text-sm">{{ deck_price | formatCurrency }}</span>
     </h2>
 
     <div class="columns m-1 pl-3 pb-3 overflow-visible flex flex-wrap justify-start flex-initial">
@@ -63,6 +64,9 @@ export default {
         counted += card.quantity
       })
       return counted
+    },
+    formatCurrency: (text) => {
+      return tools().formatCurrency(text)
     }
   },
   computed: {
@@ -98,6 +102,9 @@ export default {
     },
     deck_lists () {
       return this.$store.state.deck.deck_lists
+    },
+    deck_price () {
+      return this.$store.state.deck.deck_price
     }
   },
   created: function () {

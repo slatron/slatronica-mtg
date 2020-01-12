@@ -37,6 +37,20 @@ export const deckTools = () => {
         : allQuantities.reduce(addValuesReducer)
     },
 
+    priceDeck: function (deckCards) {
+      const allQuantities = tools().pluck(deckCards, 'quantity')
+      const allPrices = tools().pluckDeep(deckCards, 'prices', 'usd')
+
+      let prices = []
+      allQuantities.forEach((qty, idx) => {
+        prices[idx] = (qty * allPrices[idx] || 0)
+      })
+      const addValuesReducer = (acc, cur) => acc + cur
+      return prices.length === 0
+        ? 0
+        : prices.reduce(addValuesReducer)
+    },
+
     prepCardForDeckpageDisplay: function (card) {
       // For cards with 2 faces, merge card data with first face
       if ('card_faces' in card) {
