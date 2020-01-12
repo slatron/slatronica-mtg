@@ -82,7 +82,7 @@ export default {
   transition: transform 0.3s;
 }
 button {
-  font-size: 18px;
+  font-size: 17px;
   background-color: #fff;
   margin: 0.25em;
   padding: 0.5em;
