@@ -168,16 +168,26 @@ main {
   align-items: center;
   justify-content: center;
 }
+.centered-vert {
+  display: flex;
+  align-items: center;
+}
 .full-height-layout {
   display: flex;
   flex-flow: column;
   height: 100%;
+}
+.full-height-layout .align-row.align-header {
+  flex: 0 1 auto;
 }
 .full-height-layout .align-row.align-content {
   flex: 1 1 auto;
   // flex-grow: 1;
   // flex-shrink: 1;
   // flex-basis: auto;
+}
+.full-height-layout .align-row.align-footer {
+  flex: 1 1 auto;
 }
 .double-col-row {
   display: flex;
