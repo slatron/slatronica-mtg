@@ -23,5 +23,4 @@ Also to show off my painted magic cards.
 
 ## Features In Progress
 
-- Edition Editing
 - Charts
