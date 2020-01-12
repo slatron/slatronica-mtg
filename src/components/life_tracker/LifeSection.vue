@@ -170,7 +170,7 @@ button.down-big {
   border: 3px solid red;
 }
 button {
-  font-size: 17px;
+  font-size: 16px;
   background-color: #fff;
   margin: 0.15em;
   padding: 0.5em;
@@ -178,7 +178,7 @@ button {
 }
 @media (min-width: 768px) {
   button {
-    font-size: 36px;
+    font-size: 26px;
     background-color: #fff;
     padding: 0.75em;
     border-radius: 0.25em;
