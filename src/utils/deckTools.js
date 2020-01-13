@@ -26,7 +26,9 @@ export const deckTools = () => {
                   ? 'Land'
                   : (card.type_line.indexOf('Instant') > -1)
                     ? 'Instant'
-                    : card.type_line
+                    : (card.type_line.indexOf('Sorcery') > -1)
+                      ? 'Sorcery'
+                      : card.type_line
     },
 
     countCards: function (deckCards) {
