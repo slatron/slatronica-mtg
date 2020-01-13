@@ -230,12 +230,21 @@ export default {
       if ('update_data' in options === false) return false
       api.update_deck_card(state.state.deck_current._id, options)
         .then(function (response) {
+
+          // If this is a caregory move, set the new category name in options
           if (options.category_move) {
             state.commit('moveCardCategory', options)
             options.category = (options.update_data.custom_category === '*** REMOVE ***')
               ? deckTools().getCardCategoryName({ type_line: options.type }, state.state.use_custom_categories)
               : options.update_data.custom_category
           }
+
+          // If this is a new edition update, set update_data to be
+          //   the existing card merged with new_edition data
+          if (options.new_edition) {
+            options.update_data = Object.assign(options.update_data, options.new_edition)
+          }
+
           state.commit('updateDeckCard', options)
           if ('count_change' in options) {
             state.commit('setCardCount', { 'count': (state.state.card_count + options.count_change) })

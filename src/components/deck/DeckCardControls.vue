@@ -34,6 +34,45 @@
         <MinusSolid />
       </icon-base>
     </button>
+
+    <button
+      v-show="!editions.length && !editions_loading"
+      @click="showEdition()"
+      class="show-editions-button"
+    >
+      Set version
+    </button>
+
+    <div
+      class="loading-msg"
+      v-show="editions_loading"
+    >
+      loading...
+    </div>
+
+    <section
+      class="edition-select-bg"
+      v-show="!card.has_alter"
+    >
+      <section
+        v-show="editions.length"
+        class="edition-select"
+      >
+        <select
+          v-model="edition_selected"
+          @change="setEdition(edition_selected)"
+        >
+          <option
+            v-for="(edition, idx) in editions"
+            :key="idx"
+            :value="edition"
+          >
+            {{ edition.set_name }}
+          </option>
+        </select>
+      </section>
+    </section>
+
     <section class="category-select-bg" />
     <section class="category-select">
       <select v-model="custom_category_selected">
@@ -46,6 +85,7 @@
         </option>
       </select>
     </section>
+
   </div>
 </template>
 
@@ -53,6 +93,7 @@
 import AddSolid from '@/components/icons/add-solid'
 import MinusSolid from '@/components/icons/minus-solid'
 import IconBase from '@/components/common/IconBase'
+import api from '@/api/api'
 export default {
   name: 'DeckCardControls',
   components: {
@@ -67,7 +108,10 @@ export default {
     return {
       quantity_color_green: false,
       quantity_color_red: false,
-      custom_categories: this.$store.state.app_settings.custom_categories
+      custom_categories: this.$store.state.app_settings.custom_categories,
+      editions: [],
+      edition_selected: {},
+      editions_loading: false
     }
   },
   computed: {
@@ -90,6 +134,17 @@ export default {
     }
   },
   methods: {
+    setEdition: function(new_edition) {
+      const options = {
+        'card_id': this.card._id,
+        'category': this.card.category,
+        'new_edition': new_edition,
+        'update_data': {
+          'scryfall_id': new_edition.id
+        }
+      }
+      this.$store.dispatch('updateDeckCard', options)
+    },
     upHover: function (on) {
       this.quantity_color_green = on
     },
@@ -126,6 +181,17 @@ export default {
         }
         this.$store.dispatch('removeDeckCard', options)
       }
+    },
+    showEdition: function() {
+      this.editions_loading = true
+      let vm = this
+      api.get_card_editions(this.card.prints_search_uri)
+        .then(editions => {
+          vm.editions = editions.data.data
+          vm.edition_selected = vm.editions.find(card => card.id === vm.card.id)
+        })
+        .catch(err => console.warn(err))
+        .finally(() => this.editions_loading = false)
     }
   }
 }
@@ -184,6 +250,37 @@ export default {
     transition: all 1s ease;
     border-radius: 1rem;
   }
+
+  .edition-select-bg {
+    position: absolute;
+    color: #000;
+    top: 295px;
+    left: 0;
+    font-size: 11px;
+    min-width: 100px;
+  }
+
+  .loading-msg {
+    border: 1px solid black;
+    background-color: pink;
+    position: absolute;
+    color: #000;
+    top: 295px;
+    left: 0;
+  }
+
+  .show-editions-button {
+    background-color: #fafafa;
+    border: 1px solid black;
+    border-radius: 0.2em;
+    position: absolute;
+    color: #000;
+    top: 295px;
+    left: 0;
+    font-size: 11px;
+    min-width: 100px;
+  }
+
   .add-icon {
     top: 64px;
   }

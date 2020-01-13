@@ -80,16 +80,17 @@ export default {
     cardData: { 'type': Object, 'default': {} }
   },
   data: function () {
-    let imgUrl = (this.cardData.layout === 'transform')
-      ? this.cardData.card_faces[0].image_uris.normal
-      : this.cardData.image_uris.border_crop
     return {
       title: this.cardData.custom_name || this.cardData.name,
-      imgUrl: imgUrl,
       visible: false
     }
   },
   computed: {
+    imgUrl () {
+      return (this.cardData.layout === 'transform')
+        ? this.cardData.card_faces[0].image_uris.normal
+        : this.cardData.image_uris.border_crop
+    },
     user_can_edit () {
       return this.$store.state.auth.username !== ''
     }
