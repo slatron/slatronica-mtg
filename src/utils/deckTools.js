@@ -26,7 +26,9 @@ export const deckTools = () => {
                   ? 'Land'
                   : (card.type_line.indexOf('Instant') > -1)
                     ? 'Instant'
-                    : card.type_line
+                    : (card.type_line.indexOf('Sorcery') > -1)
+                      ? 'Sorcery'
+                      : card.type_line
     },
 
     countCards: function (deckCards) {
@@ -35,6 +37,20 @@ export const deckTools = () => {
       return allQuantities.length === 0
         ? 0
         : allQuantities.reduce(addValuesReducer)
+    },
+
+    priceDeck: function (deckCards) {
+      const allQuantities = tools().pluck(deckCards, 'quantity')
+      const allPrices = tools().pluckDeep(deckCards, 'prices', 'usd')
+
+      let prices = []
+      allQuantities.forEach((qty, idx) => {
+        prices[idx] = (qty * allPrices[idx] || 0)
+      })
+      const addValuesReducer = (acc, cur) => acc + cur
+      return prices.length === 0
+        ? 0
+        : prices.reduce(addValuesReducer)
     },
 
     prepCardForDeckpageDisplay: function (card) {

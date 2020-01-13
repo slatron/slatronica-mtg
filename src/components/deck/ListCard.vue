@@ -55,6 +55,7 @@ import IconBase from '@/components/common/IconBase'
 import CloseOutline from '@/components/icons/close-outline'
 import FlipCard from '@/components/common/FlipCard'
 import DeckCardControls from '@/components/deck/DeckCardControls'
+import { tools } from '@/utils/MStools'
 
 export default {
   name: 'ListCard',
@@ -71,39 +72,25 @@ export default {
       const htmlIcons = symbolList.map(symbol => `<i class="ms ms-${symbol.toLowerCase()} ms-cost ms-shadow"></i>`)
       return htmlIcons.join('')
     },
-    formatCurrency: function _formatGenericCurrency (text) {
-      // var rounded = _.round(text, 2).toString()
-      if (text) {
-        let precedent = text.split('.')[0]
-        let significand = text.split('.')[1]
-        precedent = (precedent + '').replace(/(\d)(?=(\d{3})+$)/g, '$1,')
-        text = '$' + ' ' + precedent
-        if (significand) {
-          significand = significand.length === 1 ? significand + 0 : significand
-          text += '.' + significand
-        } else {
-          text += '.' + '00'
-        }
-        return text
-      } else {
-        return ''
-      }
+    formatCurrency: (text) => {
+      return tools().formatCurrency(text)
     }
   },
   props: {
     cardData: { 'type': Object, 'default': {} }
   },
   data: function () {
-    let imgUrl = (this.cardData.layout === 'transform')
-      ? this.cardData.card_faces[0].image_uris.normal
-      : this.cardData.image_uris.border_crop
     return {
       title: this.cardData.custom_name || this.cardData.name,
-      imgUrl: imgUrl,
       visible: false
     }
   },
   computed: {
+    imgUrl () {
+      return (this.cardData.layout === 'transform')
+        ? this.cardData.card_faces[0].image_uris.normal
+        : this.cardData.image_uris.border_crop
+    },
     user_can_edit () {
       return this.$store.state.auth.username !== ''
     }

@@ -12,7 +12,9 @@ export default {
     deck_sort_by: 'cmc', // key to sort deck categories
     card_count: 0,
     empty_cols: [], // Key Names of Empty Cols
-    base_alter_list: []
+    base_alter_list: [],
+
+    deck_price: 0.00
   },
 
   mutations: {
@@ -114,6 +116,18 @@ export default {
     },
     setBaseAlterList (state, alters) {
       state.base_alter_list = alters
+    },
+    updateDeckPrice (state, options) {
+      switch (options.type) {
+        case 'ADD':
+          state.deck_price += options.amt
+          break;
+        case 'SUBTRACT':
+          state.deck_price -= options.amt
+          break;
+        default:
+          state.deck_price = options.amt
+      }
     }
   },
 
@@ -154,8 +168,12 @@ export default {
         state.commit('selectDeck', {
           'deck': options.deck
         })
+
         const count = deckTools().countCards(options.deck.cards)
         state.commit('setCardCount', { 'count': count })
+        const price = deckTools().priceDeck(options.deck.cards)
+        state.commit('updateDeckPrice', { 'amt': price })
+
         state.commit('pageLoading', { loading: false })
       }
 
@@ -195,6 +213,8 @@ export default {
             .then(function (card) {
               state.commit('addDeckCard', { 'card': card })
               state.commit('setCardCount', { 'count': state.state.card_count + 1 })
+              const price = deckTools().priceDeck(state.state.deck_current.cards)
+              state.commit('updateDeckPrice', { 'amt': price })
             })
             .catch(function (error) {
               console.error(' ** error adding new card', error)
@@ -210,16 +230,27 @@ export default {
       if ('update_data' in options === false) return false
       api.update_deck_card(state.state.deck_current._id, options)
         .then(function (response) {
+
+          // If this is a caregory move, set the new category name in options
           if (options.category_move) {
             state.commit('moveCardCategory', options)
             options.category = (options.update_data.custom_category === '*** REMOVE ***')
               ? deckTools().getCardCategoryName({ type_line: options.type }, state.state.use_custom_categories)
               : options.update_data.custom_category
           }
+
+          // If this is a new edition update, set update_data to be
+          //   the existing card merged with new_edition data
+          if (options.new_edition) {
+            options.update_data = Object.assign(options.update_data, options.new_edition)
+          }
+
           state.commit('updateDeckCard', options)
           if ('count_change' in options) {
             state.commit('setCardCount', { 'count': (state.state.card_count + options.count_change) })
           }
+          const price = deckTools().priceDeck(state.state.deck_current.cards)
+          state.commit('updateDeckPrice', { 'amt': price })
         })
         .catch(err => console.error(err))
     },
@@ -228,6 +259,8 @@ export default {
         .then(function (response) {
           state.commit('removeDeckCard', options)
           state.commit('setCardCount', { 'count': state.state.card_count - 1 })
+          const price = deckTools().priceDeck(state.state.deck_current.cards)
+          state.commit('updateDeckPrice', { 'amt': price })
         })
         .catch(err => console.error(err))
     },

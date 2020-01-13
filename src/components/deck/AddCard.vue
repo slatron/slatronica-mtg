@@ -206,7 +206,6 @@ export default {
     },
     addDeckCard: function () {
       if (!this.scryfall_id) return false
-
       const existingIds = tools().pluck(this.deck_current.cards, 'scryfall_id')
       if (existingIds.includes(this.scryfall_id)) {
         // This card does exists in the list
