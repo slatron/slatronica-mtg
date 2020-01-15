@@ -5,7 +5,7 @@
       v-show="page_loading"
       class="window-shade"
     />
-    <h2 class="text-xl m-3 text-blue-600 tracking-wide">
+    <h2 class="text-xl m-3 text-blue-dk tracking-wide">
       <button
         v-if="auth_user"
         @click="openEditDeckForm()"

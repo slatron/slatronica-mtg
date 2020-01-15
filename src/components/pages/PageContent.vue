@@ -1,6 +1,6 @@
 <template>
   <div class="page-content m-8 sm:mx-16 md:mx-24 lg:mx-36 xl:mx-48">
-    <h2 class="text-blue-500 mb-2 text-lg sm:text-2xl tracking-wider">
+    <h2 class="text-blue-lt mb-2 text-lg sm:text-2xl tracking-wider">
       {{ page_data.title }}
     </h2>
     <section v-html="page_data.content" />

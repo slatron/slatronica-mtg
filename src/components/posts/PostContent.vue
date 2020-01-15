@@ -1,6 +1,6 @@
 <template>
   <div class="post-content m-8 sm:mx-16 md:mx-24 lg:mx-36 xl:mx-48">
-    <h2 class="text-blue-600 text-lg sm:text-2xl tracking-wider">
+    <h2 class="text-blue-dk text-lg sm:text-2xl tracking-wider">
       {{ report.title }}
     </h2>
     <h3 class="text-xs pb-4">

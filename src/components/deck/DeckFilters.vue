@@ -18,7 +18,7 @@
     </fieldset>
     <fieldset>
       <div class="has_color">
-        <span class="text-blue-400">Color Filter: </span>
+        <span class="text-blue-lt">Color Filter: </span>
         <input
           id="has_color"
           v-model="includes"

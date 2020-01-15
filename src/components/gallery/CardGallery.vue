@@ -9,7 +9,7 @@
       v-for="card in gallery_list"
       v-show="card.visible"
       :key="card._id"
-      class="image-container text-blue-500 tracking-wide"
+      class="image-container text-blue-lt tracking-wide"
     >
       <FlipCard
         :key="card.scryfall_id"

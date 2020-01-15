@@ -13,6 +13,12 @@
           Add Card
         </h2>
         <h2
+          :class="{'active': active_form === 'tokens'}"
+          @click="active_form = 'tokens'"
+        >
+          Tokens
+        </h2>
+        <h2
           :class="{'active': active_form === 'deck'}"
           @click="active_form = 'deck'"
         >
@@ -32,6 +38,7 @@
         </h2>
       </section>
       <AddCard v-if="active_form === 'card'" />
+      <TokenFinder v-if="active_form === 'tokens'" />
       <AddDeck v-if="active_form === 'deck'" />
       <EditDeck v-if="active_form === 'edit'" />
       <CompareDeck v-if="active_form === 'compare'" />
@@ -44,6 +51,7 @@ import AddCard from '@/components/deck/AddCard'
 import AddDeck from '@/components/deck/AddDeck'
 import EditDeck from '@/components/deck/EditDeck'
 import CompareDeck from '@/components/deck/CompareDeck'
+import TokenFinder from '@/components/deck/TokenFinder'
 
 export default {
   name: 'DeckFormContainer',
@@ -51,7 +59,8 @@ export default {
     AddCard,
     AddDeck,
     EditDeck,
-    CompareDeck
+    CompareDeck,
+    TokenFinder
   },
   data: function () {
     return {
@@ -71,9 +80,13 @@ export default {
 
 <style lang="scss" scoped>
   h2 {
-    font-size: 14px;
+    font-size: 12px;
+    padding: 3px;
     margin-bottom: 0;
     cursor: pointer;
+    &:hover {
+      background-color: #dfdfdf;
+    }
     &.active {
       background-color: navy;
       color: #fff;
