@@ -5,7 +5,7 @@
       :key="idx"
       class="repeat-reports"
     >
-      <h2 class="inline-block text-blue-600 sm:text-2xl tracking-widest">
+      <h2 class="inline-block text-blue-dk sm:text-2xl tracking-widest">
         <router-link :to="`/post/${report.id}`">
           {{ report.title }}
         </router-link>

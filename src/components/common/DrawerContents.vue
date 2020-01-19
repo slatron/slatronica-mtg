@@ -1,5 +1,5 @@
 <template>
-  <div class="text-blue-700 drawer-menu">
+  <div class="text-blue-dk drawer-menu">
     <ul>
       <li v-show="!username">
         <router-link to="/login">

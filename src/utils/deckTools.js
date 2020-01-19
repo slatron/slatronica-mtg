@@ -155,6 +155,20 @@ export const deckTools = () => {
     getDifference: (currentDeck, targetDeck) => {
       const targetDeckIds = tools().pluck(targetDeck, 'scryfall_id')
       return currentDeck.filter(card => !targetDeckIds.includes(card.scryfall_id))
+    },
+
+    // Return token Objects based on cards passed in array
+    getTokens: (cardArray) => {
+      const relationCards = cardArray.filter(card => {
+        return card.hasOwnProperty('all_parts')
+      })
+      const tokenCards = relationCards.map(card => {
+        const tokenObj = card.all_parts.find(part => part.component === 'token')
+        return tokenObj
+          ? {original: card.name, token: tokenObj}
+          : null
+      })
+      return tokenCards
     }
   }
 }

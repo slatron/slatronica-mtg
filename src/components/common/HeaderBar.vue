@@ -13,7 +13,7 @@
       </button>
     </div>
     <div>
-      <h1 class="text-blue-600 tracking-wider text-lg md:text-2xl text-center">
+      <h1 class="text-blue-dk tracking-wider text-lg md:text-2xl text-center">
         <router-link :to="{name: 'GalleryPage'}">
           Slatronica Alters
         </router-link>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="text-blue-400 layout-wrap relative"
+    class="text-blue-lt layout-wrap relative"
     :class="{'drawer-open': drawer_open}"
   >
     <nav
@@ -26,7 +26,7 @@
       <router-view />
     </main>
 
-    <footer class="text-xs text-blue-700 md:text-sm bg-black fixed bottom-0 right-0 h-4 z-10">
+    <footer class="text-blue-dk text-xs md:text-sm bg-black fixed bottom-0 right-0 h-4 z-10">
       <router-view name="footer" />
     </footer>
   </div>
@@ -160,6 +160,15 @@ main {
 // state classes
 .hand {
   cursor: pointer;
+}
+.text-blue-dk {
+  color: #2b6cb0;
+}
+.text-blue {
+  color: #0d78e8;
+}
+.text-blue-lt {
+  color: #63b3ed;
 }
 
 // Shared layout classes

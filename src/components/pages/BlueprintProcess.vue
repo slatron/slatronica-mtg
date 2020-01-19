@@ -1,6 +1,6 @@
 <template>
   <div class="page-content m-8 sm:mx-16 md:mx-24 lg:mx-36 xl:mx-48">
-    <h2 class="text-blue-500 font-bold mb-2 text-lg sm:text-2xl tracking-widest">
+    <h2 class="text-blue-lt font-bold mb-2 text-lg sm:text-2xl tracking-widest">
       Blueprint Process
     </h2>
     <h3>A Beginning Guide to Magic Blueprint Alters</h3>
