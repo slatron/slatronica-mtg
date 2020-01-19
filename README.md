@@ -20,6 +20,7 @@ Also to show off my painted magic cards.
 - [Sort Decklists](https://slatron.github.io/slatronica-mtg/#/decks)
 - [Display Mana Costs](https://slatron.github.io/slatronica-mtg/#/decks)
 - [Life Tracker](https://slatron.github.io/slatronica-mtg/#/life-tracker)
+- [Token Finder](https://slatron.github.io/slatronica-mtg/#/decks)
 
 ## Features In Progress
 
