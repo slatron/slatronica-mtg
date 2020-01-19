@@ -145,19 +145,20 @@ export default {
     this.debounceSearchCards = tools().debounce(this.searchCards, 500)
   },
   methods: {
-    openSelectEdition: function () {
+    openSelectEdition: async function () {
       if (this.view_select_edition) {
         this.view_select_edition = false
         this.editions = []
       } else {
         this.editionsLoading = true
         this.view_select_edition = true
-        api.get_card_editions(this.prints_search_uri)
-          .then(editions => {
-            this.editions = editions.data.data
-          })
-          .catch(err => console.warn(err))
-          .finally(() => this.editionsLoading = false)
+        try {
+          this.editions = await api.get_card_editions(this.prints_search_uri)
+        } catch (e) {
+          console.warn(e)
+        } finally {
+          this.editionsLoading = false
+        }
       }
     },
     selectEdition: function (id) {
