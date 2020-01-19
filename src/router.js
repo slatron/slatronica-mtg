@@ -94,6 +94,15 @@ export default new Router({
       }
     },
     {
+      path: '/decks/:deckID',
+      name: 'DeckPage',
+      components: {
+        header: () => import('./views/HeaderView.vue'),
+        default: () => import('./views/DeckPage.vue'),
+        footer: () => import('./views/Footer.vue')
+      }
+    },
+    {
       path: '/life-tracker',
       name: 'LifeTracker',
       components: {
@@ -102,7 +111,7 @@ export default new Router({
       }
     },
     {
-      path: '/card/gallery/:cardID',
+      path: '/card/gallery/:«cardID»',
       name: 'SingleGalleryCard',
       components: {
         header: () => import('./views/HeaderView.vue'),

@@ -107,9 +107,10 @@ export default {
         return this.$store.state.deck.deck_current
       },
       set: function (new_deck_current) {
-        this.$store.dispatch('selectDeck', {
-          'deck': new_deck_current
-        })
+        this.$router.push(`/decks/${new_deck_current._id}`)
+        // this.$store.dispatch('selectDeck', {
+        //   'deck': new_deck_current
+        // })
       }
     },
     use_custom_categories: {

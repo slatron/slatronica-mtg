@@ -132,7 +132,7 @@ export default {
   },
 
   actions: {
-    initDecks (state) {
+    initDecks (state, deckID_param) {
       // store base list of existing altered cards
       if (!state.state.base_alter_list.length) {
         api.get_cards()
@@ -150,7 +150,9 @@ export default {
           const deckOptions = {
             'decks': decks
           }
-          const selectedDeck = decks[0]
+          const selectedDeck = deckID_param
+            ? decks.find(deck => deck._id === deckID_param) || decks[0]
+            : decks[0]
           state.commit('setDecks', deckOptions)
           this.dispatch('selectDeck', {
             'deck': selectedDeck
