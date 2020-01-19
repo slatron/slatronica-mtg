@@ -9,14 +9,17 @@
         Get Tokens
       </button>
     </fieldset>
-    <fieldset class="tabs">
-
-      <div
-        v-for="(item, idx) in token_hash"
-        :key="idx"
-      >
-        <img :src="`https://img.scryfall.com/cards/small/front/${item.token.id[0]}/${item.token.id[1]}/${item.token.id}.jpg`" >
-        {{ item.original }}: <a target="_blank" :href="item.token.uri">{{item.token.name}}</a>
+    <fieldset>
+      <div class="scroll-y">
+        <div
+          v-for="(item, idx) in token_hash"
+          :key="idx"
+        >
+          <a :href="`https://img.scryfall.com/cards/large/front/${item.token.id[0]}/${item.token.id[1]}/${item.token.id}.jpg`" target="_blank">
+            <img :src="`https://img.scryfall.com/cards/small/front/${item.token.id[0]}/${item.token.id[1]}/${item.token.id}.jpg`" >
+          </a>
+          <span class="text-blue-dk">{{ item.original }}:</span> {{item.token.name}}
+        </div>
       </div>
     </fieldset>
   </form>
@@ -62,11 +65,11 @@ export default {
     font-size: 0.75rem;
   }
 
-  .tabs {
-    display: flex;
+  .scroll-y {
+    overflow-y: scroll;
+    height: 225px;
     > div {
-      flex-grow: 1;
-      text-align: center;
+      max-width: 50%;
     }
   }
 
