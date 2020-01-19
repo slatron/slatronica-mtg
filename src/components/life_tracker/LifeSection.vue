@@ -23,8 +23,8 @@
         <section>
           <span
             v-show="!editCounterNameMode"
-            @click="editCounterNameToggle()"
             class=""
+            @click="editCounterNameToggle()"
           >
             {{ sectionData.counter_name }}
           </span>
@@ -37,11 +37,17 @@
           </form>
         </section>
         <section>
-          <button class="down" @click="changeCounter(false)">
+          <button
+            class="down"
+            @click="changeCounter(false)"
+          >
             -1
           </button>
           {{ sectionData.counters }}
-          <button class="up" @click="changeCounter(true)">
+          <button
+            class="up"
+            @click="changeCounter(true)"
+          >
             +1
           </button>
         </section>
@@ -55,18 +61,30 @@
     </div>
     <div class="double-col-row">
       <section class="centered">
-        <button class="down" @click="changeLife(1, true)">
+        <button
+          class="down"
+          @click="changeLife(1, true)"
+        >
           -1
         </button>
-        <button class="down-big" @click="changeLife(5, true)">
+        <button
+          class="down-big"
+          @click="changeLife(5, true)"
+        >
           -5
         </button>
       </section>
       <section class="centered">
-        <button class="up-big" @click="changeLife(5, false)">
+        <button
+          class="up-big"
+          @click="changeLife(5, false)"
+        >
           +5
         </button>
-        <button class="up" @click="changeLife(1, false)">
+        <button
+          class="up"
+          @click="changeLife(1, false)"
+        >
           +1
         </button>
       </section>

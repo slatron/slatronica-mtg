@@ -37,22 +37,21 @@
 
     <button
       v-show="!editions.length && !editions_loading"
-      @click="showEdition()"
       class="show-editions-button"
+      @click="showEdition()"
     >
       Set version
     </button>
 
     <div
-      class="loading-msg"
       v-show="editions_loading"
+      class="loading-msg"
     >
       loading...
     </div>
 
     <section
       class="edition-select-bg"
-      v-show="!card.has_alter"
     >
       <section
         v-show="editions.length"
@@ -85,7 +84,6 @@
         </option>
       </select>
     </section>
-
   </div>
 </template>
 
@@ -94,6 +92,7 @@ import AddSolid from '@/components/icons/add-solid'
 import MinusSolid from '@/components/icons/minus-solid'
 import IconBase from '@/components/common/IconBase'
 import api from '@/api/api'
+import { tools } from '@/utils/MStools'
 export default {
   name: 'DeckCardControls',
   components: {
@@ -131,6 +130,9 @@ export default {
         }
         this.$store.dispatch('updateDeckCard', options)
       }
+    },
+    base_alter_list_ids () {
+      return tools().pluck(this.$store.state.deck.base_alter_list, 'scryfall_id')
     }
   },
   methods: {
@@ -140,7 +142,8 @@ export default {
         'category': this.card.category,
         'new_edition': new_edition,
         'update_data': {
-          'scryfall_id': new_edition.id
+          'scryfall_id': new_edition.id,
+          'has_alter': this.base_alter_list_ids.some(id => this.card.id === id)
         }
       }
       this.$store.dispatch('updateDeckCard', options)
@@ -182,16 +185,16 @@ export default {
         this.$store.dispatch('removeDeckCard', options)
       }
     },
-    showEdition: function() {
+    showEdition: async function() {
       this.editions_loading = true
       let vm = this
-      api.get_card_editions(this.card.prints_search_uri)
-        .then(editions => {
-          vm.editions = editions.data.data
-          vm.edition_selected = vm.editions.find(card => card.id === vm.card.id)
-        })
-        .catch(err => console.warn(err))
-        .finally(() => this.editions_loading = false)
+      try {
+        vm.editions = await api.get_card_editions(this.card.prints_search_uri)
+      } catch (e) {
+        console.warn(e)
+      } finally {
+        this.editions_loading = false
+      }
     }
   }
 }

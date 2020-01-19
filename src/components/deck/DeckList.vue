@@ -107,18 +107,32 @@ export default {
       return this.$store.state.deck.deck_price
     }
   },
-  created: function () {
-    if (this.deck_lists.length) {
-      this.$store.dispatch('selectDeck', {
-        'deck': this.deck_lists[0]
-      })
-    } else {
-      this.$store.dispatch('initDecks')
+  watch: {
+    '$route' (to, from) {
+      if (to.name === 'DeckPage') {
+        this.init()
+      }
     }
+  },
+  created: function () {
+    this.init()
   },
   methods: {
     openEditDeckForm () {
       this.$store.commit('toggleForm', { 'tab': 'edit' })
+    },
+    init () {
+      const deck_id_param = this.$route.params.deckID
+      if (this.deck_lists.length) {
+        const selectedDeck = deck_id_param
+          ? this.deck_lists.find(deck => deck._id === deck_id_param) || this.deck_lists[0]
+          : this.deck_lists[0]
+        this.$store.dispatch('selectDeck', {
+          'deck': selectedDeck
+        })
+      } else {
+        this.$store.dispatch('initDecks', deck_id_param)
+      }
     }
   }
 }

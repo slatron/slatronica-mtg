@@ -85,8 +85,11 @@ export default {
     const url = 'https://api.scryfall.com/cards/named'
     return axios.get(`${url}?exact=${name}`)
   },
-  get_card_editions: search_url => {
-    return axios.get(search_url)
+  get_card_editions: editions_url => {
+    return axios.get(editions_url)
+      .then(function(editionsResponse) {
+        return editionsResponse.data.data
+      })
   },
 
   // local json

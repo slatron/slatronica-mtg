@@ -15,10 +15,13 @@
           v-for="(item, idx) in token_hash"
           :key="idx"
         >
-          <a :href="`https://img.scryfall.com/cards/large/front/${item.token.id[0]}/${item.token.id[1]}/${item.token.id}.jpg`" target="_blank">
-            <img :src="`https://img.scryfall.com/cards/small/front/${item.token.id[0]}/${item.token.id[1]}/${item.token.id}.jpg`" >
+          <a
+            :href="`https://img.scryfall.com/cards/large/front/${item.token.id[0]}/${item.token.id[1]}/${item.token.id}.jpg`"
+            target="_blank"
+          >
+            <img :src="`https://img.scryfall.com/cards/small/front/${item.token.id[0]}/${item.token.id[1]}/${item.token.id}.jpg`">
           </a>
-          <span class="text-blue-dk">{{ item.original }}:</span> {{item.token.name}}
+          <span class="text-blue-dk">{{ item.original }}:</span> {{ item.token.name }}
         </div>
       </div>
     </fieldset>
