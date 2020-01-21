@@ -46,7 +46,7 @@ export default {
   methods: {
     getTokens: function () {
       this.token_hash = deckTools().getTokens(this.deck_current.cards)
-    },
+    }
   }
 }
 </script>

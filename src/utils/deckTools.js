@@ -162,13 +162,12 @@ export const deckTools = () => {
       const relationCards = cardArray.filter(card => {
         return card.hasOwnProperty('all_parts')
       })
-      const tokenCards = relationCards.map(card => {
+      return relationCards.map(card => {
         const tokenObj = card.all_parts.find(part => part.component === 'token')
         return tokenObj
           ? {original: card.name, token: tokenObj}
           : null
-      })
-      return tokenCards
+      }).filter(x => x)
     }
   }
 }
