@@ -2,17 +2,19 @@
   <form @submit.prevent>
     <h2>Login</h2>
     <fieldset>
-      <label for="">Username:</label>
+      <label for="uname-input">Username:</label>
       <input
         v-model="username"
         type="text"
+        id="uname-input"
       >
     </fieldset>
     <fieldset>
-      <label for="">Password:</label>
+      <label for="pass-input">Password:</label>
       <input
         v-model="password"
         type="password"
+        id="pass-input"
       >
     </fieldset>
     <button
@@ -76,6 +78,9 @@ form {
 }
 form > * {
   margin-bottom: 1em;
+}
+input {
+  max-width: 190px;
 }
 button {
   padding: 0 1em;

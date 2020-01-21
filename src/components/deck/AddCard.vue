@@ -39,7 +39,7 @@
             <img
               v-for="card in editions"
               :key="card.id"
-              :src="card.image_uris.small"
+              :src="card.editionImg"
               class="edition-img"
               @click="selectEdition(card.id)"
             >
@@ -154,6 +154,12 @@ export default {
         this.view_select_edition = true
         try {
           this.editions = await api.get_card_editions(this.prints_search_uri)
+          // solve for double-faced cards
+          this.editions.forEach(card => {
+            card.editionImg = (card.layout === 'transform')
+              ? card.card_faces[0].image_uris.small
+              : card.image_uris.small
+          })
         } catch (e) {
           console.warn(e)
         } finally {
