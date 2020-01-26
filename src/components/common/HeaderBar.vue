@@ -67,7 +67,7 @@ export default {
   data () {
     return {
       'filters_open': false,
-      'has_filter': ['GalleryPage', 'DeckPage', 'LifeTracker'].indexOf(this.$route.name) !== -1
+      'has_filter': ['GalleryPage', 'DefaultDeckPage', 'DeckPage', 'LifeTracker'].indexOf(this.$route.name) !== -1
     }
   },
   computed: {
@@ -75,13 +75,13 @@ export default {
       return this.$store.state.layout.drawer_open
     },
     has_add () {
-      return (['GalleryPage', 'DeckPage'].indexOf(this.$route.name) > -1) && (this.$store.state.auth.username !== '')
+      return (['GalleryPage', 'DefaultDeckPage', 'DeckPage'].indexOf(this.$route.name) > -1) && (this.$store.state.auth.username !== '')
     }
   },
   watch: {
     '$route' (to, from) {
       this.filters_open = false
-      this.has_filter = ['GalleryPage', 'DeckPage', 'LifeTracker'].indexOf(this.$route.name) !== -1
+      this.has_filter = ['GalleryPage', 'DefaultDeckPage', 'DeckPage', 'LifeTracker'].indexOf(this.$route.name) !== -1
     }
   },
   methods: {
