@@ -36,53 +36,66 @@
     </button>
 
     <button
-      v-show="!editions.length && !editions_loading"
-      class="show-editions-button"
-      @click="showEdition()"
+      class="show-controls-button"
+      @click="toggleControls()"
     >
-      Set version
+      &nbsp;
     </button>
 
-    <div
-      v-show="editions_loading"
-      class="loading-msg"
-    >
-      loading...
-    </div>
-
     <section
-      class="edition-select-bg"
+      class="extra-admin-controls"
+      :class="{'active': show_admin}"
     >
-      <section
-        v-show="editions.length"
-        class="edition-select"
+      <!-- START EDITION CONTROLS -->
+      <button
+        v-show="!editions.length && !editions_loading"
+        class="show-editions-button"
+        @click="showEdition()"
       >
-        <select
-          v-model="edition_selected"
-          @change="setEdition(edition_selected)"
+        Set version
+      </button>
+      <div
+        v-show="editions_loading"
+        class="edition-loading-msg"
+      >
+        loading...
+      </div>
+      <section
+        class="edition-select-bg"
+      >
+        <section
+          v-show="editions.length"
+          class="edition-select"
         >
-          <option
-            v-for="(edition, idx) in editions"
-            :key="idx"
-            :value="edition"
+          <select
+            v-model="edition_selected"
+            @change="setEdition(edition_selected)"
           >
-            {{ edition.set_name }}
+            <option
+              v-for="(edition, idx) in editions"
+              :key="idx"
+              :value="edition"
+            >
+              {{ edition.set_name }}
+            </option>
+          </select>
+        </section>
+      </section>
+      <!-- END EDITION CONTROLS -->
+
+      <!-- START CATEGORY CONTROLS -->
+      <section class="category-select-bg">
+        <select v-model="custom_category_selected">
+          <option
+            v-for="(category, idx) in custom_categories"
+            :key="idx"
+            :value="category"
+          >
+            {{ category }}
           </option>
         </select>
       </section>
-    </section>
-
-    <section class="category-select-bg" />
-    <section class="category-select">
-      <select v-model="custom_category_selected">
-        <option
-          v-for="(category, idx) in custom_categories"
-          :key="idx"
-          :value="category"
-        >
-          {{ category }}
-        </option>
-      </select>
+      <!-- END CATEGORY CONTROLS -->
     </section>
   </div>
 </template>
@@ -110,7 +123,8 @@ export default {
       custom_categories: this.$store.state.app_settings.custom_categories,
       editions: [],
       edition_selected: {},
-      editions_loading: false
+      editions_loading: false,
+      show_admin: true
     }
   },
   computed: {
@@ -136,6 +150,9 @@ export default {
     }
   },
   methods: {
+    toggleControls: function() {
+      this.show_admin = !this.show_admin
+    },
     setEdition: function(new_edition) {
       const options = {
         'card_id': this.card._id,
@@ -207,6 +224,7 @@ export default {
     left: 0;
     z-index: 10000;
   }
+
   .quantity-controls-bg {
     position: absolute;
     top: 50px;
@@ -222,28 +240,6 @@ export default {
     border-radius: 0 1rem 1rem 0;
     transition: all 1s ease;
   }
-  .category-select-bg {
-    position: absolute;
-    top: 320px;
-    left: 95px;
-    width: 140px;
-    height: 35px;
-    border-top: 2px solid #000;
-    border-right: 2px solid #000;
-    border-left: 2px solid #000;
-    border-bottom: 5px solid #000;
-    background: #fff;
-    border-radius: 1rem;
-  }
-  .category-select {
-    position: absolute;
-    background: #fff;
-    top: 327px;
-    left: 105px;
-    font-size: 13px;
-    color: #000;
-    font-weight: bold;
-  }
   [class*="-icon"] {
     outline: none;
     background-color: #cdcdcd;
@@ -253,37 +249,6 @@ export default {
     transition: all 1s ease;
     border-radius: 1rem;
   }
-
-  .edition-select-bg {
-    position: absolute;
-    color: #000;
-    top: 295px;
-    left: 0;
-    font-size: 11px;
-    min-width: 100px;
-  }
-
-  .loading-msg {
-    border: 1px solid black;
-    background-color: pink;
-    position: absolute;
-    color: #000;
-    top: 295px;
-    left: 0;
-  }
-
-  .show-editions-button {
-    background-color: #fafafa;
-    border: 1px solid black;
-    border-radius: 0.2em;
-    position: absolute;
-    color: #000;
-    top: 295px;
-    left: 0;
-    font-size: 11px;
-    min-width: 100px;
-  }
-
   .add-icon {
     top: 64px;
   }
@@ -295,5 +260,70 @@ export default {
   }
   .hover-red {
     background-color: red;
+  }
+
+  // EXTRA ADMIN CONTROLS
+  .show-controls-button {
+    font-size: 16px;
+    font-weight: bold;
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+    color: #000;
+    background: #f5cece;
+    border-radius: 0.5rem 0 0 0.5rem;
+    padding: 0 0.4em;
+    position: absolute;
+    left: 230px;
+    top: 260px;
+  }
+  .extra-admin-controls {
+    text-align: left;
+    position: absolute;
+    width: 140px;
+    left: 250px;
+    top: 290px;
+    transition: all 0.5s ease;
+
+    &.active {
+      left: 95px;
+      text-align: right;
+    }
+  }
+
+  .edition-select-bg {
+    color: #000;
+    font-size: 11px;
+    min-width: 100px;
+  }
+  .edition-loading-msg {
+    border: 1px solid black;
+    background-color: pink;
+    color: #000;
+  }
+  .show-editions-button {
+    background-color: #fafafa;
+    border: 1px solid black;
+    border-radius: 0.2em;
+    color: #000;
+    font-size: 11px;
+    min-width: 100px;
+  }
+
+  .category-select-bg {
+    width: 140px;
+    height: 35px;
+    padding: 0.3em;
+    margin-top: 0.5em;
+    border-top: 2px solid #000;
+    border-right: 2px solid #000;
+    border-left: 2px solid #000;
+    border-bottom: 5px solid #000;
+    background: #fff;
+    border-radius: 1rem;
+    font-size: 13px;
+    color: #000;
+    font-weight: bold;
   }
 </style>
