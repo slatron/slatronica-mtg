@@ -86,7 +86,7 @@ export default new Router({
     },
     {
       path: '/decks',
-      name: 'DeckPage',
+      name: 'DefaultDeckPage',
       components: {
         header: () => import('./views/HeaderView.vue'),
         default: () => import('./views/DeckPage.vue'),

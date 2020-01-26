@@ -68,17 +68,17 @@ export default {
       player_count: this.$store.state.lifetracker.player_count,
       starting_life: this.$store.state.lifetracker.starting_life,
       multiplayer_mode: this.$store.state.lifetracker.multiplayer_mode,
-      noSleep: new NoSleep(),
+      // noSleep: new NoSleep(),
       lock_enabled: false
     }
   },
   methods: {
     lockScreen: function() {
       if (!this.lock_enabled) {
-        this.noSleep.enable(); // keep the screen on!
+        // this.noSleep.enable(); // keep the screen on!
         this.lock_enabled = true;
       } else {
-        this.noSleep.disable(); // let the screen turn off.
+        // this.noSleep.disable(); // let the screen turn off.
         this.lock_enabled = false;
       }
     },

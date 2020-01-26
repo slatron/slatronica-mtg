@@ -1,8 +1,10 @@
 <template lang="html">
   <!-- Select Filter Based On Router -->
   <div>
+    <!-- DefaultDeckPage -->
+    <!-- ['GalleryPage', 'DeckPage', 'LifeTracker'].indexOf(this.$route.name) !== -1 -->
     <GalleryFilters v-if="page_name === 'GalleryPage'" />
-    <DeckFilters v-if="page_name === 'DeckPage'" />
+    <DeckFilters v-if="['DeckPage', 'DefaultDeckPage'].indexOf(page_name) !== -1" />
     <LifeTrackerMenu v-if="page_name === 'LifeTracker'" />
   </div>
 </template>

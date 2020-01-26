@@ -109,7 +109,7 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      if (to.name === 'DeckPage') {
+      if (['DeckPage', 'DefaultDeckPage'].indexOf(to.name) !== -1) {
         this.init()
       }
     }
