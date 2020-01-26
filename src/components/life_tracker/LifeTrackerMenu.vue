@@ -48,6 +48,15 @@
         >
       </section>
     </div>
+    <button
+      class="lock-screen-button"
+      :class="{'active': lock_enabled}"
+      @click="lockScreen()"
+    >
+      SCREEN LOCK
+      <span v-show="lock_enabled">ON</span>
+      <span v-show="!lock_enabled">OFF</span>
+    </button>
   </div>
 </template>
 
@@ -58,10 +67,21 @@ export default {
     return {
       player_count: this.$store.state.lifetracker.player_count,
       starting_life: this.$store.state.lifetracker.starting_life,
-      multiplayer_mode: this.$store.state.lifetracker.multiplayer_mode
+      multiplayer_mode: this.$store.state.lifetracker.multiplayer_mode,
+      noSleep: new NoSleep(),
+      lock_enabled: false
     }
   },
   methods: {
+    lockScreen: function() {
+      if (!this.lock_enabled) {
+        this.noSleep.enable(); // keep the screen on!
+        this.lock_enabled = true;
+      } else {
+        this.noSleep.disable(); // let the screen turn off.
+        this.lock_enabled = false;
+      }
+    },
     setPlayerCount: function () {
       this.$store.commit('setPlayerCount', {
         'player_count': this.player_count
@@ -95,5 +115,17 @@ input {
 select {
   width: 4em;
   margin-left: 0.5em;
+}
+.lock-screen-button {
+  padding: 0.5em;
+  font-size: 10px;
+  background-color: red;
+  color: #fff;
+  outline: none;
+  transition: background-color 1s ease;
+
+  &.active {
+    background-color: green;
+  }
 }
 </style>
