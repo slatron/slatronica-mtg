@@ -4,17 +4,17 @@
     <fieldset>
       <label for="uname-input">Username:</label>
       <input
+        id="uname-input"
         v-model="username"
         type="text"
-        id="uname-input"
       >
     </fieldset>
     <fieldset>
       <label for="pass-input">Password:</label>
       <input
+        id="pass-input"
         v-model="password"
         type="password"
-        id="pass-input"
       >
     </fieldset>
     <button
