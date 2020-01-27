@@ -27,10 +27,7 @@ const init = vm => {
   vm.life_sections = Array.from({length: vm.player_count}, (_, i) => {
     return {
       id: i,
-      name: `Player ${i + 1}`,
       life: vm.starting_life,
-      counter_name: 'Cmd Dmg',
-      counters: 0,
       flip: vm.multiplayer_mode && (i < (vm.player_count / 2))
     }
   })

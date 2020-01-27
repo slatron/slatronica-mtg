@@ -9,14 +9,14 @@
           v-show="!editNameMode"
           @click="editNameToggle()"
         >
-          {{ sectionData.name }}
+          {{ name }}
         </span>
         <form
           v-show="editNameMode"
           @submit.prevent
           @submit="editNameToggle()"
         >
-          <input v-model="sectionData.name">
+          <input v-model="name">
         </form>
       </section>
       <section class="counter-area centered">
@@ -26,14 +26,14 @@
             class=""
             @click="editCounterNameToggle()"
           >
-            {{ sectionData.counter_name }}
+            {{ counter_name }}
           </span>
           <form
             v-show="editCounterNameMode"
             @submit.prevent
             @submit="editCounterNameToggle()"
           >
-            <input v-model="sectionData.counter_name">
+            <input v-model="counter_name">
           </form>
         </section>
         <section>
@@ -43,7 +43,7 @@
           >
             -1
           </button>
-          {{ sectionData.counters }}
+          {{ counters }}
           <button
             class="up"
             @click="changeCounter(true)"
@@ -101,7 +101,10 @@ export default {
   data: function() {
     return {
       editNameMode: false,
-      editCounterNameMode: false
+      editCounterNameMode: false,
+      name: `Player ${this.sectionData.id + 1}`,
+      counter_name: 'Cmd Dmg',
+      counters: 0
     }
   },
   methods: {
@@ -111,96 +114,95 @@ export default {
         : this.sectionData.life + increment
     },
     changeCounter: function(up) {
-      this.sectionData.counters = up
-        ? this.sectionData.counters + 1
-        : this.sectionData.counters - 1
+      this.counters = up
+        ? this.counters + 1
+        : this.counters - 1
     },
     editNameToggle: function() {
       this.editNameMode = !this.editNameMode
-      if (!this.sectionData.name) this.sectionData.name = `Player ${this.sectionData.id + 1}`
-      if (this.editNameMode) this.sectionData.name = ''
+      if (!this.name) this.name = `Player ${this.sectionData.id + 1}`
+      if (this.editNameMode) this.name = ''
     },
     editCounterNameToggle: function() {
       this.editCounterNameMode = !this.editCounterNameMode
-      if (!this.sectionData.counter_name) this.sectionData.counter_name = `Cmd Dmg`
-      if (this.editCounterNameMode) this.sectionData.counter_name = ''
+      if (!this.counter_name) this.counter_name = `Cmd Dmg`
+      if (this.editCounterNameMode) this.counter_name = ''
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-form {
-  display: inline-block;
-}
-.header-row {
-  font-size: 12px;
-}
-@media (min-width: 768px) {
+  form {
+    display: inline-block;
+  }
   .header-row {
-    font-size: 24px;
+    font-size: 12px;
   }
-}
-.header-row button {
-  font-size: 10px;
-}
-@media (min-width: 768px) {
-  .header-row button {
-    font-size: 20px;
-  }
-}
-.counter-area {
-  display: flex;
-  flex-flow: column;
-  height: 100%;
-}
-@media (min-width: 768px) {
-  .counter-area {
-    flex-flow: row;
-    section:nth-child(2) {
-      flex-grow: 0
+  @media (min-width: 768px) {
+    .header-row {
+      font-size: 24px;
     }
   }
-}
-.align-content {
-  cursor: pointer;
-  font-size: 124px;
-  line-height: 1.0;
-}
-@media (min-width: 768px) {
-  .align-content {
-    font-size: 158px;
+  .header-row button {
+    font-size: 10px;
   }
-}
-.life-section {
-  transition: transform 0.3s;
-}
-button.up {
-  border: 1px solid green;
-}
-button.down {
-  border: 1px solid red;
-}
-button.up-big {
-  border: 3px solid green;
-}
-button.down-big {
-  border: 3px solid red;
-}
-button {
-  font-size: 16px;
-  background-color: #fff;
-  margin: 0.15em;
-  padding: 0.5em;
-  border-radius: 0.25em;
-}
-@media (min-width: 768px) {
+  @media (min-width: 768px) {
+    .header-row button {
+      font-size: 20px;
+    }
+  }
+  .counter-area {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+  }
+  @media (min-width: 768px) {
+    .counter-area {
+      flex-flow: row;
+      section:nth-child(2) {
+        flex-grow: 0
+      }
+    }
+  }
+  .align-content {
+    cursor: pointer;
+    font-size: 124px;
+    line-height: 1.0;
+  }
+  @media (min-width: 768px) {
+    .align-content {
+      font-size: 158px;
+    }
+  }
+  .life-section {
+    transition: transform 0.3s;
+  }
+  button.up {
+    border: 1px solid green;
+  }
+  button.down {
+    border: 1px solid red;
+  }
+  button.up-big {
+    border: 3px solid green;
+  }
+  button.down-big {
+    border: 3px solid red;
+  }
   button {
-    font-size: 26px;
+    font-size: 16px;
     background-color: #fff;
-    padding: 0.75em;
+    margin: 0.15em;
+    padding: 0.5em;
     border-radius: 0.25em;
   }
-}
-
+  @media (min-width: 768px) {
+    button {
+      font-size: 26px;
+      background-color: #fff;
+      padding: 0.75em;
+      border-radius: 0.25em;
+    }
+  }
 </style>
