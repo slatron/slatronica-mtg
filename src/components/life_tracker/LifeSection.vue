@@ -13,27 +13,29 @@
         </span>
         <form
           v-show="editNameMode"
+          class="edit-name-form"
           @submit.prevent
           @click.prevent
           @submit="editNameToggle()"
-          class="edit-name-form"
         >
           <span>Your Name</span>
           <input v-model="name">
           <button
             @click="editNameToggle()"
-          >X</button>
+          >
+            X
+          </button>
         </form>
       </section>
       <section
         class="counter-area centered"
         :class="{'active': view_cmdr}"
-        >
+      >
         <section>
           <i
             class="ms ms-planeswalker ms-shadow"
             @click="toggleCmdrDmg()"
-          ></i>
+          />
           <button
             class="down"
             @click="changeCounter(false)"
