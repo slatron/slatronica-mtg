@@ -25,23 +25,15 @@
           >X</button>
         </form>
       </section>
-      <section class="counter-area centered">
+      <section
+        class="counter-area centered"
+        :class="{'active': view_cmdr}"
+        >
         <section>
-          <span
-            v-show="!editCounterNameMode"
-            @click="editCounterNameToggle()"
-          >
-            {{ counter_name }}
-          </span>
-          <form
-            v-show="editCounterNameMode"
-            @submit.prevent
-            @submit="editCounterNameToggle()"
-          >
-            <input v-model="counter_name">
-          </form>
-        </section>
-        <section>
+          <i
+            class="ms ms-planeswalker ms-shadow"
+            @click="toggleCmdrDmg()"
+          ></i>
           <button
             class="down"
             @click="changeCounter(false)"
@@ -108,8 +100,8 @@ export default {
       editNameMode: false,
       editCounterNameMode: false,
       name: `Player ${this.sectionData.id + 1}`,
-      counter_name: 'Cmd Dmg',
-      counters: 0
+      counters: 0,
+      view_cmdr: false
     }
   },
   methods: {
@@ -128,19 +120,14 @@ export default {
       if (!this.name) this.name = `Player ${this.sectionData.id + 1}`
       if (this.editNameMode) this.name = ''
     },
-    editCounterNameToggle: function() {
-      this.editCounterNameMode = !this.editCounterNameMode
-      if (!this.counter_name) this.counter_name = `Cmd Dmg`
-      if (this.editCounterNameMode) this.counter_name = ''
+    toggleCmdrDmg: function() {
+      this.view_cmdr = !this.view_cmdr
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  form {
-    display: inline-block;
-  }
   .edit-name-form {
     background: #000;
     position: absolute;
@@ -171,16 +158,28 @@ export default {
     }
   }
   .counter-area {
+    background: #efefef;
+    border-left: 1px solid #333;
+    border-bottom: 1px solid #333;
+    border-radius: 0 0 0 1rem;
+    padding: 0 5px 5px;
     display: flex;
     flex-flow: column;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    right: -76px;
+    transition: right 0.5s ease;
+    &.active {
+      right: 0;
+    }
+    i {
+      cursor: pointer;
+      padding-right: 5px;
+    }
   }
   @media (min-width: 768px) {
     .counter-area {
-      flex-flow: row;
-      section:nth-child(2) {
-        flex-grow: 0
-      }
+      right: -155px;
     }
   }
   .align-content {
