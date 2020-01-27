@@ -14,16 +14,21 @@
         <form
           v-show="editNameMode"
           @submit.prevent
+          @click.prevent
           @submit="editNameToggle()"
+          class="edit-name-form"
         >
+          <span>Your Name</span>
           <input v-model="name">
+          <button
+            @click="editNameToggle()"
+          >X</button>
         </form>
       </section>
       <section class="counter-area centered">
         <section>
           <span
             v-show="!editCounterNameMode"
-            class=""
             @click="editCounterNameToggle()"
           >
             {{ counter_name }}
@@ -136,6 +141,19 @@ export default {
   form {
     display: inline-block;
   }
+  .edit-name-form {
+    background: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    opacity: 0.95;
+    text-align: center;
+    span {
+      color: #fdfdfd;
+    }
+  }
   .header-row {
     font-size: 12px;
   }
@@ -177,6 +195,8 @@ export default {
   }
   .life-section {
     transition: transform 0.3s;
+    position: relative;
+    overflow: hidden;
   }
   button.up {
     border: 1px solid green;
