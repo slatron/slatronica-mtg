@@ -171,7 +171,7 @@ export default {
     position: absolute;
     top: 0;
     right: -76px;
-    transition: right 0.5s ease;
+    transition: right 0.3s ease;
     &.active {
       right: 0;
     }
@@ -202,7 +202,7 @@ export default {
     overflow: hidden;
   }
   .double-col-row > section > span {
-    padding-right: 2rem;
+    padding-right: 1.5rem;
   }
   button.up {
     border: 1px solid green;
