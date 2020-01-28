@@ -4,7 +4,7 @@
     class="full-height-layout life-section"
   >
     <div class="double-col-row header-row align-row align-header">
-      <section class="centered">
+      <section>
         <span
           v-show="!editNameMode"
           @click="editNameToggle()"
@@ -120,7 +120,7 @@ export default {
     editNameToggle: function() {
       this.editNameMode = !this.editNameMode
       if (!this.name) this.name = `Player ${this.sectionData.id + 1}`
-      if (this.editNameMode) this.name = ''
+      // if (this.editNameMode) this.name = ''
     },
     toggleCmdrDmg: function() {
       this.view_cmdr = !this.view_cmdr
@@ -139,6 +139,7 @@ export default {
     right: 0;
     opacity: 0.95;
     text-align: center;
+    z-index: 1000;
     span {
       color: #fdfdfd;
     }
@@ -176,12 +177,13 @@ export default {
     }
     i {
       cursor: pointer;
-      padding-right: 5px;
+      padding: 0.6rem;
     }
   }
   @media (min-width: 768px) {
     .counter-area {
       right: -155px;
+      padding: 1rem;
     }
   }
   .align-content {
@@ -198,6 +200,9 @@ export default {
     transition: transform 0.3s;
     position: relative;
     overflow: hidden;
+  }
+  .double-col-row > section > span {
+    padding-right: 2rem;
   }
   button.up {
     border: 1px solid green;
