@@ -49,7 +49,7 @@ const init = vm => {
   })
   const player_colors = vm.colors_without_me.splice(0, ((vm.player_count - 1) || 1))
   vm.available_colors = player_colors.filter(function(color) {
-    return vm.used_colors.indexOf(color) === -1
+    return vm.usedColors.indexOf(color) === -1
   })
 }
 
