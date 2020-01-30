@@ -3,7 +3,8 @@ export default {
     player_count: 2,
     starting_life: 20,
     trigger_reset: true,
-    multiplayer_mode: false
+    multiplayer_mode: false,
+    color_order: ['aqua', 'pink', 'yellow', 'goldenrod', 'plum', 'thistle']
   },
 
   mutations: {
