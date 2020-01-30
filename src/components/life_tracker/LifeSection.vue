@@ -40,7 +40,7 @@
             v-for="(area, idx) in counter_areas"
             :key="idx"
             :player="sectionData.id"
-            :used_colors="area.used_colors"
+            :used-colors="area.used_colors"
             @set-color="addPlayerCounter"
           />
         </section>
@@ -219,7 +219,7 @@ export default {
   @media (min-width: 768px) {
     .counter-sections {
       width: 155px;
-      max-height: 210px;
+      max-height: 216px;
       overflow-y: scroll;
     }
   }
