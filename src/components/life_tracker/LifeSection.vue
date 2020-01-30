@@ -3,7 +3,7 @@
     :class="{'flip': sectionData.flip}"
     class="full-height-layout life-section"
   >
-    <div class="double-col-row header-row align-row align-header">
+    <div class="header-row align-row align-header">
       <section>
         <span
           v-show="!editNameMode"
@@ -28,27 +28,21 @@
         </form>
       </section>
       <section
-        class="counter-area centered"
+        class="counter-area"
         :class="{'active': view_cmdr}"
       >
-        <section>
-          <i
-            class="ms ms-planeswalker ms-shadow"
-            @click="toggleCmdrDmg()"
+        <i
+          class="ms ms-planeswalker ms-shadow"
+          @click="toggleCmdrDmg()"
+        />
+        <section class="counter-sections">
+          <CounterSection
+            v-for="(area, idx) in counter_areas"
+            :key="idx"
+            :player="sectionData.id"
+            :used_colors="area.used_colors"
+            @set-color="addPlayerCounter"
           />
-          <button
-            class="down"
-            @click="changeCounter(false)"
-          >
-            -1
-          </button>
-          {{ counters }}
-          <button
-            class="up"
-            @click="changeCounter(true)"
-          >
-            +1
-          </button>
         </section>
       </section>
     </div>
@@ -92,19 +86,42 @@
 </template>
 
 <script>
+import CounterSection from '@/components/life_tracker/CounterSection'
 export default {
   name: 'LifeSection',
+  components: {
+    CounterSection
+  },
   props: {
     sectionData: { 'type': Object, 'default': {} }
   },
   data: function() {
     return {
       editNameMode: false,
-      editCounterNameMode: false,
       name: `Player ${this.sectionData.id + 1}`,
-      counters: 0,
-      view_cmdr: false
+      view_cmdr: false,
+      counter_areas: [{used_colors: []}],
+      used_colors: []
     }
+  },
+  computed: {
+    player_count () {
+      return this.$store.state.lifetracker.player_count
+    },
+    trigger_reset () {
+      return this.$store.state.lifetracker.trigger_reset
+    }
+  },
+  watch: {
+    'player_count' (to, from) {
+      // re-initialize cmd dmg counters when player count changes
+      this.used_colors = []
+      this.counter_areas = [{used_colors: []}]
+    },
+    'trigger_reset' () {
+      this.used_colors = []
+      this.counter_areas = [{used_colors: []}]
+    },
   },
   methods: {
     changeLife: function(increment, down) {
@@ -112,18 +129,21 @@ export default {
         ? this.sectionData.life - increment
         : this.sectionData.life + increment
     },
-    changeCounter: function(up) {
-      this.counters = up
-        ? this.counters + 1
-        : this.counters - 1
-    },
     editNameToggle: function() {
       this.editNameMode = !this.editNameMode
       if (!this.name) this.name = `Player ${this.sectionData.id + 1}`
-      // if (this.editNameMode) this.name = ''
     },
     toggleCmdrDmg: function() {
       this.view_cmdr = !this.view_cmdr
+    },
+    addPlayerCounter: function(color) {
+      this.used_colors.push(color)
+      const used_colors = []
+      this.used_colors.forEach(item => {
+        used_colors.push(item)
+      })
+      if (this.counter_areas.length < (this.player_count - 1))
+        this.counter_areas.push({used_colors: used_colors})
     }
   }
 }
@@ -144,8 +164,9 @@ export default {
       color: #fdfdfd;
     }
   }
+
   .header-row {
-    font-size: 12px;
+    font-size: 14px;
   }
   @media (min-width: 768px) {
     .header-row {
@@ -165,25 +186,41 @@ export default {
     border-left: 1px solid #333;
     border-bottom: 1px solid #333;
     border-radius: 0 0 0 1rem;
-    padding: 0 5px 5px;
-    display: flex;
-    flex-flow: column;
+    padding-left: 2rem;
     position: absolute;
     top: 0;
-    right: -76px;
+    right: -72px;
     transition: right 0.3s ease;
+
     &.active {
       right: 0;
     }
     i {
       cursor: pointer;
-      padding: 0.6rem;
+      padding: 0.6rem 0.6rem 1rem;
+      width: 42px;
+      position: absolute;
+      top: 0;
+      left: 0;
     }
   }
   @media (min-width: 768px) {
     .counter-area {
-      right: -155px;
-      padding: 1rem;
+      right: -167px;
+      padding-left: 3rem;
+      i {
+        padding: 0.6rem 0.6rem 2rem;
+      }
+    }
+  }
+  .counter-sections {
+    width: 71px;
+  }
+  @media (min-width: 768px) {
+    .counter-sections {
+      width: 155px;
+      max-height: 210px;
+      overflow-y: scroll;
     }
   }
   .align-content {

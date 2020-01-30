@@ -200,7 +200,7 @@ main {
 }
 .double-col-row {
   display: flex;
-  section {
+  > section {
     flex-grow: 1;
     &:nth-child(2) {
       text-align: right;
