@@ -40,9 +40,9 @@
             v-for="(area, idx) in counter_areas"
             :key="idx"
             :player="sectionData.id"
-            @set-color="addPlayerCounter"
             :used_colors="area.used_colors"
-          ></CounterSection>
+            @set-color="addPlayerCounter"
+          />
         </section>
       </section>
     </div>
@@ -89,11 +89,11 @@
 import CounterSection from '@/components/life_tracker/CounterSection'
 export default {
   name: 'LifeSection',
-  props: {
-    sectionData: { 'type': Object, 'default': {} }
-  },
   components: {
     CounterSection
+  },
+  props: {
+    sectionData: { 'type': Object, 'default': {} }
   },
   data: function() {
     return {

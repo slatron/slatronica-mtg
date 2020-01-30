@@ -1,15 +1,21 @@
 <template>
   <div>
-    <div class="choose-color-section centered" v-show="!color">
+    <div
+      v-show="!color"
+      class="choose-color-section centered"
+    >
       <button
-        v-for="color in available_colors"
-        :class="`color-chooser bg-${color}`"
-        @click="chooseColor(color)"
-      >&nbsp;</button>
+        v-for="(colorString, idx) in available_colors"
+        :key="idx"
+        :class="`color-chooser bg-${colorString}`"
+        @click="chooseColor(colorString)"
+      >
+&nbsp;
+      </button>
     </div>
     <div
-      class="counter-section centered"
       v-show="color"
+      class="counter-section centered"
       :style="{'background-color': color}"
     >
       <button
@@ -50,8 +56,8 @@ const init = vm => {
 export default {
   name: 'CounterSection',
   props: {
-    player: { 'type': Number },
-    used_colors: {'type': Array }
+    player: { 'type': Number, 'default': 0 },
+    usedColors: {'type': Array, 'default': [] }
   },
   data: function() {
     return {
@@ -72,6 +78,14 @@ export default {
       return this.$store.state.lifetracker.trigger_reset
     },
   },
+  watch: {
+    trigger_reset: function() {
+      init(this)
+    },
+    player_count: function() {
+      init(this)
+    }
+  },
   created: function () {
     init(this)
   },
@@ -84,14 +98,6 @@ export default {
     chooseColor: function(color) {
       this.color = color
       this.$emit('set-color', color)
-    }
-  },
-  watch: {
-    trigger_reset: function() {
-      init(this)
-    },
-    player_count: function() {
-      init(this)
     }
   }
 }
