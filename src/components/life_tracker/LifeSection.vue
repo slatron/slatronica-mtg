@@ -186,10 +186,11 @@ export default {
     border-left: 1px solid #333;
     border-bottom: 1px solid #333;
     border-radius: 0 0 0 1rem;
-    padding-left: 2rem;
+    font-size: 26px;
+    padding-left: 3rem;
     position: absolute;
     top: 0;
-    right: -72px;
+    right: -95px;
     transition: right 0.3s ease;
 
     &.active {
@@ -197,7 +198,7 @@ export default {
     }
     i {
       cursor: pointer;
-      padding: 0.6rem 0.6rem 1rem;
+      padding: 0.3rem 0.3rem 2rem 0.6rem;
       width: 42px;
       position: absolute;
       top: 0;
@@ -207,17 +208,17 @@ export default {
   @media (min-width: 768px) {
     .counter-area {
       right: -167px;
-      padding-left: 3rem;
       i {
         padding: 0.6rem 0.6rem 2rem;
       }
     }
   }
   .counter-sections {
-    width: 71px;
+    width: 95px;
   }
   @media (min-width: 768px) {
     .counter-sections {
+      height: auto;
       width: 155px;
       max-height: 216px;
       overflow-y: scroll;
@@ -267,5 +268,8 @@ export default {
       padding: 0.75em;
       border-radius: 0.25em;
     }
+  }
+  .low-players .life-section button {
+    padding: 1.25em;
   }
 </style>
