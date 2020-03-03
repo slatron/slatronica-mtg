@@ -107,8 +107,8 @@ export default {
 .counter-section,
 .choose-color-section {
   text-align: center;
-  width: 71px;
-  height: 30px;
+  width: 95px;
+  height: 40px;
 }
 @media (min-width: 768px) {
   .counter-section,
@@ -118,12 +118,7 @@ export default {
   }
 }
 .counter-count {
-  width: 20px;
-}
-@media (min-width: 768px) {
-  .counter-count {
-    width: 40px;
-  }
+  width: 40px;
 }
 .color-chooser {
   padding: 0;
