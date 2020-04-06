@@ -1,0 +1,246 @@
+{
+  "alters": [
+    {
+      "scryfall_id": "fc3a4e7d-6667-4c2f-b6b4-484f401b0455",
+      "name": "Grandmaster",
+      "date": "2019-09-06",
+      "tags": ["Character"]
+    },
+    {
+      "scryfall_id": "594cb7dc-ea88-4909-ab40-1d40fecc9817",
+      "name": "Kykar, Wind's Fury",
+      "date": "2019-09-01",
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "4ac7b40c-4528-4abb-8632-368947e07fd5",
+      "name": "Orzhov Signet",
+      "date": "2019-08-17",
+      "tags": ["Blueprint"]
+    },
+    {
+      "scryfall_id": "c0d08c40-5c25-47c2-b39d-90f52ba0f6f0",
+      "name": "Izzet Signet",
+      "date": "2019-08-18",
+      "tags": ["Blueprint"]
+    },
+    {
+      "scryfall_id": "83d2a36f-7932-4336-937a-757ad8a3ae62",
+      "name": "Geist-Honored Monk",
+      "date": "2019-07-27",
+      "tags": ["Stained Glass"]
+    },
+    {
+      "scryfall_id": "3c02b8ee-84cb-44cb-ba14-9e725a9d03ee",
+      "name": "Ponder",
+      "date": "2019-07-05",
+      "tags": ["Stained Glass"]
+    },
+    {
+      "scryfall_id": "824423ff-6441-4be6-b754-810adf9ca6a2",
+      "name": "Thalia, Guardian of Thraban",
+      "date": "2019-06-27",
+      "tags": ["Stained Glass"]
+    },
+    {
+      "scryfall_id": "19caada3-7548-44d4-bf3f-680f7d3fa7b8",
+      "name": "Angel of Mercy",
+      "date": "2019-06-23",
+      "tags": ["Stained Glass"]
+    },
+    {
+      "scryfall_id": "7335e500-342d-476d-975c-817512e6e3d6",
+      "name": "Gishath, Sun's Avatar",
+      "date": "2019-06-16",
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "bb2e9465-f5ba-4c7b-9f03-d40dc8394acd",
+      "name": "Kor Skyfisher",
+      "date": "2019-04-20",
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "1c7d50d6-b63a-4d8c-88fa-1d78ae693a45",
+      "name": "Overgrown Tom",
+      "date": "2018-11-18",
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "c9c607d3-a8bf-4ba3-9c10-7509f195b41f",
+      "name": "Chain Lightning",
+      "date": "2019-03-05",
+      "tags": ["Object Enhancement"]
+    },
+    {
+      "scryfall_id": "21e1161f-bd2c-45a7-a86b-3b2e5210f148",
+      "name": "Fireblade Artist",
+      "date": "2019-02-16",
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "b2e2a777-0705-4a37-937d-c6e020ebc0f0",
+      "name": "Goblin Guide",
+      "date": "2019-04-27",
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "42bd038d-1005-4095-9310-108caa56465f",
+      "name": "Mind Stone",
+      "date": "2019-03-12",
+      "tags": ["Blueprint"]
+    },
+    {
+      "scryfall_id": "5e669a01-84d3-4fcc-8396-9e987bd89b4f",
+      "name": "Tajic, Legion's Edge",
+      "date": "2019-01-10",
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "127c969b-1c9a-4265-af0e-5b9dbe136064",
+      "name": "Dawntreader Elk",
+      "date": "2018-12-27",
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "359d1b13-6156-43b0-a9a7-6bfff36c1a91",
+      "name": "Thing In the Ice Front",
+      "date": "2019-01-22",
+      "face": 0,
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "359d1b13-6156-43b0-a9a7-6bfff36c1a91",
+      "name": "Thing In the Ice Back",
+      "date": "2019-01-22",
+      "face": 1,
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "47ac0f77-1294-4de9-93d1-141a9f314f98",
+      "name": "Baleful Strix",
+      "date": "2019-01-17",
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "307d4236-1e54-43e3-83f1-063d49d16dda",
+      "name": "Birds of Paradise",
+      "date": "2018-11-04",
+      "tags": ["Object Enhancement"]
+    },
+    {
+      "scryfall_id": "53aa3ea3-fb3c-4758-8035-20ec0a94b730",
+      "name": "Elvish Visionary",
+      "date": "2018-11-01",
+      "tags": ["Stained Glass"]
+    },
+    {
+      "scryfall_id": "1fdcc0c3-4029-4fc3-a486-5d7f45c910bd",
+      "name": "Everflowing Chalice",
+      "date": "2019-09-22",
+      "tags": ["Stained Glass"]
+    },
+    {
+      "scryfall_id": "179e954f-1d90-4ef4-b800-25845cc338e2",
+      "name": "Goblin Bombardment",
+      "date": "2019-03-17",
+      "tags": ["Stained Glass"]
+    },
+    {
+      "scryfall_id": "49b3ce74-40d2-4e97-aa40-a4b6419e10ba",
+      "name": "Golgari Signet",
+      "date": "2019-08-15",
+      "tags": ["Blueprint"]
+    },
+    {
+      "scryfall_id": "c2ad8639-e586-47f4-baca-2a1af5aa281b",
+      "name": "Restoration Angel",
+      "date": "2018-11-09",
+      "tags": ["Object Enhancement"]
+    },
+    {
+      "scryfall_id": "4e0c1d0a-2651-4961-8b70-ff78093732ce",
+      "name": "The Locust God",
+      "date": "2019-06-18",
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "dfc1ecf5-5801-45a1-98fe-8c058db80292",
+      "name": "Whitemane Lion",
+      "date": "2018-11-06",
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "9ff71d13-c4b7-4125-ab10-db4abbb7a074",
+      "name": "Brainstorm",
+      "date": "2011-04-06",
+      "tags": ["Border Extension", "Early Attempt"]
+    },
+    {
+      "scryfall_id": "b2159a7d-e37a-4c43-a7b9-1e7179a7e43b",
+      "name": "Lord of Shatterskull Pass",
+      "date": "2019-07-31",
+      "tags": ["Border Extension"]
+    },
+    {
+      "scryfall_id": "995486ce-58bb-4753-a812-0ca73ef1a235",
+      "name": "Gitaxian Probe",
+      "date": "2011-04-12",
+      "tags": ["Object Enhancement", "Early Attempt"]
+    },
+    {
+      "scryfall_id": "8fd3341d-38e4-4dc0-9e95-34cb1f796e7e",
+      "name": "Righteous Authourity",
+      "date": "2016-07-18",
+      "tags": ["Border Extension", "Early Attempt"]
+    },
+    {
+      "scryfall_id": "aaa47568-5668-4a9f-ad1c-9a13010ffc2b",
+      "name": "Putrid Leech",
+      "date": "2011-05-13",
+      "tags": ["Border Extension", "Early Attempt"]
+    },
+    {
+      "scryfall_id": "288d624e-d72e-4a4b-bb74-5a8b0b2e3cb0",
+      "name": "Pyromancer Ascension",
+      "date": "2011-03-28",
+      "tags": ["Border Extension", "Early Attempt"]
+    },
+    {
+      "scryfall_id": "d91a527d-51f1-4fb1-9016-fc923fd43a6a",
+      "name": "Azorius Signet",
+      "date": "2019-03-11",
+      "tags": ["Blueprint"]
+    },
+    {
+      "scryfall_id": "bb9d1f0a-b206-4f35-bc0f-6c055c8231f4",
+      "name": "Dimir Signet",
+      "date": "2019-03-13",
+      "tags": ["Blueprint"]
+    },
+    {
+      "scryfall_id": "8296d86a-2c79-43c8-8a1c-1d4bb600bc6b",
+      "name": "Selesnya Signet",
+      "date": "2019-06-15",
+      "tags": ["Blueprint"]
+    },
+    {
+      "scryfall_id": "12013400-21db-4a3b-9e4e-edbea7c8021f",
+      "name": "Simic Signet",
+      "date": "2019-03-12",
+      "tags": ["Blueprint"]
+    },
+    {
+      "scryfall_id": "c3db7645-20b9-4884-849b-a7d4b6d3aa00",
+      "name": "Ratchet Bomb",
+      "date": "2019-04-24",
+      "tags": ["Blueprint"]
+    },
+    {
+      "scryfall_id": "61e0a922-1689-484f-abb3-902ce1c964ca",
+      "name": "Commanders Sphere",
+      "date": "2019-06-17",
+      "tags": ["Blueprint"]
+    }
+  ]
+}

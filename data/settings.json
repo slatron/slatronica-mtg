@@ -1,0 +1,96 @@
+{
+	"tag_options": [{
+			"name": "All",
+			"value": "All"
+		},
+		{
+			"name": "Stained Glass",
+			"value": "Stained Glass"
+		},
+		{
+			"name": "Border Extension",
+			"value": "Border Extension"
+		},
+		{
+			"name": "Object Enhancement",
+			"value": "Object Enhancement"
+		},
+		{
+			"name": "Blueprint",
+			"value": "Blueprint"
+		},
+		{
+			"name": "Character",
+			"value": "Character"
+		},
+		{
+			"name": "Early Attempt",
+			"value": "Early Attempt"
+		}
+	],
+	"default_categories": [
+		"Creature",
+		"Enchantment",
+		"Artifact",
+		"Sorcery",
+		"Instant",
+		"Planeswalker",
+		"Land",
+		"Unspecified"
+	],
+	"color_options": [
+		{
+			"name": "White",
+			"value": "white",
+			"short": "W"
+		},
+		{
+			"name": "Blue",
+			"value": "blue",
+			"short": "U"
+		},
+		{
+			"name": "Black",
+			"value": "black",
+			"short": "B"
+		},
+		{
+			"name": "Red",
+			"value": "red",
+			"short": "R"
+		},
+		{
+			"name": "Green",
+			"value": "green",
+			"short": "G"
+		},
+		{
+			"name": "Colorless",
+			"value": "colorless",
+			"short": "C"
+		}
+	],
+	"custom_categories": [
+		"*** REMOVE ***",
+		"Combo",
+		"Commander",
+		"Counterspells",
+		"Draw / Filter",
+		"Equipment",
+		"Maybeboard",
+		"Mass Removal",
+		"Mill",
+		"Protection",
+		"Ramp",
+		"Reanimation",
+		"Removal",
+		"Stormy",
+		"Theme Support",
+		"Tokens",
+		"Tribe",
+		"Tribal",
+		"Tutors",
+		"Wheels",
+		"Wincon"
+	]
+}
